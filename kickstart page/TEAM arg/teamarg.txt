@@ -1,0 +1,13 @@
+Joeri Gantois aka JO3RI: founder and owner of TEAM a.r.g. is actually an architect, but working as an IT-manager. At night he transforms into an Arduino game maker with a growing passion for 1bit pixel art, chiptunes and small C games. He tweets on @TEAM_arg.org and occasionally on @JO3RI
+
+
+
+Siegfried Croes: Hobbyist game developer and pixel artist. Started making Arduventure as an experiment/challenge. Joined TEAM a.r.g. to turn it into a full game. Can be found on most social media as @SiegfriedCroes
+
+
+
+Olivier Huard: Pixel Artist and Designer he fall in love with pixelart on his old MO5 (French computer) and his Amiga. He started to make 1bit pixelart on his Nokia and now on his Arduboy. His secret dream is to learn code. Can be found on twitter @huard_olivier
+
+
+
+Gavin Atkin: First started learning to code at 8 years old, Gavin enjoys low level programming, math, photography, and 3D modeling and animation. He created two other games released on Arduboy with TEAM a.r.g.: Mystic Balloon, and Trolly Fish. On Twitter as @Gaveno112 and GitHub as @Gaveno

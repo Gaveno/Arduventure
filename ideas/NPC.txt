@@ -1,0 +1,41 @@
+NPC
+
+sprite
+
+- always an upper part = 14x8   : peopleHead_plus_mask
+- always a lower part = 14x8    : peopleFeet_plus_mask
+- sometimes blinking eyes = 4x8 : eyesBlinking (for now only 1 type)
+
+characteristics
+
+- x-Coordinate
+- y-Coordinate
+- Type : combination of heads,feet,eyes (going for more than 16 combinations)
+- active (not in every house,tree an NPC is present)
+
+2 different locations possible
+
+Interrior (npc.type depends on variable player.lastDoor, the last door a player has passed)
+- every shop
+- every Inn
+- some houses
+- some trees
+
+on the map
+- unique npc's for each location
+
+interrogate
+- each NPC has its own text
+- 3 possibel types:
+	- give information
+	- ask a question (find me this, want to sleep)
+	- trigger a list of items (buy , sell)
+- triggering field of interrogation should be bigger than the sprite (32x32) and like this
+
+####			#OO#		O sprite part
+#### + 	OO	=	#OO#		# interrogation field
+####	OO		####
+####			####
+
+Collision
+- obviously you should not be able to walk over NPC's. A 16x16 square should do.

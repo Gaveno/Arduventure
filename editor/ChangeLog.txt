@@ -1,0 +1,57 @@
+1/16/2017:
+No longer select destination for doors.
+- Destination is determined by the chunk it resides in.
+
+1/15/2017:
+Changed the way doors work.
+- Only place EXTERIOR doors and link to the inside.
+- Exterior doors must link to an interior, not the other way around.
+Fixed bug preventing tiles from exporting towards the end of the tileset.
+
+1/13/2017:
+Added Door object exportation.
+- 1) Create an object with the door sub-image.
+- 2) Place instance of door object in world.
+- 3) Select destination tile (another door tile ideally).
+- 4) Save and export!
+
+1/12/2017:
+Added tile shifts in the Tile Editor to shift every solid tile of every chunk.
+The Chunk Selector now shows the usage for each chunk.
+- 'Specific' is the number specifically placed with placement mode 'Chunk'
+- 'Region' is the number of times the chunk is placed using regions.
+
+1/11/2017:
+Can now right or left click to edit specific chunks, tiles, and objects.
+The chunk and region selectors now have smooth scrolling.
+The chunk selector now has two scroll speeds.
+Fixed crash with Change All Tiles button.
+
+1/10/2017:
+Expanded Tile Selector.
+- No more scrolling through pages of tiles :).
+Added Specific Tiles.
+- Any tile can now be placed anywhere.
+- Testing has shown space used to be anywhere from 4 bytes to 18 bytes.
+Added placement option for the player.
+Added tile edtior.
+- Can import a new tileset (must be horizontal) to use for the world.
+- Can set how many tiles are empty.
+- Water tiles MUST have the same index or random tiles will animate.
+
+1/9/2017:
+Added Export and Load to Chunk Editor.
+- Can now save the chunk as a file and load it up in the same world or a different one.
+- Allows for copying a base chunk for a region so the same tiles don't need to be placed over and over.
+Fixed a few crashes by added additional error messages.
+Fixed chunk placement messing up everything when zoomed out.
+Implemented Mini Map.
+- Checking the boxes to show regions, chunks, and solid will effect how the mini map is displayed.
+
+1/8/2017:
+Added 6 placeholder tiles.
+- 1 door (all black).
+- 1 interior floor.
+- 2 mountain tiles (sand, rocks).
+- 2 forest (leaves, grass).
+Fixed crashes on save and export when a specific chunk has been deleted.
