@@ -229,6 +229,9 @@ void walkingThroughDoor()
 }
 
 
+/*
+ * Battle End function leads here when player health is 0
+ */
 void stateGameOver()
 {
   arduboy.fillScreen(1);

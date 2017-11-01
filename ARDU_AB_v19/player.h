@@ -82,14 +82,14 @@ void setPlayer()
   player =
   {
     PLAYER_START_X, PLAYER_START_Y,           // position
-    10, 10,                                   // health
+    20, 20,                                   // health
     10, 10,                                   // magic
     0,                                        // gold
     0, 200,                                   // experience
     REGION_YOUR_INTERIOR,                     // currentRegion
     1,                                        // level
     5, 0,                                     // attack
-    5, 0,                                     // defense
+    7, 0,                                     // defense
     1, 0,                                     // speed
     48,                                       // lastDoor is your house
     0B00010000,                               // bossCardRegionRoaming
@@ -207,6 +207,10 @@ void setPlayer()
   };
 }
 
+/*
+ * Give the player experience based on the level of the monster slain.
+ * Handle level up if experience goes over experience needed.
+ */
 void gainExperience(byte enemy_level)
 {
   int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
@@ -223,9 +227,14 @@ void gainExperience(byte enemy_level)
   player.experience = (byte)ex;
 }
 
+/*
+ * Cause damage to the player reducing health.
+ */
 void damagePlayer(byte enemy_attack)
 {
-  
+  lastDamageDealt = max((int)enemy_attack - (int)player.defense, 1);
+  int php = (int)player.health - lastDamageDealt;
+  player.health = max(php, 0);
 }
 
 void fillWithName(byte startPoint)
@@ -237,6 +246,10 @@ void fillWithName(byte startPoint)
   }
 }
 
+/*
+ * Fill sentence helper.
+ * Fill in player stat values to sentence.
+ */
 void fillWithPlayerStats(byte startPoint, byte value, byte valueTotal)
 {
   byte xOffset = startPoint;
@@ -312,6 +325,9 @@ void checkCam()
 
 }
 
+/*
+ * Fill in bits allowing player to see on map.
+ */
 void discoverMap(int world_x, int world_y)
 {
   // Make sure within map area (not inside)

@@ -272,7 +272,7 @@ PROGMEM const unsigned char library[] =
   // PLACE 86 : LV
   2,
   12, 22,
-  // PALCE 87 : ATK
+  // PLACE 87 : ATK
   3,
   1, 20, 11,
   // PLACE 88 : DEF
@@ -676,9 +676,33 @@ PROGMEM const unsigned char library[] =
   // PLACE 219 : RELEASE
   7,
   18, 5, 12, 5, 1, 19, 5,
-  // PLACE 220 : 
-
-
+  // PLACE 220 : LOST
+  4,
+  12, 15, 19, 20,
+  // PLACE 221 : WORM
+  4,
+  23, 15, 18, 13,
+  // PLACE 222 : BOUG
+  4,
+  2, 15, 21, 7,
+  // PLACE 223 : SNAK
+  4,
+  19, 14, 1, 11,
+  // PLACE 224 : SERP
+  4,
+  19, 5, 18, 16,
+  // PLACE 225 : VINE
+  4,
+  22, 9, 14, 5,
+  // PLACE 226 : ROOT
+  4,
+  18, 15, 15, 12,
+  // PLACE 227 : FLAM
+  4,
+  6, 12, 1, 13,
+  // PLACE 228 : DEFEATED
+  8,
+  4, 5, 6, 5, 1, 12, 5, 4,
 };
 
 
@@ -955,6 +979,13 @@ PROGMEM const unsigned char sentences[] =
   28,
   215, SPACE, 7, SPACE, 3, SPACE, 216, NEWLINE, 209, 37, SPACE, 217, SPACE, 209, NEWLINE, 76, SPACE, 218, 38, SPACE, 219, NEWLINE, 75, SPACE, 73, SPACE, 214, 47,
 
+  // PLACE 67 : YOU/<monster name> LOST <amount> HP
+  6,
+  SPACE,SPACE, TRIPLESPACE, 220, TRIPLESPACE, 83,
+
+  // Place 68: YOU DEFEATED <monster name>
+  5,
+  62, SPACE, 228, TRIPLESPACE, TRIPLESPACE,
 
 };
 

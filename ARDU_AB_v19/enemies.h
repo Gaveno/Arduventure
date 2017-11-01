@@ -67,14 +67,15 @@ void createEnemy( )
 
 void damageEnemy(byte player_attack, byte player_attack_addition)
 {
-  int8_t ehp = (int8_t)enemy.health - max(player_attack + player_attack_addition - enemy.defense, 1);
+  lastDamageDealt = max(player_attack + player_attack_addition - enemy.defense, 1);
+  int8_t ehp = (int8_t)enemy.health - lastDamageDealt;
   enemy.health = max(ehp, 0);
 }
 
-void drawEnemies()
+void drawEnemies(byte yoffset)
 {
-  sprites.drawOverwrite(57, 16, enemyHeads, enemy.images & 0x0F);
-  sprites.drawOverwrite(56, 24, enemyFeet, enemy.images >> 4);
+  sprites.drawOverwrite(57, 16 + yoffset, enemyHeads, enemy.images & 0x0F);
+  sprites.drawOverwrite(56, 24 + yoffset, enemyFeet, enemy.images >> 4);
   //sprites.drawErase(58, 16, enemyHeads, 0);
   //sprites.drawErase(56, 24, enemyFeet, 0);
   /*for (byte i = 0; i < enemyAmount; i++)

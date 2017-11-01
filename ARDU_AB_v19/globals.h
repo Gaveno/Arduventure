@@ -123,6 +123,9 @@ byte textRollAmount = 0;
 byte globalFrame = 0;
 byte songPlaying = 0;
 
+// Keep track of last damage dealt
+int lastDamageDealt = 0;
+
 byte miniCamX = 0;
 byte miniCamY = 0;
 int camX = 0;
