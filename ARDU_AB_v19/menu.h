@@ -105,9 +105,9 @@ void stateMenuCredits()
 void stateMenuReboot()
 {
   arduboy.fillScreen(0);
-  fillWithSentence(64);
-  drawTextBox(4, 8, WHITE, TEXT_NOROLL);
   fillWithSentence(65);
+  drawTextBox(4, 8, WHITE, TEXT_NOROLL);
+  fillWithSentence(66);
   drawTextBox(4, 34, WHITE, TEXT_NOROLL);
   if (arduboy.pressed(UP_BUTTON)) {
     arduboy.exitToBootloader();

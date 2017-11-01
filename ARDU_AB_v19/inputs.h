@@ -48,10 +48,11 @@ void checkInputs()
   {
     case STATE_MENU_MAIN:
       if (arduboy.justPressed(UP_BUTTON) && (cursorY > 2 + firstGame)) cursorY--;
-      else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < 5)) cursorY++;
+      else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < 6)) cursorY++;
       else if (arduboy.justPressed(B_BUTTON))
       {
-        gameState = cursorY;
+        if (cursorY == 6) gameState = STATE_REBOOT;
+        else gameState = cursorY;
         clearCursor();
       }
       break;
