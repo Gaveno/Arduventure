@@ -44,6 +44,8 @@
 #define STATE_GAME_END                23  // stateGameSaveSoundEnd
 #define STATE_GAME_OBJECTS            24  // stateGameObjects
 
+#define STATE_REBOOT                  25  // reprogramming instructions
+
 #define FACING_SOUTH                  0 //0B00000000
 #define FACING_WEST                   1 //0B00000001
 #define FACING_NORTH                  2 //0B00000010

@@ -54,7 +54,7 @@ void stateMenuIntro()
 
 void stateMenuMain()
 {
-  byte locationMenu = firstGame ? 5 : 11;
+  byte locationMenu = firstGame ? 2 : 8;
   arduboy.fillScreen(0);
   fillWithSentence(0);
   if (!firstGame) fillWithWord(1, 1);
@@ -100,6 +100,23 @@ void stateMenuCredits()
   arduboy.fillScreen(0);
   fillWithSentence(41);
   drawTextBox(18, 11, WHITE, TEXT_ROLL);
+}
+
+void stateMenuReboot()
+{
+  arduboy.fillScreen(0);
+  fillWithSentence(64);
+  drawTextBox(4, 8, WHITE, TEXT_NOROLL);
+  fillWithSentence(65);
+  drawTextBox(4, 34, WHITE, TEXT_NOROLL);
+  if (arduboy.pressed(UP_BUTTON)) {
+    arduboy.exitToBootloader();
+  }
+  else if (arduboy.justPressed(A_BUTTON))
+  {
+    gameState = STATE_MENU_MAIN;
+    cursorY = STATE_MENU_CONTINUE + firstGame;
+  }
 }
 
 

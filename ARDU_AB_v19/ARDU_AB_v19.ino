@@ -56,8 +56,13 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameSaveSoundEnd,
   stateGameSaveSoundEnd,
   stateGameObjects,
+  stateMenuReboot,
 };
 
+int main() {
+  arduboy.mainNoUSB();
+  return 0;
+}
 
 void setup() {
   arduboy.boot();
