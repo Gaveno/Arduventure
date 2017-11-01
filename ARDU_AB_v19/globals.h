@@ -94,6 +94,15 @@
 #define TYPE_LEAF                     2
 #define TYPE_FIRE                     3
 
+#define BIT_1                         1
+#define BIT_2                         2
+#define BIT_3                         4
+#define BIT_4                         8
+#define BIT_5                         16
+#define BIT_6                         32
+#define BIT_7                         64
+#define BIT_8                         128
+
 
 Arduboy2Base arduboy;
 Sprites sprites;
@@ -125,6 +134,8 @@ byte songPlaying = 0;
 
 // Keep track of last damage dealt
 int lastDamageDealt = 0;
+bool playerFirst = true;
+byte attackType = 0; // 0 = physical, 1 = magic
 
 byte miniCamX = 0;
 byte miniCamY = 0;

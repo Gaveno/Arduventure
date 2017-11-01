@@ -6,16 +6,17 @@
 #include "enemies.h"
 #include "game.h"
 
-#define BATTLE_START              0
-#define BATTLE_ATTACK             1
-#define BATTLE_MAGIC              2
-#define BATTLE_ESCAPE             3
-#define BATTLE_ITEMS              4
-#define BATTLE_NO_ESCAPE          5
-#define BATTLE_ENEMY_TURN         6
-#define BATTLE_BLINK_ENEMY        7
-#define BATTLE_PLAYER_HURT        8
-#define BATTLE_ENEMY_DEAD         9
+#define BATTLE_ATTACK             0
+#define BATTLE_MAGIC              1
+#define BATTLE_ESCAPE             2
+#define BATTLE_ITEMS              3
+#define BATTLE_NO_ESCAPE          4
+#define BATTLE_ENEMY_TURN         5
+#define BATTLE_BLINK_ENEMY        6
+#define BATTLE_PLAYER_HURT        7
+#define BATTLE_ENEMY_DEAD         8
+#define BATTLE_ENEMY_INTRO        9
+#define BATTLE_START              10
 
 byte battleBlink = 0;
 
@@ -49,6 +50,7 @@ void stateGameBattle()
   if (fadeCounter < 6) startBattle();
   else if (fadeCounter == 6)
   {
+    playerFirst = player.speed > enemy.speed;
     arduboy.fillScreen(0);
     drawRectangle(0, 8, 130, 44, WHITE);
     if (battleProgress != BATTLE_BLINK_ENEMY || battleBlink % 2 == 0)
@@ -57,62 +59,95 @@ void stateGameBattle()
     drawRectangle(0, 44, 130, 64, BLACK);
     switch (battleProgress)
     {
-      case BATTLE_START:
-        fillWithSentence(45);
-        sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
-        drawTextBox(4, 52, WHITE, TEXT_NOROLL);
-        break;
+      
+      /*
+       * Player uses physical attack.
+       */
       case BATTLE_ATTACK:
         //fadeCounter++;
         damageEnemy(player.attack, player.attackAddition);
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
         break;
+      /*
+       * Player uses magic (amulet) attack.
+       */
       case BATTLE_MAGIC:
-        fadeCounter++;
+        damageEnemy(player.attack, player.attackAddition);
+        battleProgress = BATTLE_BLINK_ENEMY;
+        battleBlink = 0;
         break;
+      /*
+       * Player tries to escape.
+       */
       case BATTLE_ESCAPE:
         if (player.currentRegion != REGION_CAVE_INTERIOR)
         {
           // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
           fillWithSentence(46);
         }
-        else battleProgress = BATTLE_NO_ESCAPE;
+        else
+        {
+          playerFirst = true;
+          battleProgress = BATTLE_NO_ESCAPE;
+        }
         break;
+      /*
+       * Player selected item.
+       */
       case BATTLE_ITEMS:
         previousGameState = gameState;
         gameState = STATE_GAME_ITEMS;
         break;
+      /*
+       * Player is unable to escape.
+       *  Let enemy attack.
+       */
       case BATTLE_NO_ESCAPE:
         fillWithSentence(47);
         break;
-      // If enemy is alive, take a turn.
-      // Otherwise display defeated and progress.
+      /* 
+       *  If enemy is alive, take a turn.
+       *  Otherwise display defeated and progress.
+       */
       case BATTLE_ENEMY_TURN:
-        if (enemy.health == 0)
-        {
-          gainExperience(enemy.level);
-          battleProgress = BATTLE_ENEMY_DEAD;
-          battleBlink = 0;
-          textRollAmount = 0;
-        }
-        else
-        {
-          damagePlayer(enemy.attack);
-          battleBlink = 0;
-          battleProgress = BATTLE_PLAYER_HURT;
-          textRollAmount = 0;
-        }
+        damagePlayer(enemy.attack);
+        battleBlink = 0;
+        battleProgress = BATTLE_PLAYER_HURT;
+        textRollAmount = 0;
         break;
-      // Make enemy blink showing damage taken
+      /* 
+       *  Make enemy blink showing damage taken
+       */
       case BATTLE_BLINK_ENEMY:
         fillWithSentence(67);
         fillWithWord(1, (enemy.images >> 4) + 221);
         fillWithNumber(11, lastDamageDealt);
         drawTextBox(0, 52, WHITE, TEXT_ROLL);
         if (battleBlink < 50) battleBlink++;
-        else battleProgress = BATTLE_ENEMY_TURN;
+        else
+        {
+          if (enemy.health == 0)
+          {
+            gainExperience(enemy.level);
+            battleProgress = BATTLE_ENEMY_DEAD;
+            battleBlink = 0;
+            textRollAmount = 0;
+          }
+          else
+          {
+            textRollAmount = 0;
+            if (playerFirst)
+              battleProgress = BATTLE_ENEMY_TURN;
+            else
+              battleProgress = BATTLE_START;
+          }
+        }
         break;
+      /*
+       * The player was hurt, blink HP.
+       * If player died end battle.
+       */
       case BATTLE_PLAYER_HURT:
         if (battleBlink < 50)
         {
@@ -127,25 +162,54 @@ void stateGameBattle()
           // Move on to next state
           if (player.health > 0)
           {
-            battleProgress = BATTLE_START;
+            if (!playerFirst)
+            {
+              battleProgress = attackType;
+            }
+            else
+              battleProgress = BATTLE_START;
           }
           else {
-            ++fadeCounter;
+            ++fadeCounter;    // Player is dead.
           }
         }
         break;
+      /*
+       * The player defeated the enemy, show message
+       * then exit battle.
+       */
       case BATTLE_ENEMY_DEAD:
         if (battleBlink < 50)
         {
           ++battleBlink;
           fillWithSentence(68);
-          fillWithWord(12, (enemy.images >> 4) + 221);
+          fillWithWord(14, (enemy.images >> 4) + 221);
           drawTextBox(0, 52, WHITE, TEXT_ROLL);
         }
         else {
           ++fadeCounter;
         }
         break;
+      case BATTLE_ENEMY_INTRO:
+        if (battleBlink < 50) {
+          fillWithSentence(69);
+          fillWithWord(1, (enemy.images >> 4) + 221);
+          drawTextBox(0, 52, WHITE, TEXT_ROLL);
+          ++battleBlink;
+        }
+        else {
+          battleProgress = BATTLE_START;
+        }
+        break;
+          /*
+         * Default start state (after the enemy's intro)
+         * The menu for the player to select a move.
+         */
+        case BATTLE_START:
+          fillWithSentence(45);
+          sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
+          drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+          break;
     }
     //drawTextBox(4, 52, WHITE, TEXT_NOROLL);
     updateEnemies();
@@ -180,7 +244,8 @@ void checkBattle()
       ATM.play(battleSong);
       songPlaying = 0;
       gameState = STATE_GAME_BATTLE;
-      battleProgress = BATTLE_START;
+      battleProgress = BATTLE_ENEMY_INTRO;
+      battleBlink = 0;
       createEnemy();
       clearCursor();
     }

@@ -69,7 +69,6 @@ void setup() {
   arduboy.audio.begin();
   ATM.play(titleSong);
   arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
-  //Serial.begin(9600);
 }
 
 

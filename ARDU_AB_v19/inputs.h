@@ -288,14 +288,31 @@ void checkInputs()
           else if (arduboy.justPressed(RIGHT_BUTTON) && cursorX < 1) cursorX++;
           else if (arduboy.justPressed(UP_BUTTON) && cursorY > 0) cursorY--;
           else if (arduboy.justPressed(DOWN_BUTTON) && cursorY < 1)cursorY++;
-          else if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = 1 + cursorX + (2 * cursorY);
+          else if (arduboy.justPressed(B_BUTTON | A_BUTTON))
+          {
+            byte state = cursorX + (2 * cursorY);
+            switch (state)
+            {
+              case BATTLE_ATTACK:
+              case BATTLE_MAGIC:
+                attackType = state;
+                if (playerFirst)
+                  battleProgress = state;
+                else
+                  battleProgress = BATTLE_ENEMY_TURN;
+                break;
+              default:
+                battleProgress = state;
+                break;
+            }
+          }
           break;
-        case BATTLE_ATTACK:
+        /*case BATTLE_ATTACK:
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
           break;
         case BATTLE_MAGIC:
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
-          break;
+          break;*/
         case BATTLE_ESCAPE:
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) fadeCounter = 7;
           break;
@@ -303,9 +320,9 @@ void checkInputs()
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
           //fadeCounter++;
           break;
-        case BATTLE_NO_ESCAPE:
+        /*case BATTLE_NO_ESCAPE:
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_ENEMY_TURN;
-          break;
+          break;*/
       }
     case STATE_GAME_BOSS:
       break;

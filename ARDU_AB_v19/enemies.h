@@ -21,6 +21,7 @@ struct Enemies
   byte attack;
   byte images;
   byte level;
+  byte speed;
 };
 
 //Enemies enemy[5];
@@ -46,23 +47,27 @@ void createEnemy( )
     enemy.specDefense = 3;
     enemy.health = 3;
     enemy.attack = 3;
+    enemy.speed = 5;
     break;
     case 1: // high specDefense, high attack, low defense and health
     enemy.defense = 1;
     enemy.specDefense = 5;
     enemy.health = 2;
     enemy.attack = 6;
+    enemy.speed = 6;
     break;
     default: // high defense and health, low specDefense and attack
     enemy.defense = 5;
     enemy.specDefense = 1;
     enemy.health = 4;
     enemy.attack = 2;
+    enemy.speed = 4;
   }
   enemy.health *= enemy.level;
   enemy.defense *= enemy.level;
   enemy.specDefense *= enemy.level;
   enemy.attack *= enemy.level;
+  enemy.speed *= enemy.level;
 }
 
 void damageEnemy(byte player_attack, byte player_attack_addition)

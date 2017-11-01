@@ -11,6 +11,7 @@
 
 #define SPACE                         0
 #define TRIPLESPACE                   160
+#define FOURSPACE                     230
 #define DOUBLENEWLINE                 161
 #define DOUBLESPACE                   162
 #define NEWLINE                       254

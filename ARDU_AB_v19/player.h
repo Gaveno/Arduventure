@@ -11,9 +11,11 @@
 #define MAX_LEVEL                    40
 #define HP_PER_LEVEL                 6
 #define MP_PER_LEVEL                 6
-#define ATK_PER_LEVEL                5
+#define ATK_PER_LEVEL                3
 #define DEF_PER_LEVEL                5
+#define SPD_PER_LEVEL                5
 #define EXP_MULTIPLIER               30
+
 
 const unsigned char PROGMEM animSeq[] = { 0, 1, 2, 1 };
 const unsigned char PROGMEM collisionPoints[][2] =
@@ -90,7 +92,7 @@ void setPlayer()
     1,                                        // level
     5, 0,                                     // attack
     7, 0,                                     // defense
-    1, 0,                                     // speed
+    3, 0,                                     // speed
     48,                                       // lastDoor is your house
     0B00010000,                               // bossCardRegionRoaming
     //|||||||└---------------------------------> 0 YOU HAVE BOSS CARD ONE   (0 = false / 1 = true)
@@ -223,6 +225,7 @@ void gainExperience(byte enemy_level)
     player.magic = player.magicTotal;
     player.attack += ATK_PER_LEVEL;
     player.defense += DEF_PER_LEVEL;
+    player.speed += SPD_PER_LEVEL;
   }
   player.experience = (byte)ex;
 }
