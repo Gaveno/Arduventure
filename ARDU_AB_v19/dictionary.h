@@ -381,7 +381,7 @@ PROGMEM const unsigned char library[] =
   // PLACE 121 : FIRE
   4,
   6, 9, 18, 5,
-  // PLACE 122 : LEAF //changed from "LEAFS"
+  // PLACE 122 : LEAFS
   4,
   12, 5, 1, 6,// 19,
   // PLACE 123 : WATER
@@ -607,9 +607,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 196 : TOGGLE
   6,
   20, 15, 7, 7, 12, 5,
-  // PLACE 197 : ARDUBOY//..AND..
-  14,
-  1, 18, 4, 21, 2, 15, 25, NEWLINE, NEWLINE, SPACE, SPACE, 1, 14, 4,
+  // PLACE 197 : ARDUBOY
+  7,
+  1, 18, 4, 21, 2, 15, 25,
   // PLACE 198 : TEAM a.r.g.
   11,
   20, 5, 1, 13, SPACE, 1, 37, 18, 37, 7, 37,
@@ -677,6 +677,8 @@ PROGMEM const unsigned char library[] =
   7,
   18, 5, 12, 5, 1, 19, 5,
   // PLACE 220 : 
+
+
 };
 
 
