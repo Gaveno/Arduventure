@@ -27,7 +27,7 @@ struct Enemies
 //Enemies enemy[5];
 Enemies enemy;    // only one at a time for now
 
-void createEnemy( )
+void createEnemy(byte player_level)
 {
   byte region = player.currentRegion - REGION_YOUR_GARDEN;
   byte lvlRange = (region) * 2;
@@ -35,6 +35,7 @@ void createEnemy( )
   byte statType = generateRandomNumber(3);
   // get random level offset
   enemy.level = generateRandomNumber(lvlRange);
+  if (region == 1) enemy.level = generateRandomNumber(min(player_level, 5));
   enemy.images = ((enemy.level % 4) + statType * 4)  | (monster << 4);
   enemy.level++;
   region--;

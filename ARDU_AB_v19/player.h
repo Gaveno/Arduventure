@@ -226,6 +226,7 @@ void gainExperience(byte enemy_level)
     player.attack += ATK_PER_LEVEL;
     player.defense += DEF_PER_LEVEL;
     player.speed += SPD_PER_LEVEL;
+    levelup = true;
   }
   player.experience = (byte)ex;
 }

@@ -136,6 +136,7 @@ byte songPlaying = 0;
 int lastDamageDealt = 0;
 bool playerFirst = true;
 byte attackType = 0; // 0 = physical, 1 = magic
+bool levelup = false;
 
 byte miniCamX = 0;
 byte miniCamY = 0;

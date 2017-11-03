@@ -739,9 +739,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 231 : SELF
   4,
   CHAR_S, CHAR_E, CHAR_L, CHAR_F,
-  // PLACE 232 : MISSED
-  6,
-  CHAR_M, CHAR_I, CHAR_S, CHAR_S, CHAR_E, CHAR_D,
+  // PLACE 232 : ED
+  2,
+  CHAR_E, CHAR_D,
   // PLACE 233 : WENT
   4,
   CHAR_W, CHAR_E, CHAR_N, CHAR_T,
@@ -1045,8 +1045,8 @@ PROGMEM const unsigned char sentences[] =
   62, SPACE, 12, 39,
 
   // PLACE 72 : YOU/<monster name> MISSED
-  3,
-  FOURSPACE, SPACE, 232,
+  4,
+  FOURSPACE, SPACE, 22, 232,
 
   // PLACE 73 : <monster name> DEFENDS ITSELF
   7,
@@ -1059,6 +1059,10 @@ PROGMEM const unsigned char sentences[] =
   // PLACE 75 : <monster name>NEWLINE LVL <monster level>
   4,
   FOURSPACE, NEWLINE, 234, FOURSPACE,
+
+  // PLACE 76 : YOU LEVELED UP!
+  7,
+  62, SPACE, 72, 232, SPACE, 73, 39
 };
 
 

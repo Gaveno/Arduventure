@@ -19,6 +19,7 @@
 #define BATTLE_START              10
 #define BATTLE_NEXT_TURN          11    // Reset turn order
 #define BATTLE_ENEMY_DEFEND       12    // show enemy defends itself
+#define BATTLE_LEVEL_UP           13
 
 // Chances are not in percentages
 #define CRIT_CHANCE               18    // higher is lower chance to crit
@@ -61,6 +62,7 @@ int8_t getEnemyOffset( )
     ++offsetIndex;
   switch (battleProgress)
   {
+    case BATTLE_LEVEL_UP:
     case BATTLE_ENEMY_DEAD:
       offset = offsetdead[offsetIndex];
       break;
@@ -314,7 +316,14 @@ void stateGameBattle()
           drawTextBox(0, 52, WHITE, TEXT_ROLL);
         }
         else {
-          ++fadeCounter;
+          if (levelup)
+          {
+            levelup = false;
+            battleProgress = BATTLE_LEVEL_UP;
+            battleBlink = 0;
+          }
+          else
+            ++fadeCounter;
         }
       }
       break;
@@ -382,6 +391,19 @@ void stateGameBattle()
         drawTextBox(4, 52, WHITE, TEXT_NOROLL);
        }
        break;
+       /*
+        * The player leveled up.
+        */
+       case BATTLE_LEVEL_UP:
+       {
+        ++battleBlink;
+        fillWithSentence(76);
+        drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+        if (battleBlink > 60)
+        {
+          ++fadeCounter;
+        }
+       }
     }
     //drawTextBox(4, 52, WHITE, TEXT_NOROLL);
     //updateEnemies();
@@ -395,8 +417,10 @@ void stateGameBattle()
     fillWithNumber(14, player.magic);
     fillWithWord(17, 43);
     fillWithNumber(18, player.magicTotal);
-    drawTextBox(0, 2, WHITE, TEXT_NOROLL);
-
+    if (battleProgress != BATTLE_LEVEL_UP || battleBlink % 4 != 0)
+    {
+      drawTextBox(0, 2, WHITE, TEXT_NOROLL);
+    }
     fillWithSentence(75);
     fillWithWord(1, (enemy.images >> 4) + 221);
     fillWithNumber(10, enemy.level);
@@ -423,7 +447,7 @@ void checkBattle()
       gameState = STATE_GAME_BATTLE;
       battleProgress = BATTLE_ENEMY_INTRO;
       battleBlink = 0;
-      createEnemy();
+      createEnemy(player.level);
       clearCursor();
     }
     playerSteps = 0;
