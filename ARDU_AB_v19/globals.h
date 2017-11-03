@@ -191,10 +191,13 @@ void showFadeOutIn()
   }
 }
 
+/*
+ * !!!Maximum input value is 26!!!
+ */
 byte generateRandomNumber(byte maxValue)
 {
   randomCounter += arduboy.frameCount;
-  int nr = randomCounter;
+  unsigned int nr = randomCounter;
   nr *= maxValue * 10;
   nr /= 2560;
 

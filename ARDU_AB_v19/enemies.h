@@ -50,7 +50,7 @@ void createEnemy( )
     enemy.speed = 5;
     break;
     case 1: // high specDefense, high attack, low defense and health
-    enemy.defense = 1;
+    enemy.defense = 2;
     enemy.specDefense = 5;
     enemy.health = 2;
     enemy.attack = 6;
@@ -59,7 +59,7 @@ void createEnemy( )
     default: // high defense and health, low specDefense and attack
     enemy.defense = 5;
     enemy.specDefense = 1;
-    enemy.health = 4;
+    enemy.health = 3;
     enemy.attack = 2;
     enemy.speed = 4;
   }
