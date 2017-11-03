@@ -19,6 +19,10 @@
 #define BATTLE_START              10
 
 byte battleBlink = 0;
+byte offsetIndex = 0;
+
+const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
+const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
 
 /*
  * Enemies stats are based on the player.currentRegion variable.
@@ -41,6 +45,27 @@ void endBattle()
   else gameState = STATE_GAME_PLAYING;
 }
 
+int8_t getEnemyOffset( )
+{
+  // Offset enemy when it attacks
+  
+  int8_t offset = 0;
+  if (offsetIndex < 6)
+    ++offsetIndex;
+  switch (battleProgress)
+  {
+    case BATTLE_ENEMY_DEAD:
+      offset = offsetdead[offsetIndex];
+      break;
+    case BATTLE_PLAYER_HURT:
+      offset = offsetattack[offsetIndex];
+      break;
+    //default:
+      //offsetIndex = 0;
+  }
+  return offset;
+}
+
 /* The game's battle state.
  *  Initially fadeCounter is 0.
  *  Flash the screen black until fadeCounter is 6.
@@ -53,8 +78,9 @@ void stateGameBattle()
     playerFirst = player.speed > enemy.speed;
     arduboy.fillScreen(0);
     drawRectangle(0, 8, 130, 44, WHITE);
-    if (battleProgress != BATTLE_BLINK_ENEMY || battleBlink % 2 == 0)
-      drawEnemies((battleProgress == BATTLE_ENEMY_DEAD) ? battleBlink * 2 : 0);
+    
+    if (battleProgress != BATTLE_BLINK_ENEMY || battleBlink < 30 || battleBlink % 2 == 0)
+      drawEnemies(getEnemyOffset());
     
     drawRectangle(0, 44, 130, 64, BLACK);
     switch (battleProgress)
@@ -64,7 +90,6 @@ void stateGameBattle()
        * Player uses physical attack.
        */
       case BATTLE_ATTACK:
-        //fadeCounter++;
         damageEnemy(player.attack, player.attackAddition);
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
@@ -111,25 +136,38 @@ void stateGameBattle()
        *  Otherwise display defeated and progress.
        */
       case BATTLE_ENEMY_TURN:
-        damagePlayer(enemy.attack);
         battleBlink = 0;
+        offsetIndex = 0;
         battleProgress = BATTLE_PLAYER_HURT;
-        textRollAmount = 0;
+        //textRollAmount = 0;
         break;
       /* 
        *  Make enemy blink showing damage taken
        */
       case BATTLE_BLINK_ENEMY:
-        fillWithSentence(67);
-        fillWithWord(1, (enemy.images >> 4) + 221);
-        fillWithNumber(11, lastDamageDealt);
-        drawTextBox(0, 52, WHITE, TEXT_ROLL);
-        if (battleBlink < 50) battleBlink++;
+        
+        if (battleBlink < 60)
+        {
+          battleBlink++;
+          if (battleBlink > 30)
+          {
+            fillWithSentence(67);
+            fillWithWord(1, (enemy.images >> 4) + 221);
+            fillWithNumber(11, lastDamageDealt);
+          }
+          else
+          {
+            fillWithSentence(71);
+            //fillWithWord(2, 62); // YOU
+          }
+          drawTextBox(0, 52, WHITE, TEXT_NOROLL);
+        }
         else
         {
           if (enemy.health == 0)
           {
             gainExperience(enemy.level);
+            offsetIndex = 0;
             battleProgress = BATTLE_ENEMY_DEAD;
             battleBlink = 0;
             textRollAmount = 0;
@@ -149,16 +187,28 @@ void stateGameBattle()
        * If player died end battle.
        */
       case BATTLE_PLAYER_HURT:
-        if (battleBlink < 50)
+        ++battleBlink;
+        if (battleBlink == 30)
+          damagePlayer(enemy.attack);   // Subtract health
+        if (battleBlink < 60)
         {
           // Display text
-          ++battleBlink;
-          fillWithSentence(67);
-          fillWithWord(1, 62); // YOU
-          fillWithNumber(11, lastDamageDealt);
-          drawTextBox(0, 52, WHITE, TEXT_ROLL);
+          if (battleBlink > 30)
+          {
+            fillWithSentence(67);
+            fillWithWord(2, 62); // YOU
+            fillWithNumber(11, lastDamageDealt);
+            
+          } 
+          else
+          {
+            fillWithSentence(70);
+            fillWithWord(1, (enemy.images >> 4) + 221);
+          }
+          drawTextBox(0, 52, WHITE, TEXT_NOROLL);
         }
-        else {
+        else
+        {
           // Move on to next state
           if (player.health > 0)
           {
@@ -169,7 +219,8 @@ void stateGameBattle()
             else
               battleProgress = BATTLE_START;
           }
-          else {
+          else
+          {
             ++fadeCounter;    // Player is dead.
           }
         }
@@ -193,7 +244,7 @@ void stateGameBattle()
       case BATTLE_ENEMY_INTRO:
         if (battleBlink < 50) {
           fillWithSentence(69);
-          fillWithWord(1, (enemy.images >> 4) + 221);
+          fillWithWord(3, (enemy.images >> 4) + 221);
           drawTextBox(0, 52, WHITE, TEXT_ROLL);
           ++battleBlink;
         }
@@ -215,7 +266,7 @@ void stateGameBattle()
     updateEnemies();
     
     fillWithSentence(64);
-    if (battleProgress != BATTLE_PLAYER_HURT || battleBlink % 2 == 0) {
+    if (battleProgress != BATTLE_PLAYER_HURT || battleBlink < 30 || battleBlink % 2 == 0) {
       fillWithNumber(4, player.health);
     }
     fillWithWord(7, 43);

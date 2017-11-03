@@ -77,7 +77,7 @@ void damageEnemy(byte player_attack, byte player_attack_addition)
   enemy.health = max(ehp, 0);
 }
 
-void drawEnemies(byte yoffset)
+void drawEnemies(int8_t yoffset)
 {
   sprites.drawOverwrite(57, 16 + yoffset, enemyHeads, enemy.images & 0x0F);
   sprites.drawOverwrite(56, 24 + yoffset, enemyFeet, enemy.images >> 4);

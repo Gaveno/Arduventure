@@ -730,12 +730,15 @@ PROGMEM const unsigned char library[] =
   // PLACE 228 : DEFEATED
   8,
   CHAR_D, CHAR_E, CHAR_F, CHAR_E, CHAR_A, CHAR_T, CHAR_E, CHAR_D,
-  // PLACE 229 : ATTACKING
-  9,
-  CHAR_A, CHAR_T, CHAR_T, CHAR_A, CHAR_C, CHAR_K, CHAR_I, CHAR_N, CHAR_G,
+  // PLACE 229 : APPEARED
+  8,
+  CHAR_A, CHAR_P, CHAR_P, CHAR_E, CHAR_A, CHAR_R, CHAR_E, CHAR_D,
   // PLACE 230 : FOURSPACE
   4,
   SPACE, SPACE, SPACE, SPACE,
+  // PLACE 231 : ATTACKS
+  6,
+  CHAR_A, CHAR_T, CHAR_T, CHAR_A, CHAR_C, CHAR_K,
 };
 
 
@@ -1020,9 +1023,17 @@ PROGMEM const unsigned char sentences[] =
   6,
   62, SPACE, 228, FOURSPACE, SPACE, 39,
 
-  // Place 69 : <monster name> IS ATTACKING!
-  6,
-  FOURSPACE, SPACE, 76, SPACE, 229, 39,
+  // Place 69 : A <monster name> APPEARED!
+  5,
+  58, FOURSPACE, DOUBLESPACE, 229, 39,
+
+  // PLACE 70 : <monster name> ATTACKS!
+  5,
+  FOURSPACE, SPACE, 231, 60, 39,
+
+  // PLACE 71 : YOU ATTACK!
+  4,
+  62, SPACE, 231, 39,
 };
 
 
