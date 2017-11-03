@@ -114,7 +114,7 @@ void stateGameBattle()
           byte crit = 1;
           if (chance > CRIT_CHANCE)
             crit = 2;
-          damageEnemy(player.attack * crit, player.attackAddition);
+          damageEnemy(player.attack * crit, player.attackAddition, player.level);
         }
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
@@ -125,7 +125,7 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
-        damageEnemy(player.attack, player.attackAddition);
+        damageEnemy(player.attack, player.attackAddition, player.level);
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
         break;

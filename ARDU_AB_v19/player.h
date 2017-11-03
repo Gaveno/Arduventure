@@ -11,8 +11,8 @@
 #define MAX_LEVEL                    40
 #define HP_PER_LEVEL                 6
 #define MP_PER_LEVEL                 6
-#define ATK_PER_LEVEL                5
-#define DEF_PER_LEVEL                5
+#define ATK_PER_LEVEL                3
+#define DEF_PER_LEVEL                4
 #define SPD_PER_LEVEL                5
 #define EXP_MULTIPLIER               30
 
@@ -91,10 +91,10 @@ void setPlayer()
     REGION_YOUR_INTERIOR,                     // currentRegion
     1,                                        // level
     5, 0,                                     // attack
-    5, 0,                                     // defense
+    7, 0,                                     // defense
     3, 0,                                     // speed
     48,                                       // lastDoor is your house
-    0B00010001,                               // bossCardRegionRoaming
+    0B00010000,                               // bossCardRegionRoaming
     //|||||||└---------------------------------> 0 YOU HAVE BOSS CARD ONE   (0 = false / 1 = true)
     //||||||└----------------------------------> 1 YOU HAVE BOSS CARD TWO   (0 = false / 1 = true)
     //|||||└-----------------------------------> 2 YOU HAVE BOSS CARD THREE (0 = false / 1 = true)
@@ -145,7 +145,7 @@ void setPlayer()
       //|└-------------------------------------> 6 chest 22 has been opened (0 = false / 1 = true) Chest in Swamp North
       //└--------------------------------------> 7 chest 23 has been opened (0 = false / 1 = true) Chest in Forrest Middle
 
-      0B00000001,                             // Special triggers
+      0B00001111,                             // Special triggers
       //|||||||└-------------------------------> 0 used amulet of fire  on rock       (0 = false / 1 = true)
       //||||||└--------------------------------> 1 used amulet of leafs on rock       (0 = false / 1 = true)
       //|||||└---------------------------------> 2 used amulet of water on rock       (0 = false / 1 = true)
@@ -235,7 +235,7 @@ void gainExperience(byte enemy_level)
  */
 void damagePlayer(byte enemy_attack)
 {
-  lastDamageDealt = max((int)enemy_attack - (int)player.defense, 1);
+  lastDamageDealt = max((int)enemy_attack * (int)player.level / (int)player.defense, 1);
   int php = (int)player.health - lastDamageDealt;
   player.health = max(php, 0);
 }

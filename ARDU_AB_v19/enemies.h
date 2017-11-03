@@ -40,39 +40,45 @@ void createEnemy( )
   region--;
   enemy.level += region * 5;
   enemy.type = (monster - 1) / 2;
-  switch (statType)
-  {
-    case 0: // neutral
-    enemy.defense = 3;
-    enemy.specDefense = 3;
-    enemy.health = 3;
-    enemy.attack = 3;
-    enemy.speed = 5;
-    break;
-    case 1: // high specDefense, high attack, low defense and health
-    enemy.defense = 2;
-    enemy.specDefense = 5;
-    enemy.health = 2;
-    enemy.attack = 6;
-    enemy.speed = 6;
-    break;
-    default: // high defense and health, low specDefense and attack
-    enemy.defense = 5;
-    enemy.specDefense = 1;
-    enemy.health = 3;
-    enemy.attack = 2;
-    enemy.speed = 4;
-  }
+  enemy.defense = 3;
+  enemy.specDefense = 3;
+  enemy.health = 3;
+  enemy.attack = 3;
+  enemy.speed = 5;
   enemy.health *= enemy.level;
   enemy.defense *= enemy.level;
   enemy.specDefense *= enemy.level;
   enemy.attack *= enemy.level;
   enemy.speed *= enemy.level;
+  switch (statType)
+  {
+    /*case 0: // neutral
+    enemy.defense = 3;
+    enemy.specDefense = 3;
+    enemy.health = 3;
+    enemy.attack = 3;
+    enemy.speed = 5;
+    break;*/
+    case 1: // high specDefense, high attack, low defense and health
+    enemy.defense -= 2 * region;
+    enemy.specDefense += 2 * region;
+    enemy.health -= 2 * region;
+    enemy.attack += 2 * region;
+    enemy.speed += 2 * region;
+    break;
+    case 2: // high defense and health, low specDefense and attack
+    enemy.defense += 2 * region;
+    enemy.specDefense -= 2 * region;
+    enemy.health += 2 * region;
+    enemy.attack -= 2 * region;
+    enemy.speed -= 2 * region;
+    break;
+  }
 }
 
-void damageEnemy(byte player_attack, byte player_attack_addition)
+void damageEnemy(byte player_attack, byte player_attack_addition, byte player_level)
 {
-  lastDamageDealt = max(player_attack + player_attack_addition - enemy.defense, 1);
+  lastDamageDealt = max((player_attack + player_attack_addition) * player_level / enemy.defense, 1);
   int8_t ehp = (int8_t)enemy.health - lastDamageDealt;
   enemy.health = max(ehp, 0);
 }
