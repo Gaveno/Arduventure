@@ -43,7 +43,16 @@ void buttonsUpDownA()
 
 void checkInputs()
 {
-  if (arduboy.justPressed(B_BUTTON)) textRollAmount = 0;
+  if (arduboy.justPressed(B_BUTTON))
+  {
+    if (textRollAmount != textBox[0])
+      textRollAmount = textBox[0];
+    else
+    {
+      textRollAmount = 0;
+      battleBlink += 10;  /// Speed up battles if mashing the B button lol
+    }
+  }
   switch (gameState)
   {
     case STATE_MENU_MAIN:
@@ -109,7 +118,7 @@ void checkInputs()
     case STATE_GAME_INTRO:
       if (arduboy.justPressed(B_BUTTON ))
       {
-        if (fadeCounter < 4)
+        if (fadeCounter < 4 && textRollAmount == textBox[0])
         {
           fadeCounter++;
         }

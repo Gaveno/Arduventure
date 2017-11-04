@@ -28,6 +28,7 @@
 
 byte battleBlink = 0;
 byte offsetIndex = 0;
+byte crit;
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
 const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
@@ -49,6 +50,7 @@ void endBattle()
 {
   fadeCounter = 0;
   counterDown = false;
+  textRollAmount = 0;
   if (player.health < 1) gameState = STATE_GAME_OVER;
   else gameState = STATE_GAME_PLAYING;
 }
@@ -93,6 +95,7 @@ void stateGameBattle()
       drawEnemies(getEnemyOffset());
     
     drawRectangle(0, 44, 130, 64, BLACK);
+    
     switch (battleProgress)
     {
       
@@ -113,15 +116,15 @@ void stateGameBattle()
         else
         {
           // Landed hit
-          byte crit = 1;
+          crit = 1;
           if (chance > CRIT_CHANCE)
             crit = 2;
           damageEnemy(player.attack * crit, player.attackAddition, player.level);
         }
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
-        break;
       }
+      break;
       /*
        * Player uses magic (amulet) attack.
        */
@@ -130,8 +133,8 @@ void stateGameBattle()
         damageEnemy(player.attack, player.attackAddition, player.level);
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
-        break;
       }
+      break;
       /*
        * Player tries to escape.
        */
@@ -141,14 +144,15 @@ void stateGameBattle()
         {
           // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
           fillWithSentence(46);
+          drawTextBox(4, 52, WHITE, TEXT_ROLL);
         }
         else
         {
           playerFirst = true;
           battleProgress = BATTLE_NO_ESCAPE;
         }
-        break;
       }
+      break;
       /*
        * Player selected item.
        */
@@ -156,8 +160,8 @@ void stateGameBattle()
       {
         previousGameState = gameState;
         gameState = STATE_GAME_ITEMS;
-        break;
       }
+      break;
       /*
        * Player is unable to escape.
        *  Let enemy attack.
@@ -165,8 +169,9 @@ void stateGameBattle()
       case BATTLE_NO_ESCAPE:
       {
         fillWithSentence(47);
-        break;
+        drawTextBox(4, 52, WHITE, TEXT_ROLL);
       }
+      break;
       /* 
        *  If enemy is alive, take a turn.
        *  Otherwise display defeated and progress.
@@ -183,40 +188,42 @@ void stateGameBattle()
           enemy.specDefense += enemy.specDefense / 2;
         }
         //textRollAmount = 0;
-        break;
       }
+      break;
       /* 
        *  Make enemy blink showing damage taken
        */
       case BATTLE_BLINK_ENEMY:
       {
-        if (battleBlink < 60)
+        battleBlink++;
+        if (battleBlink > 30)
         {
-          battleBlink++;
-          if (battleBlink > 30)
+          if (crit > 1)
           {
-            if (lastDamageDealt > 0)
-            {
-              // Landed hit
-              fillWithSentence(67);
-              fillWithWord(1, (enemy.images >> 4) + 221);
-              fillWithNumber(11, lastDamageDealt);
-            }
-            else
-            {
-              // Missed
-              fillWithSentence(72);
-              fillWithWord(2, 62);
-            }
+            fillWithSentence(77);
+            drawTextBox(70, 10, BLACK, TEXT_NOROLL);
+          }
+          if (lastDamageDealt > 0)
+          {
+            // Landed hit
+            fillWithSentence(67);
+            fillWithWord(1, (enemy.images >> 4) + 221);
+            fillWithNumber(11, lastDamageDealt);
           }
           else
           {
-            fillWithSentence(71);
-            //fillWithWord(2, 62); // YOU
+            // Missed
+            fillWithSentence(72);
+            fillWithWord(2, 62);
           }
-          drawTextBox(0, 52, WHITE, TEXT_NOROLL);
         }
         else
+        {
+          fillWithSentence(71);
+          //fillWithWord(2, 62); // YOU
+        }
+        drawTextBox(0, 52, WHITE, TEXT_NOROLL);
+        if (battleBlink > 60)
         {
           if (enemy.health == 0)
           {
@@ -235,8 +242,8 @@ void stateGameBattle()
               battleProgress =  BATTLE_NEXT_TURN;
           }
         }
-        break;
       }
+      break;
       /*
        * The player was hurt, blink HP.
        * If player died end battle.
@@ -300,8 +307,8 @@ void stateGameBattle()
             ++fadeCounter;    // Player is dead.
           }
         }
-        break;
       }
+      break;
       /*
        * The player defeated the enemy, show message
        * then exit battle.
@@ -332,14 +339,13 @@ void stateGameBattle()
        */
       case BATTLE_ENEMY_INTRO:
       {
+        battleProgress = BATTLE_NEXT_TURN;
         if (battleBlink < 50) {
           fillWithSentence(69);
           fillWithWord(3, (enemy.images >> 4) + 221);
           drawTextBox(0, 52, WHITE, TEXT_ROLL);
           ++battleBlink;
-        }
-        else {
-          battleProgress = BATTLE_NEXT_TURN;
+          battleProgress = BATTLE_ENEMY_INTRO;
         }
       }
       break;
@@ -372,14 +378,17 @@ void stateGameBattle()
        case BATTLE_ENEMY_DEFEND:
        {
         ++battleBlink;
-        if (battleBlink < 30)
-        {
-          fillWithSentence(73);
-          
-        }
-        else if (battleBlink < 60)
+        
+        if (battleBlink < 60)
         {
           fillWithSentence(74);
+          if (battleBlink < 30)
+          {
+            // The enemy is defending itself
+            fillWithSentence(73);
+          }
+          fillWithWord(1, (enemy.images >> 4) + 221);
+          drawTextBox(4, 52, WHITE, TEXT_NOROLL);
         }
         else if (!playerFirst)
         {
@@ -387,8 +396,7 @@ void stateGameBattle()
         }
         else
           battleProgress =  BATTLE_NEXT_TURN;
-        fillWithWord(1, (enemy.images >> 4) + 221);
-        drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+        
        }
        break;
        /*
@@ -405,9 +413,6 @@ void stateGameBattle()
         }
        }
     }
-    //drawTextBox(4, 52, WHITE, TEXT_NOROLL);
-    //updateEnemies();
-    
     fillWithSentence(64);
     if (battleProgress != BATTLE_PLAYER_HURT || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0) {
       fillWithNumber(4, player.health);
@@ -444,6 +449,7 @@ void checkBattle()
     {
       ATM.play(battleSong);
       songPlaying = 0;
+      textRollAmount = 0;
       gameState = STATE_GAME_BATTLE;
       battleProgress = BATTLE_ENEMY_INTRO;
       battleBlink = 0;

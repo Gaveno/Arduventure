@@ -748,6 +748,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 234 : LVL
   3,
   CHAR_L, CHAR_V, CHAR_L,
+  // PLACE 235 : CRITICAL
+  8,
+  CHAR_C, CHAR_R, CHAR_I, CHAR_T, CHAR_I, CHAR_C, CHAR_A, CHAR_L,
 };
 
 
@@ -1033,8 +1036,8 @@ PROGMEM const unsigned char sentences[] =
   62, SPACE, 228, FOURSPACE, SPACE, 39,
 
   // Place 69 : A <monster name> APPEARED!
-  5,
-  58, FOURSPACE, DOUBLESPACE, 229, 39,
+  6,
+  58, FOURSPACE, DOUBLESPACE, 229, 39, FOURSPACE,
 
   // PLACE 70 : <monster name> ATTACKS!
   5,
@@ -1062,7 +1065,11 @@ PROGMEM const unsigned char sentences[] =
 
   // PLACE 76 : YOU LEVELED UP!
   7,
-  62, SPACE, 72, 232, SPACE, 73, 39
+  62, SPACE, 72, 232, SPACE, 73, 39,
+
+  // PLACE 77 : CRITICAL!
+  2,
+  235, 39,
 };
 
 
