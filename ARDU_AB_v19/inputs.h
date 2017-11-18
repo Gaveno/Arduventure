@@ -8,6 +8,8 @@
 #include "battles.h"
 #include "people.h"
 
+bool textReset = true;
+
 bool checkPlayerCollision(byte orientation)
 {
   int pointOne = player.x + pgm_read_byte(&collisionPoints[2 * orientation][0]);
@@ -43,7 +45,19 @@ void buttonsUpDownA()
 
 void checkInputs()
 {
-  
+  textReset = false;
+  // Reset text roll or finish out sentence.
+  if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO)
+  {
+      if (textRollAmount < textBox[0])
+        textRollAmount = textBox[0];
+      else
+      {
+        textReset = true;
+        textRollAmount = 0;
+        battleBlink += 10;  /// Speed up battles if mashing the B button
+      }
+  }
   switch (gameState)
   {
     case STATE_MENU_MAIN:
@@ -109,7 +123,7 @@ void checkInputs()
     case STATE_GAME_INTRO:
       if (arduboy.justPressed(B_BUTTON ))
       {
-        if (fadeCounter < 4 && textRollAmount >= textBox[0] - 1)
+        if (fadeCounter < 4 && textReset)
         {
           fadeCounter++;
         }
@@ -130,7 +144,7 @@ void checkInputs()
           talkingWithNPC = true;
         }
       }
-      else if (arduboy.justPressed(A_BUTTON | B_BUTTON)) foundSomething = false;
+      else if (arduboy.justPressed(A_BUTTON | B_BUTTON) && textReset) foundSomething = false;
       break;
 
     case STATE_GAME_INVENTORY:
@@ -326,17 +340,6 @@ void checkInputs()
       }
     case STATE_GAME_BOSS:
       break;
-  }
-  // Reset text roll or finish out sentence.
-  if (arduboy.justPressed(B_BUTTON))
-  {
-    if (textRollAmount < textBox[0] - 1)
-      textRollAmount = textBox[0];
-    else
-    {
-      textRollAmount = 0;
-      battleBlink += 10;  /// Speed up battles if mashing the B button lol
-    }
   }
 }
 

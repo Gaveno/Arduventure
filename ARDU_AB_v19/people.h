@@ -80,6 +80,9 @@ byte getArea(int area_x, int area_y)
     case 56:
       return 2;
       break;
+    case 58:
+      return 1; // Shop keeper
+      break;
     default:
       return 0;
   }
@@ -117,7 +120,26 @@ void investigatePeople(int ix, int iy)
   {
     foundSomething = true;
     investigating = false; // don't check tiles if an npc was present
-    fillWithSentence(60); // "shops sell books"
+    byte testArea = ((player.x / 384) + (player.y / 384) * 8);
+    switch (testArea)
+    {
+      case 48:  // neighbor npc outside
+        fillWithSentence(60); // "shops sell books"
+        break;
+      case 58:  // shops
+        gameState = STATE_GAME_SHOP;
+        break;
+      case 61: // houses
+        {
+          switch (player.lastDoor)
+          {
+            case 34: // NPC in door 34 Fields
+              fillWithSentence(60);
+              break;
+          }
+        }
+        break;
+    }
   }
   talkingWithNPC = false;
 }

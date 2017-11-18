@@ -56,6 +56,7 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameSaveSoundEnd,
   stateGameSaveSoundEnd,
   stateGameObjects,
+  stateGameShop,
   stateMenuReboot,
 };
 

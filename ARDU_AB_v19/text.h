@@ -21,7 +21,7 @@
 #include "dictionary.h"
 
 byte textspeed = 5;
-
+byte prevSentence =  255;
 
 int findBegin(byte searchObject, boolean wordOrSentence)
 {
@@ -66,6 +66,9 @@ void fillWithNumber(byte startPoint, int number)
 
 void fillWithSentence(byte sentenceOfLibrary)
 {
+  if (prevSentence != sentenceOfLibrary)
+    textRollAmount = 0;
+  prevSentence = sentenceOfLibrary;
   byte totalCharacters = 0;
   int startSentence = findBegin(sentenceOfLibrary, SENTENCE);
   byte sizeSentence = pgm_read_byte(&sentences[startSentence]);

@@ -228,6 +228,14 @@ void walkingThroughDoor()
   }
 }
 
+/*
+ * Talking to shop keeper.
+ */
+void stateGameShop()
+{
+  
+}
+
 
 /*
  * Battle End function leads here when player health is 0
