@@ -462,7 +462,21 @@ void stateGameBattle()
       case BATTLE_START:
       {
         fillWithSentence(45);
-        fillWithNumber(21, magiccost);
+        switch (magictype)
+        {
+          case TYPE_NORMAL:
+            fillWithWord(16, 236);
+            break;
+          case TYPE_WATER:
+            fillWithWord(16, 123);
+            break;
+          case TYPE_LEAF:
+            fillWithWord(16, 122);
+            break;
+          case TYPE_FIRE:
+            fillWithWord(16, 121);
+            break;
+        }
         sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
         drawTextBox(4, 52, WHITE);
       }
@@ -566,6 +580,25 @@ void stateGameBattle()
     fillWithWord(1, (enemy.images >> 4) + 221);
     fillWithNumber(10, enemy.level);
     drawTextBox(5, 15, BLACK);
+    // Magic cost
+    fillWithSentence(81);
+    switch (magictype)
+    {
+      case TYPE_NORMAL:
+        fillWithWord(8, 236);
+        break;
+      case TYPE_WATER:
+        fillWithWord(8, 123);
+        break;
+      case TYPE_LEAF:
+        fillWithWord(8, 122);
+        break;
+      case TYPE_FIRE:
+        fillWithWord(8, 121);
+        break;
+    }
+    fillWithNumber(18, magiccost);
+    drawTextBox(92, 15, BLACK);
     //drawBoss();
   }
   else endBattle();

@@ -111,7 +111,7 @@
  */
 #define MAGIC_COST_NORMAL             4
 #define MAGIC_DAMAGE_NORMAL           (player.attack >> 1)  // add 50% base damage
-#define MAGIC_COST_FIRE               10
+#define MAGIC_COST_FIRE               9
 #define MAGIC_DAMAGE_FIRE             ((player.attack + player.attackAddition) << 1) // add 200% total damage
 #define MAGIC_COST_LEAF               7
 #define MAGIC_DAMAGE_LEAF             (player.attack << 1) // add 200% base damage
