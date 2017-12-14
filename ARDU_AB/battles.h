@@ -18,8 +18,9 @@
 #define BATTLE_ENEMY_INTRO        9
 #define BATTLE_START              10
 #define BATTLE_NEXT_TURN          11    // Reset turn order
-#define BATTLE_ENEMY_DEFEND       12    // show enemy defends itself
+#define BATTLE_ENEMY_DEFEND       12    // Show enemy defends itself
 #define BATTLE_LEVEL_UP           13
+#define BATTLE_NOMANA             14    // Tried to cast magic, but not enough mana
 
 // Chances are not in percentages
 #define CRIT_CHANCE               18    // higher is lower chance to crit
@@ -29,6 +30,8 @@
 byte battleBlink = 0;
 byte offsetIndex = 0;
 byte crit;
+byte magiccost;
+byte magictype;
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
 const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
@@ -36,6 +39,50 @@ const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
 /*
  * Enemies stats are based on the player.currentRegion variable.
  */
+
+/*
+* Get damage multiplier by type. 
+* returns -1 (not effective), 0 (same type), or 1 (very effective)
+*/
+byte getDamageMult(int8_t attacktype, int8_t defensetype)
+{
+  crit = 1;
+  switch (attacktype)
+  {
+    case TYPE_WATER: // water
+      switch (defensetype)
+      {
+        case TYPE_LEAF: // leaf
+          crit = 0;
+          break;
+        case TYPE_FIRE: // fire
+          crit = 2;
+          break;
+      }
+      break;
+    case TYPE_LEAF: // leaf
+      switch (defensetype)
+      {
+        case TYPE_WATER: // water
+          crit = 2;
+          break;
+        case TYPE_FIRE: // fire
+          crit = 0;
+          break;
+      }
+    case TYPE_FIRE: // fire
+      switch (defensetype)
+      {
+        case TYPE_WATER: // water
+          crit = 0;
+          break;
+        case TYPE_LEAF: // leaf
+          crit = 2;
+          break;
+      }
+  }
+  return crit;
+}
 
 
 /* Flash the screen with black.
@@ -104,6 +151,7 @@ void stateGameBattle()
        */
       case BATTLE_ATTACK:
       {
+        magictype = 4; // not magic
         byte chancetotal = 20;
         if (player.speed > enemy.speed)
           chancetotal += 5;
@@ -130,9 +178,47 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
-        damageEnemy(player.attack, player.attackAddition, player.level);
-        battleProgress = BATTLE_BLINK_ENEMY;
-        battleBlink = 0;
+        byte magicdamage; // = player.attack;
+        switch (player.hasStuff[7]) // Which amulet is equipped
+        {
+          case BIT_1: // fire
+            magicdamage += player.attack * getDamageMult(TYPE_FIRE, enemy.type);
+            magicdamage += MAGIC_DAMAGE_FIRE;
+            magiccost = MAGIC_COST_FIRE;
+            magictype = TYPE_FIRE;
+          break;
+          case BIT_2: // leaf
+            magicdamage += player.attack * getDamageMult(TYPE_LEAF, enemy.type);
+            magicdamage += MAGIC_DAMAGE_LEAF;
+            magiccost = MAGIC_COST_LEAF;
+            magictype = TYPE_LEAF;
+          break;
+          case BIT_3: // water
+            magicdamage += player.attack * getDamageMult(TYPE_WATER, enemy.type);
+            magicdamage += MAGIC_DAMAGE_WATER;
+            magiccost = MAGIC_COST_WATER;
+            magictype = TYPE_WATER;
+          break;
+          default:    // normal
+            magicdamage += player.attack * getDamageMult(TYPE_NORMAL, enemy.type);
+            magicdamage += MAGIC_DAMAGE_NORMAL;
+            magiccost = MAGIC_COST_NORMAL;
+            magictype = TYPE_NORMAL;
+        }
+
+        // Can the player afford to cast magic?
+        if (player.magic >= magiccost)
+        {
+          damageEnemy(magicdamage, 0, player.level, true /* magic */);
+          battleProgress = BATTLE_BLINK_ENEMY;
+          battleBlink = 0;
+          player.magic -= magiccost;
+        }
+        else
+        {
+          battleProgress = BATTLE_NOMANA;
+          battleBlink = 0;
+        }
       }
       break;
       /*
@@ -201,7 +287,13 @@ void stateGameBattle()
           if (crit > 1)
           {
             fillWithSentence(77);
-            drawTextBox(70, 10, BLACK, TEXT_NOROLL);
+            drawTextBox(70, 10, BLACK, TEXT_ROLL);
+          }
+          if (crit < 1)
+          {
+            fillWithSentence(80);
+            fillWithWord(1, (enemy.images >> 4) + 221);
+            drawTextBox(70, 10, BLACK, TEXT_ROLL);
           }
           if (lastDamageDealt > 0)
           {
@@ -219,10 +311,33 @@ void stateGameBattle()
         }
         else
         {
-          fillWithSentence(71);
-          //fillWithWord(2, 62); // YOU
+          if (magictype == 4)
+          {
+            // not magic
+            fillWithSentence(71);
+            //fillWithWord(2, 62); // YOU
+          }
+          else
+          {
+            fillWithSentence(79);
+            switch (magictype)
+            {
+              case TYPE_NORMAL:
+                fillWithWord(10, 236);
+                break;
+              case TYPE_WATER:
+                fillWithWord(10, 123);
+                break;
+              case TYPE_LEAF:
+                fillWithWord(10, 122);
+                break;
+              case TYPE_FIRE:
+                fillWithWord(10, 121);
+                break;
+            }
+          }
         }
-        drawTextBox(0, 52, WHITE, TEXT_NOROLL);
+        drawTextBox(0, 52, WHITE, TEXT_ROLL);
         if (battleBlink > 60)
         {
           if (enemy.health == 0)
@@ -288,7 +403,7 @@ void stateGameBattle()
             fillWithSentence(70);
             fillWithWord(1, (enemy.images >> 4) + 221);
           }
-          drawTextBox(0, 52, WHITE, TEXT_NOROLL);
+          drawTextBox(0, 52, WHITE, TEXT_ROLL);
         }
         else
         {
@@ -388,7 +503,7 @@ void stateGameBattle()
             fillWithSentence(73);
           }
           fillWithWord(1, (enemy.images >> 4) + 221);
-          drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+          drawTextBox(4, 52, WHITE, TEXT_ROLL);
         }
         else if (!playerFirst)
         {
@@ -406,12 +521,41 @@ void stateGameBattle()
        {
         ++battleBlink;
         fillWithSentence(76);
-        drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+        drawTextBox(4, 52, WHITE, TEXT_ROLL);
         if (battleBlink > 60)
         {
           ++fadeCounter;
         }
        }
+       break;
+       /*
+        * The player cast magic but did not have enough mana.
+        */
+       case BATTLE_NOMANA:
+       {
+        fillWithSentence(78);
+        fillWithNumber(24, magiccost);
+        switch (magictype)
+        {
+          case TYPE_NORMAL:
+            fillWithWord(32, 236);
+            break;
+          case TYPE_WATER:
+            fillWithWord(32, 123);
+            break;
+          case TYPE_LEAF:
+            fillWithWord(32, 122);
+            break;
+          case TYPE_FIRE:
+            fillWithWord(32, 121);
+            break;
+        }
+        drawTextBox(0, 52, WHITE, TEXT_ROLL);
+        battleBlink++;
+        if (battleBlink > 60)
+          battleProgress = BATTLE_START;
+       }
+       break;
     }
     fillWithSentence(64);
     if (battleProgress != BATTLE_PLAYER_HURT || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0) {

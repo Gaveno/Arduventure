@@ -104,6 +104,20 @@
 #define BIT_7                         64
 #define BIT_8                         128
 
+/*  Amulet magic data
+ *  Cost is an integer. Always costs this much.
+ *  damage is an expression. The base attack will have this
+ *  added. (ex. "magicdamage += MAGIC_DAMAGE_NORMAL;" would become "magicdamage += (player.attack >> 2);")
+ */
+#define MAGIC_COST_NORMAL             4
+#define MAGIC_DAMAGE_NORMAL           (player.attack >> 1)  // add 50% base damage
+#define MAGIC_COST_FIRE               10
+#define MAGIC_DAMAGE_FIRE             ((player.attack + player.attackAddition) << 1) // add 200% total damage
+#define MAGIC_COST_LEAF               7
+#define MAGIC_DAMAGE_LEAF             (player.attack << 1) // add 200% base damage
+#define MAGIC_COST_WATER              5
+#define MAGIC_DAMAGE_WATER            (player.attack + player.attackAddition) // add 100% total damage
+
 
 Arduboy2Base arduboy;
 Sprites sprites;

@@ -21,7 +21,8 @@
 #include "dictionary.h"
 
 byte textspeed = 5;
-byte prevSentence =  255;
+byte prevSentence = 255;
+bool lastRollText = false;
 
 int findBegin(byte searchObject, boolean wordOrSentence)
 {
@@ -66,9 +67,12 @@ void fillWithNumber(byte startPoint, int number)
 
 void fillWithSentence(byte sentenceOfLibrary)
 {
-  if (prevSentence != sentenceOfLibrary)
-    textRollAmount = 0;
-  prevSentence = sentenceOfLibrary;
+  if (lastRollText)
+  {
+    if (prevSentence != sentenceOfLibrary)
+      textRollAmount = 0;
+    prevSentence = sentenceOfLibrary;
+  }
   byte totalCharacters = 0;
   int startSentence = findBegin(sentenceOfLibrary, SENTENCE);
   byte sizeSentence = pgm_read_byte(&sentences[startSentence]);
@@ -97,6 +101,7 @@ void fillWithSentence(byte sentenceOfLibrary)
 
 void drawTextBox(byte x, byte y, boolean color, boolean rollText)
 {
+  lastRollText = rollText;
   byte xOffset = 0;
   byte yOffset = 0;
 

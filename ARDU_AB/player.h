@@ -52,7 +52,17 @@ struct Player
   byte health, healthTotal, magic, magicTotal;
   int gold;
   byte experience, experienceTotal;
-  byte currentRegion, level, attack, attackAddition, defense, defenseAddition, speed, speedAddition, lastDoor, bossCardRegionRoaming, bossActiveAlive;
+  byte currentRegion;
+  byte level;
+  byte attack;
+  byte attackAddition;
+  byte defense;
+  byte defenseAddition;
+  byte speed;
+  byte speedAddition;
+  byte lastDoor;
+  byte bossCardRegionRoaming;
+  byte bossActiveAlive;
   unsigned char gameTriggers[4];
   unsigned char hasStuff[8];
   unsigned char itemsAmount[8];
@@ -168,7 +178,7 @@ void setPlayer()
       //└--------------------------------------> 7 diamond
 
       0B00000000,                             // hasWeapon
-      0B00000000,                             // equipedWaepon
+      0B00000000,                             // equippedWeapon
       //|||||||└-------------------------------> 0 sling
       //||||||└--------------------------------> 1 knife
       //|||||└---------------------------------> 2 rapier

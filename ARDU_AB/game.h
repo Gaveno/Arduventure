@@ -146,7 +146,7 @@ void stateGamePlaying()
 void stateGameInventory()
 {
   drawRectangle(83, 0, 130, 64, BLACK);
-  fillWithSentence(4);
+  fillWithSentence(4);                    // ITEMS EQUIP STATS MAP EXTRA
   drawTextBox(93, 5, WHITE, TEXT_NOROLL);
   sprites.drawSelfMasked(86, 5 + (cursorY * 12), font, 44);
 };
@@ -154,7 +154,7 @@ void stateGameInventory()
 void stateGameEquip()
 {
   drawRectangle(83, 0, 130, 64, BLACK);
-  fillWithSentence(10);
+  fillWithSentence(10);                 // WEAPON ARMOR AMULET
   drawTextBox(93, 5, WHITE, TEXT_NOROLL);
   sprites.drawSelfMasked(86, 5 + (cursorY * 12), font, 44);
 }
@@ -193,7 +193,8 @@ void showSubMenuStuff()
 
   drawList();
 
-  if (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))]) sprites.drawErase(5, 9 + (6 * cursorY), font, 44);
+  if (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))])
+    sprites.drawErase(5, 9 + (6 * cursorY), font, 44);
 
   fillWithWord(0, 93 + (gameState - STATE_GAME_ITEMS));
   drawTextBox(4, 0, WHITE, TEXT_NOROLL);

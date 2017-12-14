@@ -751,6 +751,12 @@ PROGMEM const unsigned char library[] =
   // PLACE 235 : CRITICAL
   8,
   CHAR_C, CHAR_R, CHAR_I, CHAR_T, CHAR_I, CHAR_C, CHAR_A, CHAR_L,
+  // PLACE 236: NORM
+  4,
+  CHAR_N, CHAR_O, CHAR_R, CHAR_M,
+  // PLACE 237 : CAST
+  4,
+  CHAR_C, CHAR_A, CHAR_S, CHAR_T,
 };
 
 
@@ -1070,6 +1076,15 @@ PROGMEM const unsigned char sentences[] =
   // PLACE 77 : CRITICAL!
   2,
   235, 39,
+  // PLACE 78 : CANNOT USE MAGIC! NEED <amount>MP FOR <type>
+  14,
+  151, 152, SPACE, 69, SPACE, 180, 39, NEWLINE, 191, DOUBLESPACE, 84, SPACE, 147, FOURSPACE,
+  // PLACE 79 : YOU CAST <type> MAGIC!
+  7,
+  62, SPACE, 237, TRIPLESPACE, TRIPLESPACE, 180, 39,
+  // PLACE 80 : <monstername> DEFENDS YOUR MAGIC...
+  8,
+  FOURSPACE, SPACE, 14, 60, SPACE, 7, 180, 133,
 };
 
 
