@@ -124,7 +124,7 @@ void investigatePeople(int ix, int iy)
     switch (testArea)
     {
       case 48:  // neighbor npc outside
-        fillWithSentence(60); // "shops sell books"
+        fillWithSentence(60, TEXT_ROLL); // "shops sell books"
         break;
       case 58:  // shops
         gameState = STATE_GAME_SHOP;
@@ -134,7 +134,7 @@ void investigatePeople(int ix, int iy)
           switch (player.lastDoor)
           {
             case 34: // NPC in door 34 Fields
-              fillWithSentence(60);
+              fillWithSentence(60, TEXT_ROLL);
               break;
           }
         }

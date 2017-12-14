@@ -7,7 +7,7 @@
 
 #define TEXT_NOROLL                   0
 #define TEXT_ROLL                     1
-#define TEXT_ROLL_DELAY               2
+#define TEXT_ROLL_DELAY               1
 
 #define SPACE                         0
 #define TRIPLESPACE                   160
@@ -20,9 +20,9 @@
 #include "globals.h"
 #include "dictionary.h"
 
-byte textspeed = 5;
+byte textspeed = 2;
 byte prevSentence = 255;
-bool lastRollText = false;
+bool rollText = false;
 
 int findBegin(byte searchObject, boolean wordOrSentence)
 {
@@ -65,14 +65,15 @@ void fillWithNumber(byte startPoint, int number)
 }
 
 
-void fillWithSentence(byte sentenceOfLibrary)
+void fillWithSentence(byte sentenceOfLibrary, bool roll = false)
 {
-  if (lastRollText)
+  if (roll)
   {
     if (prevSentence != sentenceOfLibrary)
       textRollAmount = 0;
     prevSentence = sentenceOfLibrary;
   }
+  rollText = roll;
   byte totalCharacters = 0;
   int startSentence = findBegin(sentenceOfLibrary, SENTENCE);
   byte sizeSentence = pgm_read_byte(&sentences[startSentence]);
@@ -99,9 +100,8 @@ void fillWithSentence(byte sentenceOfLibrary)
 }
 
 
-void drawTextBox(byte x, byte y, boolean color, boolean rollText)
+void drawTextBox(byte x, byte y, boolean color)
 {
-  lastRollText = rollText;
   byte xOffset = 0;
   byte yOffset = 0;
 
@@ -128,14 +128,14 @@ void drawTextBox(byte x, byte y, boolean color, boolean rollText)
 void drawQuestion()
 {
   drawRectangle(0, 45, 130, 64, BLACK);
-  fillWithSentence(gameState - 1);
-  drawTextBox(4, 50, WHITE, TEXT_ROLL);
+  fillWithSentence(gameState - 1, TEXT_ROLL);
+  drawTextBox(4, 50, WHITE);
 }
 
 void drawYesNo()
 {
   fillWithSentence(9);
-  drawTextBox(106, 50, WHITE, TEXT_NOROLL);
+  drawTextBox(106, 50, WHITE);
   sprites.drawSelfMasked( 98, 50 + (6 * !cursorYesNoY), font, 44);
 }
 

@@ -13,7 +13,7 @@ void stateMenuIntro()
   if (globalCounter < 88)
   {
     fillWithWord(0, 197);
-    drawTextBox(43, 23, WHITE, TEXT_ROLL);
+    drawTextBox(43, 23, WHITE);
     globalCounter++;
   }
   else if (globalCounter < 96)
@@ -24,7 +24,7 @@ void stateMenuIntro()
   else if (globalCounter < 254)
   {
     fillWithSentence(2);
-    drawTextBox(31, 17, WHITE, TEXT_ROLL);
+    drawTextBox(31, 17, WHITE);
     globalCounter++;
   }
   else
@@ -38,7 +38,7 @@ void stateMenuIntro()
     {
       sprites.drawErase(61, 52, titleStartMask, 0);
       fillWithWord(0, 148);
-      drawTextBox(49, 53, WHITE, TEXT_NOROLL);
+      drawTextBox(49, 53, WHITE);
     }
     if (arduboy.justPressed(A_BUTTON | B_BUTTON))
     {
@@ -60,7 +60,7 @@ void stateMenuMain()
   if (!firstGame) fillWithWord(1, 1);
   if (arduboy.audio.enabled()) fillWithWord(27, 6);
   else fillWithWord(26, 5);
-  drawTextBox(40, locationMenu, WHITE, TEXT_NOROLL);
+  drawTextBox(40, locationMenu, WHITE);
   sprites.drawSelfMasked( 32, locationMenu + (cursorY - 2) * 12, font, 44);
   sprites.drawSelfMasked( 90, locationMenu + (cursorY - 2) * 12, font, 45);
 }
@@ -98,17 +98,17 @@ void stateMenuSound()
 void stateMenuCredits()
 {
   arduboy.fillScreen(0);
-  fillWithSentence(41);
-  drawTextBox(18, 11, WHITE, TEXT_ROLL);
+  fillWithSentence(41, TEXT_ROLL);
+  drawTextBox(18, 11, WHITE);
 }
 
 void stateMenuReboot()
 {
   arduboy.fillScreen(0);
   fillWithSentence(65);
-  drawTextBox(4, 8, WHITE, TEXT_NOROLL);
+  drawTextBox(4, 8, WHITE);
   fillWithSentence(66);
-  drawTextBox(4, 34, WHITE, TEXT_NOROLL);
+  drawTextBox(4, 34, WHITE);
   if (arduboy.pressed(UP_BUTTON)) {
     arduboy.exitToBootloader();
   }

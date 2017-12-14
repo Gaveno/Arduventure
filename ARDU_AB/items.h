@@ -42,21 +42,22 @@ void drawList()
   {
     if (bitRead (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))], i))
     {
+      rollText = false;
       // LIST
       fillWithWord(0, 97 + (8 * (gameState - STATE_GAME_ITEMS)) + i);
-      drawTextBox(12, 9 + (6 * positionText), BLACK, TEXT_NOROLL);
+      drawTextBox(12, 9 + (6 * positionText), BLACK);
       // When ITEMS, show: x amount of items
       if (gameState == STATE_GAME_ITEMS)
       {
         sprites.drawErase(92, 9 + (6 * positionText), font, 24);
         fillWithNumber(0, player.itemsAmount[i]);
-        drawTextBox(116 , 9 + (6 * positionText), BLACK, TEXT_NOROLL);
+        drawTextBox(116 , 9 + (6 * positionText), BLACK);
       }
       // when NOT ITEMS, show: equipped
       else if (bitRead(player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1], i))
       {
         fillWithWord(0, 81);
-        drawTextBox(48, 9 + (6 * positionText), BLACK, TEXT_NOROLL);
+        drawTextBox(48, 9 + (6 * positionText), BLACK);
       }
       // show: explaination of selected item
       if (positionText == cursorY)
@@ -79,7 +80,7 @@ void drawList()
             break;
 
         }
-        drawTextBox(4, 59, WHITE, TEXT_NOROLL);
+        drawTextBox(4, 59, WHITE);
       }
       positionText++;
     }
@@ -88,7 +89,7 @@ void drawList()
   if (!player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))])
   {
     fillWithSentence(gameState + 3);
-    drawTextBox(34, 29, BLACK, TEXT_ROLL);
+    drawTextBox(34, 29, BLACK);
   }
 }
 

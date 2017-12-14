@@ -291,7 +291,7 @@ void showStatsTitle()
 {
   fillWithSentence(8);
   fillWithName(10);
-  drawTextBox(4, 2, WHITE, TEXT_NOROLL);
+  drawTextBox(4, 2, WHITE);
 
   drawRectangle(0, 10, 130, 64, WHITE);
 }
@@ -305,14 +305,14 @@ void drawPlayerStats()
   fillWithPlayerStats(20, player.health, player.healthTotal);
   fillWithPlayerStats(34, player.magic, player.magicTotal);
   fillWithPlayerStats(57, player.experience, player.experienceTotal);
-  drawTextBox(4, 14, BLACK, TEXT_NOROLL);
+  drawTextBox(4, 14, BLACK);
 
   fillWithSentence(7);
   fillWithNumber(5, player.level);
   fillWithNumber(16, player.attack);
   fillWithNumber(26, player.defense);
   fillWithNumber(36, player.speed);
-  drawTextBox(84, 14, BLACK, TEXT_NOROLL);
+  drawTextBox(84, 14, BLACK);
 }
 
 void drawPlayerObjects()
@@ -320,7 +320,7 @@ void drawPlayerObjects()
   showStatsTitle();
   fillWithSentence(61);
   fillWithNumber(20, player.bossActiveAlive >> 5);
-  drawTextBox(4, 14, BLACK, TEXT_NOROLL);
+  drawTextBox(4, 14, BLACK);
 
   fillWithSentence(62);
   for (byte i = 0; i < 4; i++)
@@ -330,7 +330,7 @@ void drawPlayerObjects()
       sprites.drawSelfMasked(36 + (i*24), 38, miniMapSheet, (4 - i));
   }
   fillWithWord(31, 207);
-  drawTextBox(4, 28, BLACK, TEXT_NOROLL);
+  drawTextBox(4, 28, BLACK);
 }
 
 void checkCam()

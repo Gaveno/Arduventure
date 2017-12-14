@@ -54,7 +54,7 @@ void checkInputs()
       else
       {
         textReset = true;
-        textRollAmount = 0;
+        //textRollAmount = 0;
         battleBlink += 10;  /// Speed up battles if mashing the B button
       }
   }
@@ -307,8 +307,14 @@ void checkInputs()
             byte state = cursorX + (2 * cursorY);
             switch (state)
             {
-              case BATTLE_ATTACK:
               case BATTLE_MAGIC:
+                if (player.magic < magiccost)
+                {
+                  battleBlink = 0;
+                  battleProgress = BATTLE_NOMANA;
+                  break;
+                }
+              case BATTLE_ATTACK:
                 attackType = state;
                 if (playerFirst)
                   battleProgress = state;

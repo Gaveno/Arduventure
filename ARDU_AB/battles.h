@@ -206,19 +206,10 @@ void stateGameBattle()
             magictype = TYPE_NORMAL;
         }
 
-        // Can the player afford to cast magic?
-        if (player.magic >= magiccost)
-        {
-          damageEnemy(magicdamage, 0, player.level, true /* magic */);
-          battleProgress = BATTLE_BLINK_ENEMY;
-          battleBlink = 0;
-          player.magic -= magiccost;
-        }
-        else
-        {
-          battleProgress = BATTLE_NOMANA;
-          battleBlink = 0;
-        }
+        damageEnemy(magicdamage, 0, player.level, true /* magic */);
+        battleProgress = BATTLE_BLINK_ENEMY;
+        battleBlink = 0;
+        player.magic -= magiccost;
       }
       break;
       /*
@@ -229,8 +220,8 @@ void stateGameBattle()
         if (player.currentRegion != REGION_CAVE_INTERIOR)
         {
           // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
-          fillWithSentence(46);
-          drawTextBox(4, 52, WHITE, TEXT_ROLL);
+          fillWithSentence(46, TEXT_ROLL);
+          drawTextBox(4, 52, WHITE);
         }
         else
         {
@@ -254,8 +245,8 @@ void stateGameBattle()
        */
       case BATTLE_NO_ESCAPE:
       {
-        fillWithSentence(47);
-        drawTextBox(4, 52, WHITE, TEXT_ROLL);
+        fillWithSentence(47, TEXT_ROLL);
+        drawTextBox(4, 52, WHITE);
       }
       break;
       /* 
@@ -286,26 +277,26 @@ void stateGameBattle()
         {
           if (crit > 1)
           {
-            fillWithSentence(77);
-            drawTextBox(70, 10, BLACK, TEXT_ROLL);
+            fillWithSentence(77, TEXT_ROLL);
+            drawTextBox(70, 10, BLACK);
           }
           if (crit < 1)
           {
-            fillWithSentence(80);
+            fillWithSentence(80, TEXT_ROLL);
             fillWithWord(1, (enemy.images >> 4) + 221);
-            drawTextBox(70, 10, BLACK, TEXT_ROLL);
+            drawTextBox(70, 10, BLACK);
           }
           if (lastDamageDealt > 0)
           {
             // Landed hit
-            fillWithSentence(67);
+            fillWithSentence(67, TEXT_ROLL);
             fillWithWord(1, (enemy.images >> 4) + 221);
             fillWithNumber(11, lastDamageDealt);
           }
           else
           {
             // Missed
-            fillWithSentence(72);
+            fillWithSentence(72, TEXT_ROLL);
             fillWithWord(2, 62);
           }
         }
@@ -314,12 +305,12 @@ void stateGameBattle()
           if (magictype == 4)
           {
             // not magic
-            fillWithSentence(71);
+            fillWithSentence(71, TEXT_ROLL);
             //fillWithWord(2, 62); // YOU
           }
           else
           {
-            fillWithSentence(79);
+            fillWithSentence(79, TEXT_ROLL);
             switch (magictype)
             {
               case TYPE_NORMAL:
@@ -337,7 +328,7 @@ void stateGameBattle()
             }
           }
         }
-        drawTextBox(0, 52, WHITE, TEXT_ROLL);
+        drawTextBox(0, 52, WHITE);
         if (battleBlink > 60)
         {
           if (enemy.health == 0)
@@ -387,23 +378,23 @@ void stateGameBattle()
             if (lastDamageDealt > 0)
             {
               // Landed hit
-              fillWithSentence(67);
+              fillWithSentence(67, TEXT_ROLL);
               fillWithWord(2, 62); // YOU
               fillWithNumber(11, lastDamageDealt);
             }
             else
             {
               // Missed
-              fillWithSentence(72);
+              fillWithSentence(72, TEXT_ROLL);
               fillWithWord(1, (enemy.images >> 4) + 221);
             }
           } 
           else
           {
-            fillWithSentence(70);
+            fillWithSentence(70, TEXT_ROLL);
             fillWithWord(1, (enemy.images >> 4) + 221);
           }
-          drawTextBox(0, 52, WHITE, TEXT_ROLL);
+          drawTextBox(0, 52, WHITE);
         }
         else
         {
@@ -433,9 +424,9 @@ void stateGameBattle()
         if (battleBlink < 50)
         {
           ++battleBlink;
-          fillWithSentence(68);
+          fillWithSentence(68, TEXT_ROLL);
           fillWithWord(14, (enemy.images >> 4) + 221);
-          drawTextBox(0, 52, WHITE, TEXT_ROLL);
+          drawTextBox(0, 52, WHITE);
         }
         else {
           if (levelup)
@@ -456,9 +447,9 @@ void stateGameBattle()
       {
         battleProgress = BATTLE_NEXT_TURN;
         if (battleBlink < 50) {
-          fillWithSentence(69);
+          fillWithSentence(69, TEXT_ROLL);
           fillWithWord(3, (enemy.images >> 4) + 221);
-          drawTextBox(0, 52, WHITE, TEXT_ROLL);
+          drawTextBox(0, 52, WHITE);
           ++battleBlink;
           battleProgress = BATTLE_ENEMY_INTRO;
         }
@@ -471,8 +462,9 @@ void stateGameBattle()
       case BATTLE_START:
       {
         fillWithSentence(45);
+        fillWithNumber(21, magiccost);
         sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
-        drawTextBox(4, 52, WHITE, TEXT_NOROLL);
+        drawTextBox(4, 52, WHITE);
       }
       break;
       /*
@@ -500,10 +492,10 @@ void stateGameBattle()
           if (battleBlink < 30)
           {
             // The enemy is defending itself
-            fillWithSentence(73);
+            fillWithSentence(73, TEXT_ROLL);
           }
           fillWithWord(1, (enemy.images >> 4) + 221);
-          drawTextBox(4, 52, WHITE, TEXT_ROLL);
+          drawTextBox(4, 52, WHITE);
         }
         else if (!playerFirst)
         {
@@ -520,8 +512,8 @@ void stateGameBattle()
        case BATTLE_LEVEL_UP:
        {
         ++battleBlink;
-        fillWithSentence(76);
-        drawTextBox(4, 52, WHITE, TEXT_ROLL);
+        fillWithSentence(76, TEXT_ROLL);
+        drawTextBox(4, 52, WHITE);
         if (battleBlink > 60)
         {
           ++fadeCounter;
@@ -533,7 +525,7 @@ void stateGameBattle()
         */
        case BATTLE_NOMANA:
        {
-        fillWithSentence(78);
+        fillWithSentence(78, TEXT_ROLL);
         fillWithNumber(24, magiccost);
         switch (magictype)
         {
@@ -550,7 +542,7 @@ void stateGameBattle()
             fillWithWord(32, 121);
             break;
         }
-        drawTextBox(0, 52, WHITE, TEXT_ROLL);
+        drawTextBox(0, 52, WHITE);
         battleBlink++;
         if (battleBlink > 60)
           battleProgress = BATTLE_START;
@@ -568,12 +560,12 @@ void stateGameBattle()
     fillWithNumber(18, player.magicTotal);
     if (battleProgress != BATTLE_LEVEL_UP || battleBlink % 4 != 0)
     {
-      drawTextBox(0, 2, WHITE, TEXT_NOROLL);
+      drawTextBox(0, 2, WHITE);
     }
     fillWithSentence(75);
     fillWithWord(1, (enemy.images >> 4) + 221);
     fillWithNumber(10, enemy.level);
-    drawTextBox(5, 15, BLACK, TEXT_NOROLL);
+    drawTextBox(5, 15, BLACK);
     //drawBoss();
   }
   else endBattle();
@@ -599,6 +591,24 @@ void checkBattle()
       battleBlink = 0;
       createEnemy(player.level);
       clearCursor();
+      switch (player.hasStuff[7]) // Which amulet is equipped
+        {
+          case BIT_1: // fire
+            magiccost = MAGIC_COST_FIRE;
+            magictype = TYPE_FIRE;
+          break;
+          case BIT_2: // leaf
+            magiccost = MAGIC_COST_LEAF;
+            magictype = TYPE_LEAF;
+          break;
+          case BIT_3: // water
+            magiccost = MAGIC_COST_WATER;
+            magictype = TYPE_WATER;
+          break;
+          default:    // normal
+            magiccost = MAGIC_COST_NORMAL;
+            magictype = TYPE_NORMAL;
+        }
     }
     playerSteps = 0;
   }

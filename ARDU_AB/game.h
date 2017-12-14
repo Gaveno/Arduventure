@@ -15,8 +15,8 @@ void drawMap()
   {
     if (player.currentRegion > 12)
     {
-      fillWithSentence(42);
-      drawTextBox(7, 29, BLACK, TEXT_ROLL);
+      fillWithSentence(42, TEXT_ROLL);
+      drawTextBox(7, 29, BLACK);
     }
     else
     {
@@ -64,8 +64,8 @@ void drawMap()
   }
   else
   {
-    fillWithSentence(5);
-    drawTextBox(16, 29, BLACK, TEXT_ROLL);
+    fillWithSentence(5, TEXT_ROLL);
+    drawTextBox(16, 29, BLACK);
   }
 }
 
@@ -86,7 +86,7 @@ void stateGameNew()
   }
   fillWithSentence(3);
   fillWithName(13);
-  drawTextBox(12, 3, BLACK, TEXT_NOROLL);
+  drawTextBox(12, 3, BLACK);
 
   sprites.drawErase(6 + (cursorX * 12), 17 + (cursorY * 10), font, 44);
 };
@@ -94,14 +94,14 @@ void stateGameNew()
 
 void stateGameIntro()
 {
-  fillWithSentence(37 + fadeCounter);
+  fillWithSentence(37 + fadeCounter, TEXT_ROLL);
   if (fadeCounter == 2) fillWithName(23);
 
   if (fadeCounter < 4)
   {
     arduboy.fillScreen(0);
     drawRectangle(0, 48, 130, 64, BLACK);
-    drawTextBox(4, 50, WHITE, TEXT_ROLL);
+    drawTextBox(4, 50, WHITE);
   }
   else
   {
@@ -139,7 +139,7 @@ void stateGamePlaying()
   if (foundSomething)
   {
     drawRectangle(0, 48, 130, 64, BLACK);
-    drawTextBox(4, 50, WHITE, TEXT_ROLL);
+    drawTextBox(4, 50, WHITE);
   }
 };
 
@@ -147,7 +147,7 @@ void stateGameInventory()
 {
   drawRectangle(83, 0, 130, 64, BLACK);
   fillWithSentence(4);                    // ITEMS EQUIP STATS MAP EXTRA
-  drawTextBox(93, 5, WHITE, TEXT_NOROLL);
+  drawTextBox(93, 5, WHITE);
   sprites.drawSelfMasked(86, 5 + (cursorY * 12), font, 44);
 };
 
@@ -155,7 +155,7 @@ void stateGameEquip()
 {
   drawRectangle(83, 0, 130, 64, BLACK);
   fillWithSentence(10);                 // WEAPON ARMOR AMULET
-  drawTextBox(93, 5, WHITE, TEXT_NOROLL);
+  drawTextBox(93, 5, WHITE);
   sprites.drawSelfMasked(86, 5 + (cursorY * 12), font, 44);
 }
 
@@ -180,8 +180,8 @@ void stateGameMap()
 void stateGameSaveSoundEnd()
 {
   drawRectangle(0, 48, 130, 64, BLACK);
-  fillWithSentence(gameState + 36);
-  drawTextBox(4, 50, WHITE, TEXT_ROLL);
+  fillWithSentence(gameState + 36, TEXT_ROLL);
+  drawTextBox(4, 50, WHITE);
   yesNo = true;
 }
 
@@ -197,7 +197,7 @@ void showSubMenuStuff()
     sprites.drawErase(5, 9 + (6 * cursorY), font, 44);
 
   fillWithWord(0, 93 + (gameState - STATE_GAME_ITEMS));
-  drawTextBox(4, 0, WHITE, TEXT_NOROLL);
+  drawTextBox(4, 0, WHITE);
 }
 
 void walkingThroughDoor()
@@ -245,8 +245,8 @@ void stateGameOver()
 {
   arduboy.fillScreen(1);
   sprites.drawErase(56, 30, playerDead, 0);
-  fillWithSentence(43);
-  drawTextBox(37, 16, BLACK, TEXT_ROLL);
+  fillWithSentence(43, TEXT_ROLL);
+  drawTextBox(37, 16, BLACK);
 };
 
 
