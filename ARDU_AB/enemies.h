@@ -27,20 +27,53 @@ struct Enemies
 //Enemies enemy[5];
 Enemies enemy;    // only one at a time for now
 
-void createEnemy(byte player_level)
+/*
+ * Create an enemy based on the given player level.
+ * Can also specify the enemies level directly as well
+ * as it's stat type and element type.
+ * 
+ * If lvl is given, stattype, and type must also be given.
+ * 
+ * takes:
+ *  player_level  - the level of the player to base the monsters stats off of.
+ *  lvl           - override the level of the monster.
+ *  stattype      - override the stat typing of the monster.
+ *    0: neutral, 1: offense, 2: defense.
+ *  type          - override the element type of the monster.
+ *    0: normal, 1: water, 2: leaf, 3: fire.
+ *    
+ * returns void.
+ * 
+ * Level Ranges:
+ *  Area 1:
+ *  1-5
+ *  Area 2:
+ *  6-13
+ *  Area 3:
+ *  11-18
+ *  Area 4:
+ *  16-23
+ */
+void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type = 4)
 {
-  byte region = player.currentRegion - REGION_YOUR_GARDEN;
-  byte lvlRange = (region) * 2;
-  byte monster = generateRandomNumber(min(7, lvlRange));
+  byte region = player.currentRegion - REGION_YOUR_GARDEN; // 1-4 (in)
+  byte lvlRange = (region) * 2;                            // 2-8 (in)
+  byte monster = generateRandomNumber(min(7, lvlRange)); // 0-6 (in)
   byte statType = generateRandomNumber(3);
   // get random level offset
-  enemy.level = generateRandomNumber(lvlRange);
-  if (region == 1) enemy.level = generateRandomNumber(min(player_level, 5));
-  enemy.images = ((enemy.level % 4) + statType * 4)  | (monster << 4);
-  enemy.level++;
-  region--;
-  enemy.level += region * 5;
-  enemy.type = (monster - 1) / 2;
+  enemy.level = lvl;
+  enemy.type = type;
+  if (lvl == 0)
+  {
+    enemy.level = generateRandomNumber(lvlRange); // 0-7
+    if (region == 1) enemy.level = generateRandomNumber(min(player_level, 5)); // 0-4
+    enemy.images = ((enemy.level % 4) + statType * 4)  | (monster << 4);
+    enemy.level++;  // 1-8 areas 2-4, 1-5 area 1
+    region--;       // 0-3
+    enemy.level += region * 5;  // 1-23
+    enemy.type = (monster - 1) / 2;
+  }
+
   enemy.defense = 3;
   enemy.specDefense = 3;
   enemy.health = 3;
@@ -88,22 +121,24 @@ void drawEnemies(int8_t yoffset)
 {
   sprites.drawOverwrite(57, 16 + yoffset, enemyHeads, enemy.images & 0x0F);
   sprites.drawOverwrite(56, 24 + yoffset, enemyFeet, enemy.images >> 4);
-  //sprites.drawErase(58, 16, enemyHeads, 0);
-  //sprites.drawErase(56, 24, enemyFeet, 0);
-  /*for (byte i = 0; i < enemyAmount; i++)
-  {
-    sprites.drawSelfMasked(12 + (20*i), 16, enemyHeads, i);
-  }*/
 }
 
-void updateEnemies()
+byte getEnemyName()
+{
+  if (!isBoss)
+    return (enemy.images >> 4) + 221;
+  else
+    return (player.lastDoor + 210);
+}
+
+/*void updateEnemies()
 {
   
-}
+}*/
 
-void drawBoss()
+void drawBoss(int8_t yoffset)
 {
-  sprites.drawSelfMasked(52, 16, bossSprites, 0);
+  sprites.drawSelfMasked(52, 16, bossSprites, enemy.images);
 }
 
 

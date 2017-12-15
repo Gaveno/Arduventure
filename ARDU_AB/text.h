@@ -14,6 +14,7 @@
 #define FOURSPACE                     230
 #define DOUBLENEWLINE                 161
 #define DOUBLESPACE                   162
+#define FIVESPACE                     134
 #define NEWLINE                       254
 #define NONE                          255
 

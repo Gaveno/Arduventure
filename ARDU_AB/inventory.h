@@ -86,8 +86,8 @@ void investigateObjects(byte object)
         {
           bitSet(player.hasStuff[2], 0);
           bitSet(player.gameTriggers[2], 4);
-          fillWithSentence(50, TEXT_ROLL);
-          fillWithWord(23, 105);
+          fillWithSentence(50, TEXT_ROLL);  // Found weapon
+          fillWithWord(23, 105);            // Sling
         }
         else
         {
@@ -95,15 +95,15 @@ void investigateObjects(byte object)
           byte amount = ((player.lastDoor / 5) * 2) + 1;
           if ((player.lastDoor % 5) == 0)       // 1, 3, 5, 7 gold  lastDoor 0, 5, 10, 15
           {
-            fillWithSentence(48, TEXT_ROLL);
-            fillWithWord(11, 125);
+            fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
+            fillWithWord(11, 125);            // Gold
             fillWithNumber(28, amount);
             player.gold += amount;
           }
           else if ((player.lastDoor % 5) == 1)  // 1, 3, 5, 7 Apples lastDoor 1, 6, 11, 16
           {
-            fillWithSentence(48, TEXT_ROLL);
-            fillWithWord(11, 97);
+            fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
+            fillWithWord(11, 97);             // Apple
             fillWithNumber(28, amount);
             bitSet(player.hasStuff[0], 0);
             player.itemsAmount[0] += amount;

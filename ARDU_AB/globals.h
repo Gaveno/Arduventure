@@ -35,7 +35,7 @@
 
 #define STATE_GAME_BATTLE             17  // stateGameBattle
 
-#define STATE_GAME_BOSS               18  // stateGameBattle
+#define STATE_GAME_BOSS               18  // stateGameBoss
 
 #define STATE_GAME_INTRO              19  // stateGameIntro
 #define STATE_GAME_NEW                20  // stateGameNew
@@ -94,6 +94,10 @@
 #define TYPE_WATER                    1
 #define TYPE_LEAF                     2
 #define TYPE_FIRE                     3
+
+#define STAT_NEUTRAL                  0
+#define STAT_OFFENSE                  1
+#define STAT_DEFENSE                  2
 
 #define BIT_1                         1
 #define BIT_2                         2
@@ -159,6 +163,14 @@ int camX = 0;
 int camY = 0;
 
 const unsigned char PROGMEM eyesSeq[] = { 2, 1, 0, 1 };
+
+// Battle variables
+bool isBoss = false;
+byte battleBlink = 0;
+byte offsetIndex = 0;
+byte crit;
+byte magiccost;
+byte magictype;
 
 void clearCursor()
 {

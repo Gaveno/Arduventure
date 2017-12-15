@@ -27,11 +27,9 @@
 #define ENEMY_MISS_CHANCE         4    // higher is greater chance to miss
 #define PLAYER_MISS_CHANCE        2   // higher is greater chance to miss
 
-byte battleBlink = 0;
-byte offsetIndex = 0;
-byte crit;
-byte magiccost;
-byte magictype;
+#define BOSS                      true
+
+
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
 const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
@@ -139,7 +137,12 @@ void stateGameBattle()
     drawRectangle(0, 8, 130, 44, WHITE);
     
     if (battleProgress != BATTLE_BLINK_ENEMY || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0)
-      drawEnemies(getEnemyOffset());
+    {
+      if (isBoss)
+        drawBoss(getEnemyOffset());
+      else
+        drawEnemies(getEnemyOffset());
+    }
     
     drawRectangle(0, 44, 130, 64, BLACK);
     
@@ -283,14 +286,14 @@ void stateGameBattle()
           if (crit < 1)
           {
             fillWithSentence(80, TEXT_ROLL);
-            fillWithWord(1, (enemy.images >> 4) + 221);
+            fillWithWord(1, getEnemyName());
             drawTextBox(70, 10, BLACK);
           }
           if (lastDamageDealt > 0)
           {
             // Landed hit
             fillWithSentence(67, TEXT_ROLL);
-            fillWithWord(1, (enemy.images >> 4) + 221);
+            fillWithWord(1, getEnemyName());
             fillWithNumber(11, lastDamageDealt);
           }
           else
@@ -333,6 +336,7 @@ void stateGameBattle()
         {
           if (enemy.health == 0)
           {
+            // Defeated Enemy
             gainExperience(enemy.level);
             offsetIndex = 0;
             battleProgress = BATTLE_ENEMY_DEAD;
@@ -386,13 +390,13 @@ void stateGameBattle()
             {
               // Missed
               fillWithSentence(72, TEXT_ROLL);
-              fillWithWord(1, (enemy.images >> 4) + 221);
+              fillWithWord(1, getEnemyName());
             }
           } 
           else
           {
             fillWithSentence(70, TEXT_ROLL);
-            fillWithWord(1, (enemy.images >> 4) + 221);
+            fillWithWord(1, getEnemyName());
           }
           drawTextBox(0, 52, WHITE);
         }
@@ -425,7 +429,7 @@ void stateGameBattle()
         {
           ++battleBlink;
           fillWithSentence(68, TEXT_ROLL);
-          fillWithWord(14, (enemy.images >> 4) + 221);
+          fillWithWord(14, getEnemyName());
           drawTextBox(0, 52, WHITE);
         }
         else {
@@ -448,7 +452,7 @@ void stateGameBattle()
         battleProgress = BATTLE_NEXT_TURN;
         if (battleBlink < 50) {
           fillWithSentence(69, TEXT_ROLL);
-          fillWithWord(3, (enemy.images >> 4) + 221);
+          fillWithWord(3, getEnemyName());
           drawTextBox(0, 52, WHITE);
           ++battleBlink;
           battleProgress = BATTLE_ENEMY_INTRO;
@@ -508,7 +512,7 @@ void stateGameBattle()
             // The enemy is defending itself
             fillWithSentence(73, TEXT_ROLL);
           }
-          fillWithWord(1, (enemy.images >> 4) + 221);
+          fillWithWord(1, getEnemyName());
           drawTextBox(4, 52, WHITE);
         }
         else if (!playerFirst)
@@ -577,7 +581,7 @@ void stateGameBattle()
       drawTextBox(0, 2, WHITE);
     }
     fillWithSentence(75);
-    fillWithWord(1, (enemy.images >> 4) + 221);
+    fillWithWord(1, getEnemyName());
     fillWithNumber(10, enemy.level);
     drawTextBox(5, 15, BLACK);
     // Magic cost
@@ -604,6 +608,66 @@ void stateGameBattle()
   else endBattle();
 }
 
+/*  Setup Battle
+ *  Get the game ready to go into battle.
+ *  
+ *  Takes: boss - Whether or not this battle is a boss battle.
+ *    false: is not boss, true: is boss.
+ *    
+ *  Returns: nothing
+ */
+void setupBattle(bool boss)
+{
+  ATM.play(battleSong);
+  songPlaying = 0;
+  textRollAmount = 0;
+  gameState = STATE_GAME_BATTLE;
+  battleProgress = BATTLE_ENEMY_INTRO;
+  battleBlink = 0;
+  
+  if (boss)
+  {
+    switch (player.lastDoor)
+    {
+      case 28: //bird
+      createEnemy(player.level, 7, STAT_NEUTRAL, TYPE_NORMAL); 
+      break;
+      case 29: //turtle
+      createEnemy(player.level, 15, STAT_DEFENSE, TYPE_WATER); 
+      break;
+      case 30: //tree
+      createEnemy(player.level, 20, STAT_OFFENSE, TYPE_LEAF); 
+      break;
+      case 31: //lizard
+      createEnemy(player.level, 28, STAT_NEUTRAL, TYPE_FIRE); 
+      break;
+    }
+  }
+  else
+    createEnemy(player.level);
+  
+  isBoss = boss;
+  clearCursor();
+  switch (player.hasStuff[7]) // Which amulet is equipped
+    {
+      case BIT_1: // fire
+        magiccost = MAGIC_COST_FIRE;
+        magictype = TYPE_FIRE;
+      break;
+      case BIT_2: // leaf
+        magiccost = MAGIC_COST_LEAF;
+        magictype = TYPE_LEAF;
+      break;
+      case BIT_3: // water
+        magiccost = MAGIC_COST_WATER;
+        magictype = TYPE_WATER;
+      break;
+      default:    // normal
+        magiccost = MAGIC_COST_NORMAL;
+        magictype = TYPE_NORMAL;
+    }
+}
+
 /* Entry function to battle.
  *  When the player's steps are over 200
  *  and when a random element is true.
@@ -616,36 +680,18 @@ void checkBattle()
   {
     if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS && generateRandomNumber(10) < 7)
     {
-      ATM.play(battleSong);
-      songPlaying = 0;
-      textRollAmount = 0;
-      gameState = STATE_GAME_BATTLE;
-      battleProgress = BATTLE_ENEMY_INTRO;
-      battleBlink = 0;
-      createEnemy(player.level);
-      clearCursor();
-      switch (player.hasStuff[7]) // Which amulet is equipped
-        {
-          case BIT_1: // fire
-            magiccost = MAGIC_COST_FIRE;
-            magictype = TYPE_FIRE;
-          break;
-          case BIT_2: // leaf
-            magiccost = MAGIC_COST_LEAF;
-            magictype = TYPE_LEAF;
-          break;
-          case BIT_3: // water
-            magiccost = MAGIC_COST_WATER;
-            magictype = TYPE_WATER;
-          break;
-          default:    // normal
-            magiccost = MAGIC_COST_NORMAL;
-            magictype = TYPE_NORMAL;
-        }
+      setupBattle(!BOSS);
     }
     playerSteps = 0;
   }
 }
 
+/*  Entry for Boss battle.
+ * 
+ */
+void stateGameBoss()
+{
+  setupBattle(BOSS);
+}
 
 #endif

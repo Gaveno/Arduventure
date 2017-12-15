@@ -757,6 +757,18 @@ PROGMEM const unsigned char library[] =
   // PLACE 237 : CAST
   4,
   CHAR_C, CHAR_A, CHAR_S, CHAR_T,
+  // PLACE 238 : AIRO
+  4,
+  CHAR_A, CHAR_I, CHAR_R, CHAR_O,
+  // PLACE 239 : SHEL
+  4,
+  CHAR_S, CHAR_H, CHAR_E, CHAR_L,
+  // PLACE 240 : OARK
+  4,
+  CHAR_O, CHAR_A, CHAR_R, CHAR_K,
+  // PLACE 241 : MOTO
+  4,
+  CHAR_M, CHAR_O, CHAR_T, CHAR_O,
 };
 
 
@@ -1037,32 +1049,32 @@ PROGMEM const unsigned char sentences[] =
   215, SPACE, 7, SPACE, 3, SPACE, 216, NEWLINE, 209, 37, SPACE, 217, SPACE, 209, NEWLINE, 76, SPACE, 218, 38, SPACE, 219, NEWLINE, 75, SPACE, 73, SPACE, 214, 47,
 
   // PLACE 67 : YOU/<monster name> LOST <amount> HP
-  5,
-  SPACE, FOURSPACE, 220, TRIPLESPACE, 83,
+  4,
+  FIVESPACE, 220, TRIPLESPACE, 83,
 
   // Place 68 : YOU DEFEATED <monster name>!
-  6,
-  62, SPACE, 228, FOURSPACE, SPACE, 39,
+  5,
+  62, SPACE, 228, FIVESPACE, 39,
 
   // Place 69 : A <monster name> APPEARED!
-  6,
-  58, FOURSPACE, DOUBLESPACE, 229, 39, FOURSPACE,
+  5,
+  58, FOURSPACE, DOUBLESPACE, 229, 39,
 
   // PLACE 70 : <monster name> ATTACKS!
-  5,
-  FOURSPACE, SPACE, 12, 60, 39,
+  4,
+  FIVESPACE, 12, 60, 39,
 
   // PLACE 71 : YOU ATTACK!
   4,
   62, SPACE, 12, 39,
 
   // PLACE 72 : YOU/<monster name> MISSED
-  4,
-  FOURSPACE, SPACE, 22, 232,
+  3,
+  FIVESPACE, 22, 232,
 
   // PLACE 73 : <monster name> DEFENDS ITSELF
-  7,
-  FOURSPACE, SPACE, 14, 60, SPACE, 138, 231,
+  6,
+  FIVESPACE, 14, 60, SPACE, 138, 231,
 
   // PLACE 74 : <monster name>S DEF WENT UP
   8,

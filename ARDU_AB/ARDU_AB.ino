@@ -49,7 +49,7 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   showSubMenuStuff,
   walkingThroughDoor,
   stateGameBattle,
-  stateGameBattle,
+  stateGameBoss,
   stateGameIntro,
   stateGameNew,
   stateGameSaveSoundEnd,
