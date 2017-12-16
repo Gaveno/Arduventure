@@ -312,9 +312,11 @@ bool getSolid(int world_x, int world_y)
 
 void drawTiles()
 {
-  for (int x = 0; x <= 128; x += 16)
+  //for (int x = 0; x <= 128; x += 16)
+  for (byte x = 128; x <= 128; x -= 16)
   {
-    for (int y = 0; y <= 64; y += 16)
+    //for (int y = 0; y <= 64; y += 16)
+    for (byte y = 64; y <= 64; y -= 16)
     {
       byte tile = getTileID(camX + x, camY + y);
       sprites.drawOverwrite((((camX >> 4) << 4) + x) - camX, (((camY >> 4) << 4) + y) - camY, tileSheet, tile);

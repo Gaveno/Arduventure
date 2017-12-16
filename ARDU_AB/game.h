@@ -20,9 +20,11 @@ void drawMap()
     }
     else
     {
-      for (byte miniMapOnScreenX = 0; miniMapOnScreenX <= 128; miniMapOnScreenX += 8)
+      //for (byte miniMapOnScreenX = 0; miniMapOnScreenX <= 128; miniMapOnScreenX += 8)
+      for (byte miniMapOnScreenX = 128; miniMapOnScreenX <= 128; miniMapOnScreenX -= 8)
       {
-        for (byte miniMapOnScreenY = 0; miniMapOnScreenY <= 64; miniMapOnScreenY += 8)
+        //for (byte miniMapOnScreenY = 0; miniMapOnScreenY <= 64; miniMapOnScreenY += 8)
+        for (byte miniMapOnScreenY = 64; miniMapOnScreenY <= 64; miniMapOnScreenY -= 8)
         {
           byte miniMapTile = 0;
           byte chunk_pos_x = (miniCamX + miniMapOnScreenX) >> 3;

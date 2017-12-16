@@ -344,8 +344,8 @@ void checkInputs()
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_ENEMY_TURN;
           break;*/
       }
-    case STATE_GAME_BOSS:
-      break;
+    //case STATE_GAME_BOSS:
+      //break;
   }
 }
 

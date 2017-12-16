@@ -75,7 +75,7 @@ void drawList()
             fillWithSentence(28);
             fillWithNumber(15,i+1);
             break;
-          case STATE_GAME_AMULET:
+          default://case STATE_GAME_AMULET:
             fillWithSentence(29 + i);
             break;
 

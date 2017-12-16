@@ -53,7 +53,7 @@ byte getDamageMult(int8_t attacktype, int8_t defensetype)
         case TYPE_LEAF: // leaf
           crit = 0;
           break;
-        case TYPE_FIRE: // fire
+        default://case TYPE_FIRE: // fire
           crit = 2;
           break;
       }
@@ -64,17 +64,17 @@ byte getDamageMult(int8_t attacktype, int8_t defensetype)
         case TYPE_WATER: // water
           crit = 2;
           break;
-        case TYPE_FIRE: // fire
+        default://case TYPE_FIRE: // fire
           crit = 0;
           break;
       }
-    case TYPE_FIRE: // fire
+    default://case TYPE_FIRE: // fire
       switch (defensetype)
       {
         case TYPE_WATER: // water
           crit = 0;
           break;
-        case TYPE_LEAF: // leaf
+        default://case TYPE_LEAF: // leaf
           crit = 2;
           break;
       }
@@ -113,7 +113,7 @@ int8_t getEnemyOffset( )
     case BATTLE_ENEMY_DEAD:
       offset = offsetdead[offsetIndex];
       break;
-    case BATTLE_PLAYER_HURT:
+    default://case BATTLE_PLAYER_HURT:
       offset = offsetattack[offsetIndex];
       break;
     //default:
@@ -316,17 +316,17 @@ void stateGameBattle()
             fillWithSentence(79, TEXT_ROLL);
             switch (magictype)
             {
-              case TYPE_NORMAL:
-                fillWithWord(10, 236);
+              case TYPE_FIRE: // FIRE
+                fillWithWord(10, 121);
                 break;
-              case TYPE_WATER:
-                fillWithWord(10, 123);
-                break;
-              case TYPE_LEAF:
+              case TYPE_LEAF: // LEAF
                 fillWithWord(10, 122);
                 break;
-              case TYPE_FIRE:
-                fillWithWord(10, 121);
+              case TYPE_WATER: // WATER
+                fillWithWord(10, 123);
+                break;
+              default:  // NORMAL
+                fillWithWord(10, 236);
                 break;
             }
           }
@@ -466,19 +466,19 @@ void stateGameBattle()
       case BATTLE_START:
       {
         fillWithSentence(45);
-        switch (magictype)
+        switch (player.hasStuff[7])
         {
-          case TYPE_NORMAL:
-            fillWithWord(16, 236);
+          case BIT_1: // FIRE
+            fillWithWord(16, 121);
             break;
-          case TYPE_WATER:
-            fillWithWord(16, 123);
-            break;
-          case TYPE_LEAF:
+          case BIT_2: // LEAF
             fillWithWord(16, 122);
             break;
-          case TYPE_FIRE:
-            fillWithWord(16, 121);
+          case BIT_3: // WATER
+            fillWithWord(16, 123);
+            break;
+          default:  // NORMAL
+            fillWithWord(16, 236);
             break;
         }
         sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
@@ -541,23 +541,23 @@ void stateGameBattle()
        /*
         * The player cast magic but did not have enough mana.
         */
-       case BATTLE_NOMANA:
+       default://case BATTLE_NOMANA:
        {
         fillWithSentence(78, TEXT_ROLL);
         fillWithNumber(24, magiccost);
-        switch (magictype)
+        switch (player.hasStuff[7])
         {
-          case TYPE_NORMAL:
-            fillWithWord(32, 236);
+          case BIT_1: // FIRE
+            fillWithWord(32, 121);
             break;
-          case TYPE_WATER:
-            fillWithWord(32, 123);
-            break;
-          case TYPE_LEAF:
+          case BIT_2: // LEAF
             fillWithWord(32, 122);
             break;
-          case TYPE_FIRE:
-            fillWithWord(32, 121);
+          case BIT_3: // WATER
+            fillWithWord(32, 123);
+            break;
+          default:
+            fillWithWord(32, 236);
             break;
         }
         drawTextBox(0, 52, WHITE);
@@ -586,19 +586,19 @@ void stateGameBattle()
     drawTextBox(5, 15, BLACK);
     // Magic cost
     fillWithSentence(81);
-    switch (magictype)
+    switch (player.hasStuff[7])
     {
-      case TYPE_NORMAL:
-        fillWithWord(8, 236);
+      case BIT_1: // FIRE
+        fillWithWord(8, 121);
         break;
-      case TYPE_WATER:
-        fillWithWord(8, 123);
-        break;
-      case TYPE_LEAF:
+      case BIT_2: // LEAF
         fillWithWord(8, 122);
         break;
-      case TYPE_FIRE:
-        fillWithWord(8, 121);
+      case BIT_3: // WATER
+        fillWithWord(8, 123);
+        break;
+      default:
+        fillWithWord(8, 236);
         break;
     }
     fillWithNumber(18, magiccost);
@@ -638,7 +638,7 @@ void setupBattle(bool boss)
       case 30: //tree
       createEnemy(player.level, 20, STAT_OFFENSE, TYPE_LEAF); 
       break;
-      case 31: //lizard
+      default://case 31: //lizard
       createEnemy(player.level, 28, STAT_NEUTRAL, TYPE_FIRE); 
       break;
     }
@@ -652,19 +652,15 @@ void setupBattle(bool boss)
     {
       case BIT_1: // fire
         magiccost = MAGIC_COST_FIRE;
-        magictype = TYPE_FIRE;
       break;
       case BIT_2: // leaf
         magiccost = MAGIC_COST_LEAF;
-        magictype = TYPE_LEAF;
       break;
       case BIT_3: // water
         magiccost = MAGIC_COST_WATER;
-        magictype = TYPE_WATER;
       break;
       default:    // normal
         magiccost = MAGIC_COST_NORMAL;
-        magictype = TYPE_NORMAL;
     }
 }
 
