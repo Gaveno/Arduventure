@@ -56,7 +56,8 @@ const byte typetable[] = {
 */
 byte getDamageMult(int8_t attacktype, int8_t defensetype)
 {
-  return typetable[attacktype * 4 + defensetype];
+  crit = typetable[attacktype * 4 + defensetype];
+  return crit;
 }
 
 
@@ -72,7 +73,7 @@ void endBattle()
 {
   fadeCounter = 0;
   counterDown = false;
-  textRollAmount = 0;
+  //textRollAmount = 0;
   if (player.health < 1) gameState = STATE_GAME_OVER;
   else gameState = STATE_GAME_PLAYING;
 }
@@ -158,7 +159,7 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
-        byte magicdamage; // = player.attack;
+        byte magicdamage = 0; // = player.attack;
         switch (player.hasStuff[7]) // Which amulet is equipped
         {
           case BIT_1: // fire
@@ -215,6 +216,7 @@ void stateGameBattle()
        */
       case BATTLE_ITEMS:
       {
+        battleProgress = BATTLE_START;
         previousGameState = gameState;
         gameState = STATE_GAME_ITEMS;
       }
@@ -263,7 +265,6 @@ void stateGameBattle()
           if (crit < 1)
           {
             fillWithSentence(80, TEXT_NOROLL);
-            fillWithWord(1, getEnemyName());
             drawTextBox(70, 10, BLACK);
           }
           if (lastDamageDealt > 0)
@@ -318,11 +319,11 @@ void stateGameBattle()
             offsetIndex = 0;
             battleProgress = BATTLE_ENEMY_DEAD;
             battleBlink = 0;
-            textRollAmount = 0;
+            //textRollAmount = 0;
           }
           else
           {
-            textRollAmount = 0;
+            //textRollAmount = 0;
             if (playerFirst)
               battleProgress = BATTLE_ENEMY_TURN;
             else
@@ -521,22 +522,6 @@ void stateGameBattle()
        default://case BATTLE_NOMANA:
        {
         fillWithSentence(78, TEXT_ROLL);
-        fillWithNumber(24, magiccost);
-        switch (player.hasStuff[7])
-        {
-          case BIT_1: // FIRE
-            fillWithWord(32, 121);
-            break;
-          case BIT_2: // LEAF
-            fillWithWord(32, 122);
-            break;
-          case BIT_3: // WATER
-            fillWithWord(32, 123);
-            break;
-          default:
-            fillWithWord(32, 236);
-            break;
-        }
         drawTextBox(0, 52, WHITE);
         battleBlink++;
         if (battleBlink > 60)
@@ -582,7 +567,11 @@ void stateGameBattle()
     drawTextBox(92, 15, BLACK);
     //drawBoss();
   }
-  else endBattle();
+  else
+  {
+    gameState = STATE_BATTLE_REWARDS;
+    fadeCounter = 0;
+  }
 }
 
 /*  Setup Battle
@@ -593,17 +582,21 @@ void stateGameBattle()
  *    
  *  Returns: nothing
  */
-void setupBattle(bool boss)
+void setupBattle()
 {
   ATM.play(battleSong);
   songPlaying = 0;
-  textRollAmount = 0;
+  //textRollAmount = 0;
   gameState = STATE_GAME_BATTLE;
   battleProgress = BATTLE_ENEMY_INTRO;
   battleBlink = 0;
   
-  if (boss)
+  if (isBoss)
   {
+    battleRewardType[0] = 1;  // Amulet
+    battleRewardType[1] = 0;  // gold
+    battleRewardNumb[1] = 30; // 30 gold
+    battleRewardType[2] = 128;// exit
     switch (player.lastDoor)
     {
       case 28: //bird
@@ -621,9 +614,13 @@ void setupBattle(bool boss)
     }
   }
   else
+  {
     createEnemy(player.level);
+    battleRewardType[0] = 0;
+    battleRewardNumb[0] = generateRandomNumber(10) + 1;
+    battleRewardType[1] = 128;// exit
+  }
   
-  isBoss = boss;
   clearCursor();
   switch (player.hasStuff[7]) // Which amulet is equipped
     {
@@ -653,7 +650,8 @@ void checkBattle()
   {
     if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS && generateRandomNumber(10) < 7)
     {
-      setupBattle(!BOSS);
+      isBoss = false;
+      setupBattle();
     }
     playerSteps = 0;
   }
@@ -664,7 +662,36 @@ void checkBattle()
  */
 void stateGameBoss()
 {
-  setupBattle(BOSS);
+  isBoss = true;
+  setupBattle();
+}
+
+/*  Battle Rewards
+ *  Give items to player when battle is won.
+ */
+void battleGiveRewards()
+{
+  arduboy.fillScreen(WHITE);
+  switch (battleRewardType[fadeCounter])
+  {
+    case 0: // gold
+    fillWithSentence(48, TEXT_ROLL);
+    fillWithWord(11, 125);
+    fillWithNumber(28, battleRewardNumb[fadeCounter]);
+    player.gold += battleRewardNumb[fadeCounter];
+    battleRewardNumb[fadeCounter] = 0;
+    break;
+    case 1: // amulet
+    fillWithSentence(52, TEXT_ROLL);
+    fillWithWord(21, 151 - player.lastDoor);
+    bitSet(player.hasStuff[6], 30 - player.lastDoor);
+    break;
+    default:
+    fadeCounter = 0;
+    gameState = STATE_GAME_PLAYING;
+    return;
+  }
+  drawTextBox(0, 32, BLACK);
 }
 
 #endif

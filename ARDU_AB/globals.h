@@ -45,8 +45,9 @@
 #define STATE_GAME_OBJECTS            24  // stateGameObjects
 #define STATE_GAME_SHOP               25  // stateGameShop
 #define STATE_GAME_INN                26  // stateGameInn
+#define STATE_BATTLE_REWARDS          27  // battleGiveRewards
 
-#define STATE_REBOOT                  27  // reprogramming instructions
+#define STATE_REBOOT                  28  // reprogramming instructions
 
 #define FACING_SOUTH                  0 //0B00000000
 #define FACING_WEST                   1 //0B00000001
@@ -99,6 +100,8 @@
 #define STAT_NEUTRAL                  0
 #define STAT_OFFENSE                  1
 #define STAT_DEFENSE                  2
+
+#define BATTLE_MAX_REWARDS            3
 
 #define BIT_1                         1
 #define BIT_2                         2
@@ -174,6 +177,8 @@ byte offsetIndex = 0;
 byte crit;
 byte magiccost;
 byte magictype;
+byte battleRewardType[5] = {0, 0, 0, 0, 255};
+byte battleRewardNumb[4] = {0, 0, 0, 0};
 
 void clearCursor()
 {

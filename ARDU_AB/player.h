@@ -166,7 +166,7 @@ void setPlayer()
       //└--------------------------------------> 7                                    (0 = false / 1 = true)
     },
     {
-      0B00000000,                             // hasItem
+      0B11111111,                             // hasItem
       0B00000000,                             // using the item
       //|||||||└-------------------------------> 0 apple
       //||||||└--------------------------------> 1 cider
@@ -211,8 +211,8 @@ void setPlayer()
       //└--------------------------------------> 7 ruby
     },
 
-    //{1, 5, 3, 4, 7, 6, 9, 64},                 // amount of each item (max 64)
-    {0, 0, 0, 0, 0, 0, 0, 0,},                   // amount of each item (max 64)
+    {1, 5, 3, 4, 7, 6, 9, 64},                 // amount of each item (max 64)
+    //{0, 0, 0, 0, 0, 0, 0, 0,},                   // amount of each item (max 64)
 
     {5, 50, 50, 50, 50, 50},                     // name
     { 0B00000000, 0B00000000},                   // Fog x and y coördinates
@@ -309,8 +309,8 @@ void drawPlayerStats()
 
   fillWithSentence(7);
   fillWithNumber(5, player.level);
-  fillWithNumber(16, player.attack);
-  fillWithNumber(26, player.defense);
+  fillWithNumber(16, player.attack + player.attackAddition);
+  fillWithNumber(26, player.defense + player.defenseAddition);
   fillWithNumber(36, player.speed);
   drawTextBox(84, 14, BLACK);
 }

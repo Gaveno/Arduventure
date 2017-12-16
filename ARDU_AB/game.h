@@ -126,7 +126,8 @@ void stateGamePlaying()
   updatePlayer();
   checkRegion();
   checkBattle();
-  if (arduboy.everyXFrames(15)) frameBoolean = !frameBoolean;
+  //if (arduboy.everyXFrames(15)) frameBoolean = !frameBoolean;
+  frameBoolean = (arduboy.frameCount % 32 < 16);
   drawPeople();
   drawPlayer();
   // Reveal map area around player
@@ -206,7 +207,8 @@ void showSubMenuStuff()
 void walkingThroughDoor()
 {
   showFadeOutIn();
-  if (arduboy.everyXFrames(6)) fadeCounter++;
+  //if (arduboy.everyXFrames(6)) fadeCounter++;
+  if (arduboy.frameCount % 8 == 0) ++fadeCounter;
   if (counterDown == false && fadeCounter == 4)
   {
     counterDown = true;
@@ -269,7 +271,8 @@ void stateGameInn()
   else
   {
     showFadeOutIn();
-    if (arduboy.everyXFrames(12)) fadeCounter++;
+    //if (arduboy.everyXFrames(12)) fadeCounter++;
+    if (arduboy.frameCount % 16 == 0) ++fadeCounter;
   }
   if (fadeCounter > 6)
     gameState = STATE_GAME_PLAYING;

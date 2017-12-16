@@ -10,7 +10,7 @@
 void stateMenuIntro()
 {
   arduboy.fillScreen(0);
-  if (globalCounter < 88)
+  /*if (globalCounter < 88)
   {
     fillWithWord(0, 197);
     drawTextBox(43, 23, WHITE);
@@ -21,7 +21,7 @@ void stateMenuIntro()
     textRollAmount = 0;
     globalCounter++;
   }
-  else if (globalCounter < 254)
+  else */if (globalCounter < 254)
   {
     fillWithSentence(2);
     drawTextBox(31, 17, WHITE);
@@ -29,12 +29,13 @@ void stateMenuIntro()
   }
   else
   {
-    if (arduboy.everyXFrames(48)) frameBoolean = !frameBoolean;
+    //if (arduboy.everyXFrames(48)) frameBoolean = !frameBoolean;
     sprites.drawSelfMasked(52, 16, titleSwordGuard, 0);
     sprites.drawSelfMasked(60, 0, titleSwordGrip, 0);
     sprites.drawSelfMasked(16, 24, titleText, 0);
     sprites.drawSelfMasked(61, 48, titleSword, 0);
-    if (frameBoolean)
+    //if (frameBoolean)
+    if (arduboy.frameCount % 100 < 50)
     {
       sprites.drawErase(61, 52, titleStartMask, 0);
       fillWithWord(0, 148);

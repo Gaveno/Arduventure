@@ -105,13 +105,37 @@ void selectItemsEquipment()
     if (bitRead (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))], i)) AmountOfObjectsShown++;
     if (AmountOfObjectsShown - 1 == cursorY) bitSet(player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1], i);
 
-    // if an item is used decrease the item amount
-    if (gameState == STATE_GAME_ITEMS)
+    if (bitRead(player.hasStuff[(gameState - STATE_GAME_ITEMS) * 2 + 1], i))
     {
-      if (bitRead(player.hasStuff[1], i))
+      switch (gameState)
       {
+        // if an item is used decrease the item amount
+        case STATE_GAME_ITEMS:
         player.itemsAmount[i] -= 1;
         if (player.itemsAmount[i] < 1) bitClear(player.hasStuff[0], i);
+        // Item Effects
+        switch (i)
+        {
+          case 0: // Apple
+          player.health = min(player.health+5, player.healthTotal);
+          break;
+          case 1: // Cider
+          player.health = min(player.health+15, player.healthTotal);
+          break;
+          case 2: // Anise
+          player.magic = min(player.magic+5, player.magicTotal);
+          break;
+          case 3: // Absinthe
+          player.magic = min(player.magic+15, player.magicTotal);
+          break;
+        }
+        break;
+        case STATE_GAME_WEAPON: // set player.attackAddition based on item equipped
+        player.attackAddition = i+1;
+        break;
+        case STATE_GAME_ARMOR: // set player.defenseAddition based on item equipped
+        player.defenseAddition = i+1;
+        break;
       }
     }
   }

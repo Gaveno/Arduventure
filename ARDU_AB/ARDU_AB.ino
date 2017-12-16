@@ -58,6 +58,7 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameObjects,
   stateGameShop,
   stateGameInn,
+  battleGiveRewards,
   stateMenuReboot,
 };
 

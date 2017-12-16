@@ -227,7 +227,8 @@ void checkInputs()
             clearCursor();
             if (previousGameState > STATE_GAME_AMULET)
             {
-              battleProgress = BATTLE_START;
+              battleProgress = BATTLE_ENEMY_TURN;
+              playerFirst = true;
               gameState = previousGameState;
             }
           }
@@ -349,6 +350,10 @@ void checkInputs()
     {
       talkingWithNPC = false;
     }
+    break;
+    case STATE_BATTLE_REWARDS:
+    if (textReset)
+      ++fadeCounter;
     break;
     //case STATE_GAME_BOSS:
       //break;
