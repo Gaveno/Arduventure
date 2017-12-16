@@ -106,10 +106,12 @@ void drawTextBox(byte x, byte y, boolean color)
   byte xOffset = 0;
   byte yOffset = 0;
 
-  if (rollText && (textRollAmount < textBox[0]))
+  /*if (rollText && (textRollAmount < textBox[0]))
   {
-    if (arduboy.everyXFrames(textspeed)) textRollAmount++;
-  }
+    if (arduboy.everyXFrames(textspeed))
+      textRollAmount++;
+  }*/
+  if (rollText) textRollAmount = min(++textRollAmount, textBox[0]);
 
   for (byte i = 1; i < ((rollText) ? (textRollAmount + 1) : (textBox[0] + 1)); i++)
   {

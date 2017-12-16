@@ -147,6 +147,7 @@ void stateGamePlaying()
 
 void stateGameInventory()
 {
+  drawPlayer();
   drawRectangle(83, 0, 130, 64, BLACK);
   fillWithSentence(4);                    // ITEMS EQUIP STATS MAP EXTRA
   drawTextBox(93, 5, WHITE);
@@ -251,6 +252,28 @@ void stateGameOver()
   drawTextBox(37, 16, BLACK);
 };
 
+/*
+ * Talk to inn keeper
+ */
+void stateGameInn()
+{
+  player.health = player.healthTotal;
+  player.magic = player.magicTotal;
+  if (talkingWithNPC)
+  {
+    drawRectangle(0, 48, 130, 64, BLACK);
+    fillWithSentence(82, TEXT_ROLL);  // you need rest
+    drawTextBox(4, 50, WHITE);
+    foundSomething = false;
+  }
+  else
+  {
+    showFadeOutIn();
+    if (arduboy.everyXFrames(12)) fadeCounter++;
+  }
+  if (fadeCounter > 6)
+    gameState = STATE_GAME_PLAYING;
+}
 
 
 #endif

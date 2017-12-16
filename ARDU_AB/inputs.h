@@ -344,6 +344,12 @@ void checkInputs()
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_ENEMY_TURN;
           break;*/
       }
+    case STATE_GAME_INN:
+    if (arduboy.justPressed(B_BUTTON))
+    {
+      talkingWithNPC = false;
+    }
+    break;
     //case STATE_GAME_BOSS:
       //break;
   }

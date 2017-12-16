@@ -129,7 +129,12 @@ void investigatePeople(int ix, int iy)
       case 58:  // shops
         gameState = STATE_GAME_SHOP;
         break;
-      case 61: // houses
+      case 60: // INN
+        gameState = STATE_GAME_INN;
+        fadeCounter = 0;
+        return;
+        break;
+      default://case 61: // houses
         {
           switch (player.lastDoor)
           {

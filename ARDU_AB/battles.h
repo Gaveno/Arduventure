@@ -29,14 +29,26 @@
 
 #define BOSS                      true
 
+/*
+ * Enemies stats are based on the player.currentRegion variable.
+ */
+
 
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
 const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
 
-/*
- * Enemies stats are based on the player.currentRegion variable.
+/* type table
+ *  row - attack type
+ *  col - defense type
  */
+const byte typetable[] = {
+//N, W, L, F
+  1, 1, 1, 1, // attack - normal
+  1, 1, 0, 2, // attack - water
+  1, 2, 1, 0, // attack - leaf
+  1, 0, 2, 1, // attack - fire
+};
 
 /*
 * Get damage multiplier by type. 
@@ -44,42 +56,7 @@ const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
 */
 byte getDamageMult(int8_t attacktype, int8_t defensetype)
 {
-  crit = 1;
-  switch (attacktype)
-  {
-    case TYPE_WATER: // water
-      switch (defensetype)
-      {
-        case TYPE_LEAF: // leaf
-          crit = 0;
-          break;
-        default://case TYPE_FIRE: // fire
-          crit = 2;
-          break;
-      }
-      break;
-    case TYPE_LEAF: // leaf
-      switch (defensetype)
-      {
-        case TYPE_WATER: // water
-          crit = 2;
-          break;
-        default://case TYPE_FIRE: // fire
-          crit = 0;
-          break;
-      }
-    default://case TYPE_FIRE: // fire
-      switch (defensetype)
-      {
-        case TYPE_WATER: // water
-          crit = 0;
-          break;
-        default://case TYPE_LEAF: // leaf
-          crit = 2;
-          break;
-      }
-  }
-  return crit;
+  return typetable[attacktype * 4 + defensetype];
 }
 
 
@@ -280,12 +257,12 @@ void stateGameBattle()
         {
           if (crit > 1)
           {
-            fillWithSentence(77, TEXT_ROLL);
+            fillWithSentence(77, TEXT_NOROLL);
             drawTextBox(70, 10, BLACK);
           }
           if (crit < 1)
           {
-            fillWithSentence(80, TEXT_ROLL);
+            fillWithSentence(80, TEXT_NOROLL);
             fillWithWord(1, getEnemyName());
             drawTextBox(70, 10, BLACK);
           }

@@ -44,8 +44,9 @@
 #define STATE_GAME_END                23  // stateGameSaveSoundEnd
 #define STATE_GAME_OBJECTS            24  // stateGameObjects
 #define STATE_GAME_SHOP               25  // stateGameShop
+#define STATE_GAME_INN                26  // stateGameInn
 
-#define STATE_REBOOT                  26  // reprogramming instructions
+#define STATE_REBOOT                  27  // reprogramming instructions
 
 #define FACING_SOUTH                  0 //0B00000000
 #define FACING_WEST                   1 //0B00000001
@@ -55,7 +56,7 @@
 #define LIST_SHOP_SELLS               0
 #define LIST_SHOP_BUYS                1
 #define LIST_OF_ITEMS                 2
-#define LIST_OF_WAEPON                3
+#define LIST_OF_WEAPON                3
 #define LIST_OF_ARMOR                 4
 #define LIST_OF_AMULET                5
 
@@ -107,6 +108,8 @@
 #define BIT_6                         32
 #define BIT_7                         64
 #define BIT_8                         128
+
+#define INN_PRICE                     5
 
 /*  Amulet magic data
  *  Cost is an integer. Always costs this much.

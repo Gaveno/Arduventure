@@ -757,18 +757,21 @@ PROGMEM const unsigned char library[] =
   // PLACE 237 : CAST
   4,
   CHAR_C, CHAR_A, CHAR_S, CHAR_T,
-  // PLACE 238 : AIRO
+  // PLACE 238 : FOGL
   4,
-  CHAR_A, CHAR_I, CHAR_R, CHAR_O,
-  // PLACE 239 : SHEL
+  CHAR_F, CHAR_O, CHAR_G, CHAR_L,
+  // PLACE 239 : TURL
   4,
-  CHAR_S, CHAR_H, CHAR_E, CHAR_L,
-  // PLACE 240 : OARK
+  CHAR_T, CHAR_U, CHAR_R, CHAR_L,
+  // PLACE 240 : ARBO
   4,
-  CHAR_O, CHAR_A, CHAR_R, CHAR_K,
-  // PLACE 241 : MOTO
+  CHAR_A, CHAR_R, CHAR_B, CHAR_O,
+  // PLACE 241 : DAGN
   4,
-  CHAR_M, CHAR_O, CHAR_T, CHAR_O,
+  CHAR_D, CHAR_A, CHAR_G, CHAR_N,
+  // PLACE 242 : REST
+  4,
+  CHAR_R, CHAR_E, CHAR_S, CHAR_T,
 };
 
 
@@ -1020,9 +1023,9 @@ PROGMEM const unsigned char sentences[] =
   6,
   9, SPACE, 7, SPACE, 3, 40,
 
-  // PLACE 60 : SHOPS SELL BOOKS
+  // PLACE 60 : LOTS OF MONSTERS!
   7,
-  194, 60, SPACE, 25, SPACE, 183, 60,
+  57, SPACE, 92, SPACE, 78, 60, 39,
 
   // PLACE 61 : BLADE PIECES FOUND:..
   7,
@@ -1097,12 +1100,18 @@ PROGMEM const unsigned char sentences[] =
   // PLACE 79 : YOU CAST <type>
   5,
   62, SPACE, 237, TRIPLESPACE, TRIPLESPACE,
-  // PLACE 80 : <monstername> DEFENDS YOUR MAGIC...
-  8,
-  FOURSPACE, SPACE, 14, 60, SPACE, 7, 180, 133,
+  // PLACE 80 : DEFENDED...
+  3,
+  14, 232, 133,
   // PLACE 81 : <magictype>: <cost>MP
   9,
   180, NEWLINE, FOURSPACE, DOUBLESPACE, NEWLINE, SPACE, 84, 42, TRIPLESPACE,
+  // PLACE 82 : YOU NEED REST
+  5,
+  62, SPACE, 191, SPACE, 242,
+  // PLACE 83 : NEED MORE GOLD
+  5,
+  191, SPACE, 19, SPACE, 125,
 };
 
 
