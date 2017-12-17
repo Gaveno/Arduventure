@@ -38,7 +38,7 @@ void buttonsUpDownA()
   {
     gameState = STATE_GAME_INVENTORY;
     yesNo = false;
-    cursorY = 4;
+    //cursorY = 4;
     cursorYesNoY = true;
   }
 }

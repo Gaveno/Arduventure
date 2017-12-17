@@ -59,7 +59,7 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
   byte region = player.currentRegion - REGION_YOUR_GARDEN; // 1-4 (in)
   byte lvlRange = (region) * 2;                            // 2-8 (in)
   byte monster = generateRandomNumber(min(7, lvlRange)); // 0-6 (in)
-  byte statType = generateRandomNumber(3);
+  byte statType = stattype;
   // get random level offset
   enemy.level = lvl;
   enemy.type = type;
@@ -72,12 +72,13 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
     region--;       // 0-3
     enemy.level += region * 5;  // 1-23
     enemy.type = (monster - 1) / 2;
+    statType = generateRandomNumber(3);
   }
 
   enemy.defense = 3;
   enemy.specDefense = 3;
   enemy.health = 3;
-  enemy.attack = 3;
+  enemy.attack = 6;
   enemy.speed = 5;
   enemy.health *= enemy.level;
   enemy.defense *= enemy.level;
@@ -138,7 +139,7 @@ byte getEnemyName()
 
 void drawBoss(int8_t yoffset)
 {
-  sprites.drawSelfMasked(52, 16, bossSprites, enemy.images);
+  sprites.drawOverwrite(52, 16 + yoffset, bossSprites, enemy.images);
 }
 
 

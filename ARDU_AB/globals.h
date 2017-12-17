@@ -139,6 +139,7 @@ byte globalCounter = 0;
 byte currentLetter = 0;
 byte cursorX = 0;
 byte cursorY = 0;
+byte inventorySelection;
 boolean cursorYesNoY = true;
 boolean question = false;
 boolean yesNo = false;
@@ -205,7 +206,12 @@ void drawRectangle(byte startX, byte startY, byte endX, byte endY, byte color )
 byte bitCount(byte toCount)
 {
   byte amountOfBits = 0;
-  for (byte i = 0; i < 8; i++) amountOfBits += bitRead(toCount, i);
+  //for (byte i = 0; i < 8; i++) amountOfBits += bitRead(toCount, i);
+  while (toCount > 0)
+  {
+    toCount >>= 1;
+    amountOfBits += (toCount & 0x01);
+  }
   return amountOfBits;
 }
 

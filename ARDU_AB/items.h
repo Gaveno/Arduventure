@@ -37,12 +37,11 @@
 void drawList()
 {
   byte positionText = 0;
-
+  rollText = false;
   for (byte i = 0; i < 8; i++)
   {
     if (bitRead (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))], i))
     {
-      rollText = false;
       // LIST
       fillWithWord(0, 97 + (8 * (gameState - STATE_GAME_ITEMS)) + i);
       drawTextBox(12, 9 + (6 * positionText), BLACK);
@@ -62,6 +61,7 @@ void drawList()
       // show: explaination of selected item
       if (positionText == cursorY)
       {
+        inventorySelection = i;
         switch (gameState)
         {
           case STATE_GAME_ITEMS:
@@ -69,11 +69,11 @@ void drawList()
             break;
           case STATE_GAME_WEAPON:
             fillWithSentence(27);
-            fillWithNumber(15,i+1);
+            fillWithNumber(15,(i+1)*3);
             break;
           case STATE_GAME_ARMOR:
             fillWithSentence(28);
-            fillWithNumber(15,i+1);
+            fillWithNumber(15,(i+1)*3);
             break;
           default://case STATE_GAME_AMULET:
             fillWithSentence(29 + i);
@@ -96,48 +96,38 @@ void drawList()
 
 void selectItemsEquipment()
 {
-  // set the equipped flag or item used flag
-  player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1] = 0;
-  // because the list is dynamic, we need to count the objects that are shown.
-  byte AmountOfObjectsShown = 0;
-  for (byte i = 0; i < 8; i++)
+  // Set item equipped or used
+  player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1] = _BV(inventorySelection);
+  // Hand which menu?
+  switch (gameState)
   {
-    if (bitRead (player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))], i)) AmountOfObjectsShown++;
-    if (AmountOfObjectsShown - 1 == cursorY) bitSet(player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1], i);
-
-    if (bitRead(player.hasStuff[(gameState - STATE_GAME_ITEMS) * 2 + 1], i))
+    case STATE_GAME_ITEMS:
+    // Subtract item, use effect
+    player.itemsAmount[inventorySelection] -= 1;
+    if (player.itemsAmount[inventorySelection] == 0) bitClear(player.hasStuff[0], inventorySelection);
+    // Item Effects
+    switch (inventorySelection)
     {
-      switch (gameState)
-      {
-        // if an item is used decrease the item amount
-        case STATE_GAME_ITEMS:
-        player.itemsAmount[i] -= 1;
-        if (player.itemsAmount[i] < 1) bitClear(player.hasStuff[0], i);
-        // Item Effects
-        switch (i)
-        {
-          case 0: // Apple
-          player.health = min(player.health+5, player.healthTotal);
-          break;
-          case 1: // Cider
-          player.health = min(player.health+15, player.healthTotal);
-          break;
-          case 2: // Anise
-          player.magic = min(player.magic+5, player.magicTotal);
-          break;
-          case 3: // Absinthe
-          player.magic = min(player.magic+15, player.magicTotal);
-          break;
-        }
-        break;
-        case STATE_GAME_WEAPON: // set player.attackAddition based on item equipped
-        player.attackAddition = i+1;
-        break;
-        case STATE_GAME_ARMOR: // set player.defenseAddition based on item equipped
-        player.defenseAddition = i+1;
-        break;
-      }
+      case 0: // Apple
+      player.health = min(player.health+5, player.healthTotal);
+      break;
+      case 1: // Cider
+      player.health = min(player.health+15, player.healthTotal);
+      break;
+      case 2: // Anise
+      player.magic = min(player.magic+5, player.magicTotal);
+      break;
+      case 3: // Absinthe
+      player.magic = min(player.magic+15, player.magicTotal);
+      break;
     }
+    break;
+    case STATE_GAME_WEAPON:
+    player.attackAddition = (inventorySelection + 1) * 3;
+    break;
+    case STATE_GAME_ARMOR:
+    player.defenseAddition = (inventorySelection + 1) * 3;
+    break;
   }
 }
 

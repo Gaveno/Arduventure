@@ -32,20 +32,35 @@ void drawMap()
           if (getMapFog(chunk_pos_x, chunk_pos_y))
           {
             byte testRegion;
+            miniMapTile = 8;
             // Regional chunk
             if (getChunk(chunk_pos_x, chunk_pos_y) < 128)
             {
               if (getChunkBit(chunk_pos_x, chunk_pos_y))
               {
                 testRegion = getRegion(chunk_pos_x, chunk_pos_y);
-                if (testRegion < 4) miniMapTile = 2;
+                /*if (testRegion < 4) miniMapTile = 2;
                 else if (testRegion < 6) miniMapTile = 3;
                 else if (testRegion < 10) miniMapTile = 4;
                 else if (testRegion == 10) miniMapTile = 3;
                 else if (testRegion == 11) miniMapTile = 2;
-                else if (testRegion == 12) miniMapTile = 1;
+                else if (testRegion == 12) miniMapTile = 1;*/
+                switch (testRegion)
+                {
+                  case 4: case 5: case 10:
+                  miniMapTile = 3;
+                  break;
+                  case 6: case 7: case 8: case 9:
+                  miniMapTile = 4;
+                  break;
+                  case 12:
+                  miniMapTile = 1;
+                  break;
+                  default:
+                  miniMapTile = 2;
+                }
               }
-              else miniMapTile = 8;
+              //else miniMapTile = 8;
             }
             // Specific chunk
             else

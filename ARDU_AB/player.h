@@ -9,10 +9,10 @@
 #define PLAYER_START_Y               2976  //170
 #define ANIMATION_SPEED              8                  // higher number = slower animation
 #define MAX_LEVEL                    40
-#define HP_PER_LEVEL                 6
+#define HP_PER_LEVEL                 7
 #define MP_PER_LEVEL                 6
 #define ATK_PER_LEVEL                3
-#define DEF_PER_LEVEL                4
+#define DEF_PER_LEVEL                6
 #define SPD_PER_LEVEL                5
 #define EXP_MULTIPLIER               30
 
@@ -61,7 +61,7 @@ struct Player
   byte speed;
   byte speedAddition;
   byte lastDoor;
-  byte bossCardRegionRoaming;
+  //byte bossCardRegionRoaming;
   byte bossActiveAlive;
   unsigned char gameTriggers[4];
   unsigned char hasStuff[8];
@@ -104,17 +104,17 @@ void setPlayer()
     7, 0,                                     // defense
     3, 0,                                     // speed
     48,                                       // lastDoor is your house
-    0B00010000,                               // bossCardRegionRoaming
+    //0B00000001,                               // bossCardRegionRoaming
     //|||||||└---------------------------------> 0 YOU HAVE BOSS CARD ONE   (0 = false / 1 = true)
     //||||||└----------------------------------> 1 YOU HAVE BOSS CARD TWO   (0 = false / 1 = true)
     //|||||└-----------------------------------> 2 YOU HAVE BOSS CARD THREE (0 = false / 1 = true)
     //||||└------------------------------------> 3 YOU HAVE BOSS CARD FOUR  (0 = false / 1 = true)
     //|||└-------------------------------------> 4  \
     //||└--------------------------------------> 5   | ROAMING REGION  (1 = FIELDS, 2 = SWAMP, 3= FORREST, 4 = CANYON)
-    //|└---------------------------------------> 6  /
-    //└----------------------------------------> 7
+    //|└---------------------------------------> 6   |
+    //└----------------------------------------> 7  /
 
-    0B00000000,                               // bossActiveAlive
+    0B00001111,                               // bossActiveAlive
     //|||||||└-------------------------------->  0 BOSS ONE is alive        (0 = false / 1 = true)
     //||||||└--------------------------------->  1 BOSS TWO is alive        (0 = false / 1 = true)
     //|||||└---------------------------------->  2 BOSS THREE is alive      (0 = false / 1 = true)
@@ -155,7 +155,7 @@ void setPlayer()
       //|└-------------------------------------> 6 chest 22 has been opened (0 = false / 1 = true) Chest in Swamp North
       //└--------------------------------------> 7 chest 23 has been opened (0 = false / 1 = true) Chest in Forrest Middle
 
-      0B00001111,                             // Special triggers
+      0B00000000,                             // Special triggers
       //|||||||└-------------------------------> 0 used amulet of fire  on rock       (0 = false / 1 = true)
       //||||||└--------------------------------> 1 used amulet of leafs on rock       (0 = false / 1 = true)
       //|||||└---------------------------------> 2 used amulet of water on rock       (0 = false / 1 = true)
@@ -166,7 +166,7 @@ void setPlayer()
       //└--------------------------------------> 7                                    (0 = false / 1 = true)
     },
     {
-      0B11111111,                             // hasItem
+      0B00000000,                             // hasItem
       0B00000000,                             // using the item
       //|||||||└-------------------------------> 0 apple
       //||||||└--------------------------------> 1 cider
@@ -177,7 +177,7 @@ void setPlayer()
       //|└-------------------------------------> 6 emerald
       //└--------------------------------------> 7 diamond
 
-      0B11111111,                             // hasWeapon
+      0B00000000,                             // hasWeapon
       0B00000000,                             // equippedWeapon
       //|||||||└-------------------------------> 0 sling
       //||||||└--------------------------------> 1 knife
@@ -188,7 +188,7 @@ void setPlayer()
       //|└-------------------------------------> 6 spear
       //└--------------------------------------> 7 bow
 
-      0B11111111,                             // hasArmorType
+      0B00000000,                             // hasArmorType
       0B00000000,                             // equipedArmorType
       //|||||||└-------------------------------> 0 wool
       //||||||└--------------------------------> 1 linen
@@ -199,7 +199,7 @@ void setPlayer()
       //|└-------------------------------------> 6 iron
       //└--------------------------------------> 7 steel
 
-      0B11111111,                             // hasAmulet
+      0B00000000,                             // hasAmulet
       0B00000000,                             // equipedAmulet
       //|||||||└-------------------------------> 0 fire
       //||||||└--------------------------------> 1 leafs
@@ -211,8 +211,8 @@ void setPlayer()
       //└--------------------------------------> 7 ruby
     },
 
-    {1, 5, 3, 4, 7, 6, 9, 64},                 // amount of each item (max 64)
-    //{0, 0, 0, 0, 0, 0, 0, 0,},                   // amount of each item (max 64)
+    //{1, 5, 3, 4, 7, 6, 9, 64},                 // amount of each item (max 64)
+    {0, 0, 0, 0, 0, 0, 0, 0,},                   // amount of each item (max 64)
 
     {5, 50, 50, 50, 50, 50},                     // name
     { 0B00000000, 0B00000000},                   // Fog x and y coördinates
@@ -326,7 +326,8 @@ void drawPlayerObjects()
   for (byte i = 0; i < 4; i++)
   {
     sprites.drawErase(34 + (i*24), 34, tileSheet, 0);
-    if (player.bossCardRegionRoaming & (1 << i))
+    //if (player.bossCardRegionRoaming & (1 << i))
+    if (!(player.bossActiveAlive & _BV(i)))
       sprites.drawSelfMasked(36 + (i*24), 38, miniMapSheet, (4 - i));
   }
   fillWithWord(31, 207);

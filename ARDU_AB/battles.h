@@ -75,7 +75,7 @@ void endBattle()
   counterDown = false;
   //textRollAmount = 0;
   if (player.health < 1) gameState = STATE_GAME_OVER;
-  else gameState = STATE_GAME_PLAYING;
+  else gameState = STATE_BATTLE_REWARDS;
 }
 
 int8_t getEnemyOffset( )
@@ -349,7 +349,7 @@ void stateGameBattle()
           if (generateRandomNumber(chancetotal) > ENEMY_MISS_CHANCE)
           {
             // Enemy landed hit, subtract health
-            damagePlayer(enemy.attack);   
+            damagePlayer(enemy.attack * enemy.level);   
           }
         }
         if (battleBlink < 60)
@@ -392,7 +392,8 @@ void stateGameBattle()
           }
           else
           {
-            ++fadeCounter;    // Player is dead.
+            gameState = STATE_GAME_OVER;
+            //++fadeCounter;    // Player is dead.
           }
         }
       }
@@ -529,19 +530,21 @@ void stateGameBattle()
        }
        break;
     }
+    // Player health and mana at top of screen
     fillWithSentence(64);
     if (battleProgress != BATTLE_PLAYER_HURT || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0) {
       fillWithNumber(4, player.health);
     }
-    fillWithWord(7, 43);
+    //fillWithWord(7, 43);
     fillWithNumber(8, player.healthTotal);
-    fillWithNumber(14, player.magic);
-    fillWithWord(17, 43);
-    fillWithNumber(18, player.magicTotal);
+    fillWithNumber(15, player.magic);
+    //fillWithWord(17, 43);
+    fillWithNumber(19, player.magicTotal);
     if (battleProgress != BATTLE_LEVEL_UP || battleBlink % 4 != 0)
     {
       drawTextBox(0, 2, WHITE);
     }
+    // Enemy details
     fillWithSentence(75);
     fillWithWord(1, getEnemyName());
     fillWithNumber(10, enemy.level);
@@ -551,26 +554,26 @@ void stateGameBattle()
     switch (player.hasStuff[7])
     {
       case BIT_1: // FIRE
-        fillWithWord(8, 121);
+        fillWithWord(1, 121);
         break;
       case BIT_2: // LEAF
-        fillWithWord(8, 122);
+        fillWithWord(1, 122);
         break;
       case BIT_3: // WATER
-        fillWithWord(8, 123);
+        fillWithWord(1, 123);
         break;
       default:
-        fillWithWord(8, 236);
+        fillWithWord(1, 236);
         break;
     }
-    fillWithNumber(18, magiccost);
+    fillWithNumber(7, magiccost);
     drawTextBox(92, 15, BLACK);
-    //drawBoss();
   }
   else
   {
     gameState = STATE_BATTLE_REWARDS;
     fadeCounter = 0;
+    //endBattle();
   }
 }
 
@@ -597,6 +600,8 @@ void setupBattle()
     battleRewardType[1] = 0;  // gold
     battleRewardNumb[1] = 30; // 30 gold
     battleRewardType[2] = 128;// exit
+    player.gold += battleRewardNumb[1];
+    bitClear(player.bossActiveAlive, player.lastDoor - 28);
     switch (player.lastDoor)
     {
       case 28: //bird
@@ -617,8 +622,9 @@ void setupBattle()
   {
     createEnemy(player.level);
     battleRewardType[0] = 0;
-    battleRewardNumb[0] = generateRandomNumber(10) + 1;
+    battleRewardNumb[0] = generateRandomNumber(4) + 1;
     battleRewardType[1] = 128;// exit
+    player.gold += battleRewardNumb[0];
   }
   
   clearCursor();
@@ -671,19 +677,17 @@ void stateGameBoss()
  */
 void battleGiveRewards()
 {
-  arduboy.fillScreen(WHITE);
+  arduboy.fillScreen(BLACK);
   switch (battleRewardType[fadeCounter])
   {
     case 0: // gold
     fillWithSentence(48, TEXT_ROLL);
     fillWithWord(11, 125);
     fillWithNumber(28, battleRewardNumb[fadeCounter]);
-    player.gold += battleRewardNumb[fadeCounter];
-    battleRewardNumb[fadeCounter] = 0;
     break;
     case 1: // amulet
     fillWithSentence(52, TEXT_ROLL);
-    fillWithWord(21, 151 - player.lastDoor);
+    fillWithWord(23, 151 - player.lastDoor);
     bitSet(player.hasStuff[6], 30 - player.lastDoor);
     break;
     default:
@@ -691,7 +695,7 @@ void battleGiveRewards()
     gameState = STATE_GAME_PLAYING;
     return;
   }
-  drawTextBox(0, 32, BLACK);
+  drawTextBox(8, 32, WHITE);
 }
 
 #endif

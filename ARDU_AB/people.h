@@ -97,15 +97,17 @@ void updatePeople()
 }
 
 void drawPeople() {
-  byte breath = (((globalFrame % 20) < 10) ? 1 : 0);
-  byte handMove = ((((globalFrame + 5) % 20) < 10) ? 1 : 0);
+  //byte breath = (((globalFrame % 20) < 10) ? 1 : 0);
+  //byte handMove = ((((globalFrame + 5) % 20) < 10) ? 1 : 0);
+  byte breath = ((globalFrame % 16) >> 4);
+  byte handMove = (((globalFrame + 5) % 16) >> 4);
   int people_x = npc.x - camX;
   int people_y = npc.y - camY;
-  sprites.drawPlusMask(people_x + 3, people_y + 9 , npcBody_plus_mask, (npc.type << 5) >> 5); //npc.type & 0b00000111);
+  //sprites.drawPlusMask(people_x + 3, people_y + 9 , npcBody_plus_mask, (npc.type << 5) >> 5); //npc.type & 0b00000111);
+  sprites.drawPlusMask(people_x + 3, people_y + 9 , npcBody_plus_mask, npc.type & 0x07); //npc.type & 0b00000111);
   sprites.drawPlusMask(people_x + 2, people_y + 11 - handMove, npcHands_plus_mask, 0);
   sprites.drawPlusMask(people_x, people_y + breath, npcHead_plus_mask, npc.type >> 5);
   blinkingEyes(people_x + 6, people_y + 7 + breath);
-
 }
 
 /* Interact with a person.
@@ -124,7 +126,7 @@ void investigatePeople(int ix, int iy)
     switch (testArea)
     {
       case 48:  // neighbor npc outside
-        fillWithSentence(60, TEXT_ROLL); // "shops sell books"
+        fillWithSentence(63, TEXT_ROLL); // "you'll need a map"
         break;
       case 58:  // shops
         gameState = STATE_GAME_SHOP;
@@ -136,12 +138,13 @@ void investigatePeople(int ix, int iy)
         break;
       default://case 61: // houses
         {
-          switch (player.lastDoor)
+          fillWithSentence(60, TEXT_ROLL); // "lots of monsters!"
+          /*switch (player.lastDoor)
           {
             case 34: // NPC in door 34 Fields
               fillWithSentence(60, TEXT_ROLL);
               break;
-          }
+          }*/
         }
         break;
     }

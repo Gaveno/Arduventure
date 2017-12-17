@@ -40,9 +40,9 @@ void investigateObjects(byte object)
       case TILE_SHELVE_LOW:         // 50
         if ((bitRead(player.gameTriggers[3], 3) == 0) && (player.x / 16 == 63) && (player.lastDoor == 24))
         {
-          bitSet(player.gameTriggers[3], 3); // map?
+          bitSet(player.gameTriggers[3], 3);
           fillWithSentence(49, TEXT_ROLL);
-          fillWithWord(23, 144);
+          fillWithWord(23, 144);  // map
         }
         else fillWithSentence(56, TEXT_ROLL);
         break;
@@ -56,11 +56,11 @@ void investigateObjects(byte object)
           case 31:                  // CAVE CANYON
             if (bitRead(player.bossActiveAlive, player.lastDoor - 28))
             {
-              if (bitRead(player.bossCardRegionRoaming, player.lastDoor - 28))
-              {
+              //if (bitRead(player.bossCardRegionRoaming, player.lastDoor - 28))
+              //{
                 gameState = STATE_GAME_BOSS;
-              }
-              else fillWithSentence(60, TEXT_ROLL);  // "shops sell books"
+              //}
+              //else fillWithSentence(60, TEXT_ROLL);  // "shops sell books"
             }
             else fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
             break;
