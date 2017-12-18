@@ -115,10 +115,10 @@
 #define INN_PRICE                     5
 
 /*  Amulet magic data
- *  Cost is an integer. Always costs this much.
- *  damage is an expression. The base attack will have this
- *  added. (ex. "magicdamage += MAGIC_DAMAGE_NORMAL;" would become "magicdamage += (player.attack >> 2);")
- */
+    Cost is an integer. Always costs this much.
+    damage is an expression. The base attack will have this
+    added. (ex. "magicdamage += MAGIC_DAMAGE_NORMAL;" would become "magicdamage += (player.attack >> 2);")
+*/
 #define MAGIC_COST_NORMAL             4
 #define MAGIC_DAMAGE_NORMAL           (player.attack >> 1)  // add 50% base damage
 #define MAGIC_COST_FIRE               9
@@ -157,6 +157,9 @@ byte battleProgress;
 byte textRollAmount = 0;
 byte globalFrame = 0;
 byte songPlaying = 0;
+
+// Shop
+bool needMoreMoney = false;
 
 // Keep track of last damage dealt
 int lastDamageDealt = 0;
@@ -219,10 +222,22 @@ byte bitCount(byte toCount)
 
 void showFadeOutIn()
 {
-  byte transitionTileX = 0;
-  byte transitionTileY = 0;
-  for (byte i = 0; i < 128; i++)
+  byte transitionTileX = 120;
+  byte transitionTileY = 56;
+  while (transitionTileY <= 64)
   {
+    sprites.drawErase(transitionTileX, transitionTileY, transitionSet, fadeCounter % 7);
+    transitionTileX -= 8;
+    if (transitionTileX >= 128)
+    {
+      transitionTileX = 120;
+      transitionTileY -= 8;
+    }
+  }
+  /*byte transitionTileX = 0;
+    byte transitionTileY = 0;
+    for (byte i = 0; i < 128; i++)
+    {
     sprites.drawErase(transitionTileX, transitionTileY, transitionSet, fadeCounter % 7);
     transitionTileX += 8;
     if (transitionTileX > 127)
@@ -230,12 +245,12 @@ void showFadeOutIn()
       transitionTileX = 0;
       transitionTileY += 8;
     }
-  }
+    }*/
 }
 
 /*
- * !!!Maximum input value is 26!!!
- */
+   !!!Maximum input value is 26!!!
+*/
 byte generateRandomNumber(byte maxValue)
 {
   randomCounter += arduboy.frameCount;
@@ -248,7 +263,7 @@ byte generateRandomNumber(byte maxValue)
 
 void blinkingEyes(byte x, byte y)
 {
-  byte blinking = (globalFrame % 40 < 4) ? (globalFrame % 40 ) : 0;
+  byte blinking = (globalFrame % 32 < 4) ? (globalFrame % 32 ) : 0;
   sprites.drawSelfMasked(x, y, eyesBlinking, pgm_read_byte(&eyesSeq[blinking]));
 }
 
@@ -261,7 +276,7 @@ void flashScreen(byte color)
 {
   if (fadeCounter < 6)
   {
-    if (arduboy.everyXFrames(12))
+    if (arduboy.everyXFrames(16))
     {
       counterDown = !counterDown;
       fadeCounter++;

@@ -49,8 +49,11 @@ const unsigned int shopPrices[] = {
 
 void buyItem()
 {
+  needMoreMoney = true;
   if (player.gold >= shopPrices[cursorY])
   {
+    question = false;
+    needMoreMoney = false;
     player.gold -= shopPrices[cursorY];
     bitSet(player.hasStuff[0], cursorY);
     ++player.itemsAmount[cursorY];

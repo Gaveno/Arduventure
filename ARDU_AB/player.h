@@ -17,7 +17,7 @@
 #define EXP_MULTIPLIER               30
 
 
-const unsigned char PROGMEM animSeq[] = { 0, 1, 2, 1 };
+const byte animSeq[] = { 0, 1, 2, 1 };
 //const unsigned char PROGMEM collisionPoints[][2] =
 const byte collisionPoints[][2] =
 {
@@ -282,7 +282,7 @@ void drawPlayer()
   }
   else playerFrame = 1;
 
-  byte spriteFrame = (foundSomething) ? 1 : (pgm_read_byte(&animSeq[playerFrame]) + 3 * playerDirection);
+  byte spriteFrame = (foundSomething) ? 1 : (animSeq[playerFrame] + 3 * playerDirection);
   sprites.drawPlusMask(player.x - camX + 2, player.y - camY - (playerFrame % 2) + 1, playerHead_plus_mask, spriteFrame / 3);
   sprites.drawPlusMask(player.x - camX + 2, player.y - camY + 8, playerFeet_plus_mask, spriteFrame);
   if (spriteFrame == 1) blinkingEyes(player.x - camX + 6, player.y - camY + 7);

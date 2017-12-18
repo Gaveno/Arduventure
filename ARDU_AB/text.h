@@ -21,7 +21,7 @@
 #include "globals.h"
 #include "dictionary.h"
 
-byte textspeed = 2;
+byte textspeed = TEXT_ROLL_DELAY;
 byte prevSentence = 255;
 bool rollText = false;
 
@@ -132,7 +132,7 @@ void drawTextBox(byte x, byte y, boolean color)
 void drawQuestion()
 {
   drawRectangle(0, 45, 130, 64, BLACK);
-  fillWithSentence(gameState - 1, TEXT_ROLL);
+  fillWithSentence((gameState != STATE_GAME_SHOP) ? gameState - 1 : 84 - needMoreMoney, TEXT_ROLL);
   drawTextBox(4, 50, WHITE);
 }
 

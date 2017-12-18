@@ -43,11 +43,11 @@ void stateMenuIntro()
     }
     if (arduboy.justPressed(A_BUTTON | B_BUTTON))
     {
-      globalCounter = 0;
+      //globalCounter = 0;
       gameState = STATE_MENU_MAIN;
       if (EEPROM.read(EEPROM_START) == GAME_ID) firstGame = false;
       cursorY = STATE_MENU_CONTINUE + firstGame;
-      textspeed = TEXT_ROLL_DELAY;
+      //textspeed = TEXT_ROLL_DELAY;
     }
   }
 }

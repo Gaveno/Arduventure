@@ -27,8 +27,8 @@
 #define CHAR_V  22
 #define CHAR_W  23
 #define CHAR_X  24
-#define CHAR_Y  26
-#define CHAR_Z  27
+#define CHAR_Y  25
+#define CHAR_Z  26
 
 unsigned char textBox[75];
 
@@ -772,6 +772,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 242 : REST
   4,
   CHAR_R, CHAR_E, CHAR_S, CHAR_T,
+  // PLACE 243 : BUY
+  3,
+  CHAR_B, CHAR_U, CHAR_Y,
 };
 
 
@@ -1091,24 +1094,34 @@ PROGMEM const unsigned char sentences[] =
   // PLACE 77 : CRITICAL!
   2,
   235, 39,
+  
   // PLACE 78 : NEED MORE MP!
   6,
   191, SPACE, 19, SPACE, 84, 39,
+  
   // PLACE 79 : YOU CAST <type>
   5,
   62, SPACE, 237, TRIPLESPACE, TRIPLESPACE,
+  
   // PLACE 80 : DEFENDED...
   3,
   14, 232, 133,
+  
   // PLACE 81 : <magictype>/<cost>MP
   4,
   FIVESPACE, NEWLINE, TRIPLESPACE, 84,
+  
   // PLACE 82 : YOU NEED REST
   5,
   62, SPACE, 191, SPACE, 242,
+  
   // PLACE 83 : NEED MORE GOLD
   5,
   191, SPACE, 19, SPACE, 125,
+  
+  // PLACE 84 : BUY ITEM?
+  4,
+  243, SPACE, 71, 40,
 };
 
 

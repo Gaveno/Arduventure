@@ -12,10 +12,10 @@ bool textReset = true;
 
 bool checkPlayerCollision(byte orientation)
 {
-  int pointOne = player.x + pgm_read_byte(&collisionPoints[2 * orientation][0]);
-  int pointTwo = player.y + pgm_read_byte(&collisionPoints[2 * orientation][1]);
-  int pointThree = player.x + pgm_read_byte(&collisionPoints[(2 * orientation) + 1][0]);
-  int pointFour = player.y + pgm_read_byte(&collisionPoints[(2 * orientation) + 1][1]);
+  int pointOne = player.x + collisionPoints[2 * orientation][0];
+  int pointTwo = player.y + collisionPoints[2 * orientation][1];
+  int pointThree = player.x + collisionPoints[(2 * orientation) + 1][0];
+  int pointFour = player.y + collisionPoints[(2 * orientation) + 1][1];
   if (
     !getSolid(pointOne, pointTwo) &&
     !getSolid(pointThree, pointFour) &&
@@ -33,14 +33,14 @@ bool checkPlayerCollision(byte orientation)
 void buttonsUpDownA()
 {
   if (arduboy.justPressed(UP_BUTTON)) cursorYesNoY = true;
-  else if (arduboy.justPressed(DOWN_BUTTON)) cursorYesNoY = false;
-  else if (arduboy.justPressed(A_BUTTON))
+  else if (arduboy.justPressed(DOWN_BUTTON) || arduboy.justPressed(A_BUTTON)) cursorYesNoY = false;
+  /*else if (arduboy.justPressed(A_BUTTON))
   {
-    gameState = STATE_GAME_INVENTORY;
+    //gameState = STATE_GAME_INVENTORY;
     yesNo = false;
     //cursorY = 4;
     cursorYesNoY = true;
-  }
+  }*/
 }
 
 void checkInputs()
@@ -202,7 +202,12 @@ void checkInputs()
     case STATE_GAME_SHOP:
       if (!yesNo)
       {
-        if (arduboy.justPressed(A_BUTTON)) gameState = STATE_GAME_PLAYING;
+        if (question && textReset)
+        {
+          needMoreMoney = false;
+          question = false;
+        }
+        else if (arduboy.justPressed(A_BUTTON)) gameState = STATE_GAME_PLAYING;
         else if (arduboy.justPressed(UP_BUTTON) && (cursorY > 0)) cursorY--;
         else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < TOTAL_SHOP_ITEMS - 1)) cursorY++;
         else if (arduboy.justPressed(B_BUTTON))
@@ -221,7 +226,7 @@ void checkInputs()
             // yes to buying item
             buyItem();
           }
-          question = false;
+          //question = false;
           yesNo = false;
           cursorYesNoY = true;
         }
