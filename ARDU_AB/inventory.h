@@ -81,8 +81,32 @@ void investigateObjects(byte object)
           fillWithWord(24, 171  - player.currentRegion);
         }
         break;
+        //      ----CHESTS----
       case TILE_CLOSED_BOX:         //57
-        if ((player.lastDoor) == 48)
+      {
+        byte playerchunkadd = playerReducedX + playerReducedY;
+        if (playerchunkadd == 21)
+        {
+          bitSet(player.hasStuff[4], 0);  // Wool armor
+          bitSet(player.gameTriggers[2], 5);
+          fillWithSentence(51, TEXT_ROLL);
+          fillWithWord(23, 113);
+        }
+        /*else if (playerchunkadd == 40)
+        {
+          bitSet(player.hasStuff[4], 4);  // Bone armor
+          bitSet(player.gameTriggers[2], 6);
+          fillWithSentence(51, TEXT_ROLL);
+          fillWithWord(23, 116);
+        }*/
+        else if (playerchunkadd == 29)
+        {
+          bitSet(player.hasStuff[2], 6);  // Spear
+          bitSet(player.gameTriggers[2], 7);
+          fillWithSentence(50, TEXT_ROLL);
+          fillWithWord(23, 111);
+        }
+        else if ((player.lastDoor) == 48)  // Players house
         {
           bitSet(player.hasStuff[2], 0);
           bitSet(player.gameTriggers[2], 4);
@@ -132,6 +156,7 @@ void investigateObjects(byte object)
             bitSet(player.hasStuff[4], amount);
           }
         }
+      }
         break;
       default:
         fillWithSentence(44, TEXT_ROLL);

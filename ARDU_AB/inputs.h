@@ -363,12 +363,6 @@ void checkInputs()
             }
           }
           break;
-        /*case BATTLE_ATTACK:
-          if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
-          break;
-        case BATTLE_MAGIC:
-          if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
-          break;*/
         case BATTLE_ESCAPE:
           //if (arduboy.justPressed(B_BUTTON | A_BUTTON)) fadeCounter = 7;
           if (textReset)
