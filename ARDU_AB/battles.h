@@ -204,7 +204,7 @@ void stateGameBattle()
        */
       case BATTLE_ESCAPE:
       {
-        if (player.currentRegion != REGION_CAVE_INTERIOR || player.speed > enemy.speed)
+        if (player.currentRegion != REGION_CAVE_INTERIOR)
         {
           // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
           fillWithSentence(46, TEXT_ROLL);
@@ -619,6 +619,8 @@ void setupBattle()
       break;
     }
     enemy.images = player.lastDoor - 28;
+    enemy.health += 10 * (player.lastDoor - 27);
+    //player.experience = min((int)player.experience + 10 * (player.lastDoor - 27), 255);
   }
   else
   {

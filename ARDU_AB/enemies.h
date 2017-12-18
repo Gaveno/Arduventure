@@ -78,7 +78,7 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
   enemy.defense = 3;
   enemy.specDefense = 3;
   enemy.health = 3;
-  enemy.attack = 6;
+  enemy.attack = 5;
   enemy.speed = 5;
   enemy.health *= enemy.level;
   enemy.defense *= enemy.level;
