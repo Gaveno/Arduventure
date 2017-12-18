@@ -27,7 +27,12 @@
 #define ENEMY_MISS_CHANCE         4    // higher is greater chance to miss
 #define PLAYER_MISS_CHANCE        2   // higher is greater chance to miss
 
+#define ATTACK_IS_MAGIC           true
+#define ATTACK_IS_PHYSICAL        false
+
 #define BOSS                      true
+
+bool lastAttack = false;
 
 /*
  * Enemies stats are based on the player.currentRegion variable.
@@ -145,7 +150,7 @@ void stateGameBattle()
        */
       case BATTLE_ATTACK:
       {
-        magictype = 4; // not magic
+        lastAttack = ATTACK_IS_PHYSICAL;
         byte chancetotal = 20;
         if (player.speed > enemy.speed)
           chancetotal += 5;
@@ -157,12 +162,6 @@ void stateGameBattle()
         }
         else
         {
-          // Landed hit
-          //crit = 1;
-          /*if (chance > CRIT_CHANCE)
-            crit = 2; // Landed crit
-          else
-            crit = 1;*/
           crit = (chance > CRIT_CHANCE) ? 2 : 1;
           damageEnemy(player.attack * crit, player.attackAddition, player.level);
         }
@@ -175,6 +174,7 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
+        lastAttack = ATTACK_IS_MAGIC;
         byte magicdamage = 0; // = player.attack;
         switch (magictype)
         {
@@ -314,7 +314,7 @@ void stateGameBattle()
         }
         else
         {
-          if (magictype == 4)
+          if (lastAttack == ATTACK_IS_PHYSICAL)
           {
             // not magic
             fillWithSentence(71, TEXT_ROLL);
@@ -345,7 +345,7 @@ void stateGameBattle()
           if (generateRandomNumber(chancetotal) > ENEMY_MISS_CHANCE)
           {
             // Enemy landed hit, subtract health
-            damagePlayer(enemy.attack * enemy.level);   
+            damagePlayer(enemy.attack/* * enemy.level*/);   
           }
         }
         if (battleBlink < 60)

@@ -247,7 +247,7 @@ void gainExperience(byte enemy_level)
  */
 void damagePlayer(byte enemy_attack)
 {
-  lastDamageDealt = max((int)enemy_attack * (int)player.level / (int)player.defense, 1);
+  lastDamageDealt = max((int)enemy_attack * (int)player.level / (int)(player.defense + player.defenseAddition), 1);
   int php = (int)player.health - lastDamageDealt;
   player.health = max(php, 0);
 }
