@@ -214,8 +214,8 @@ byte bitCount(byte toCount)
   //for (byte i = 0; i < 8; i++) amountOfBits += bitRead(toCount, i);
   while (toCount > 0)
   {
-    toCount >>= 1;
     amountOfBits += (toCount & 0x01);
+    toCount >>= 1;
   }
   return amountOfBits;
 }

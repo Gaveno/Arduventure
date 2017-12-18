@@ -226,7 +226,7 @@ void checkInputs()
             // yes to buying item
             buyItem();
           }
-          //question = false;
+          else question = false;
           yesNo = false;
           cursorYesNoY = true;
         }
