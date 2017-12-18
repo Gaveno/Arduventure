@@ -618,6 +618,7 @@ void setupBattle()
       createEnemy(player.level, 28, STAT_NEUTRAL, TYPE_FIRE); 
       break;
     }
+    enemy.images = player.lastDoor - 28;
   }
   else
   {
@@ -679,6 +680,7 @@ void stateGameBoss()
  */
 void battleGiveRewards()
 {
+  foundSomething = false;
   arduboy.fillScreen(BLACK);
   switch (battleRewardType[fadeCounter])
   {
@@ -689,7 +691,7 @@ void battleGiveRewards()
     break;
     case 1: // amulet
     fillWithSentence(52, TEXT_ROLL);
-    fillWithWord(23, 151 - player.lastDoor);
+    fillWithWord(22, 151 - player.lastDoor);
     bitSet(player.hasStuff[6], 30 - player.lastDoor);
     break;
     default:
