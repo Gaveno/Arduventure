@@ -116,10 +116,20 @@ void stateGameBattle()
     
     if (battleProgress != BATTLE_BLINK_ENEMY || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0)
     {
+      // Enemy details
+      fillWithSentence(75);
+      fillWithWord(1, getEnemyName());
       if (isBoss)
+      {
         drawBoss(getEnemyOffset());
+        //fillWithWord(10, 40); // hide level from player
+      }
       else
+      {
         drawEnemies(getEnemyOffset());
+        fillWithNumber(10, enemy.level);
+      }
+      drawTextBox(5, 15, BLACK);
     }
     
     drawRectangle(0, 44, 130, 64, BLACK);
@@ -544,11 +554,6 @@ void stateGameBattle()
     {
       drawTextBox(0, 2, WHITE);
     }
-    // Enemy details
-    fillWithSentence(75);
-    fillWithWord(1, getEnemyName());
-    fillWithNumber(10, enemy.level);
-    drawTextBox(5, 15, BLACK);
     // Magic cost
     fillWithSentence(81);
     switch (player.hasStuff[7])

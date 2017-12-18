@@ -1081,8 +1081,8 @@ PROGMEM const unsigned char sentences[] =
   FOURSPACE, 60, SPACE, 88, SPACE, 233, SPACE, 73,
 
   // PLACE 75 : <monster name>NEWLINE LVL <monster level>
-  4,
-  FOURSPACE, NEWLINE, 234, FOURSPACE,
+  6,
+  FOURSPACE, NEWLINE, 234, DOUBLESPACE, 40, DOUBLESPACE,
 
   // PLACE 76 : YOU LEVELED UP!
   7,
