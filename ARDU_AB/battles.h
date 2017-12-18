@@ -33,7 +33,10 @@
  * Enemies stats are based on the player.currentRegion variable.
  */
 
-
+byte getMagicName()
+{
+  return ((magictype % 4 == TYPE_NORMAL) ? 236 : 124 - magictype);
+}
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
 const int8_t offsetdead[] = {2, 5, 9, 14, 20, 26, 32};
@@ -71,10 +74,10 @@ void startBattle()
 
 void endBattle()
 {
-  fadeCounter = 0;
-  counterDown = false;
+  //fadeCounter = 0;
+  //counterDown = false;
   //textRollAmount = 0;
-  if (player.health < 1) gameState = STATE_GAME_OVER;
+  if (player.health == 0) gameState = STATE_GAME_OVER;
   else gameState = STATE_BATTLE_REWARDS;
 }
 
@@ -114,7 +117,7 @@ void stateGameBattle()
     arduboy.fillScreen(0);
     drawRectangle(0, 8, 130, 44, WHITE);
     
-    if (battleProgress != BATTLE_BLINK_ENEMY || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0)
+    if (lastDamageDealt == 0 || battleProgress != BATTLE_BLINK_ENEMY || battleBlink < 30 || battleBlink % 2 == 0)
     {
       // Enemy details
       fillWithSentence(75);
@@ -155,9 +158,12 @@ void stateGameBattle()
         else
         {
           // Landed hit
-          crit = 1;
-          if (chance > CRIT_CHANCE)
-            crit = 2;
+          //crit = 1;
+          /*if (chance > CRIT_CHANCE)
+            crit = 2; // Landed crit
+          else
+            crit = 1;*/
+          crit = (chance > CRIT_CHANCE) ? 2 : 1;
           damageEnemy(player.attack * crit, player.attackAddition, player.level);
         }
         battleProgress = BATTLE_BLINK_ENEMY;
@@ -170,32 +176,22 @@ void stateGameBattle()
       case BATTLE_MAGIC:
       {
         byte magicdamage = 0; // = player.attack;
-        switch (player.hasStuff[7]) // Which amulet is equipped
+        switch (magictype)
         {
-          case BIT_1: // fire
-            magicdamage += player.attack * getDamageMult(TYPE_FIRE, enemy.type);
-            magicdamage += MAGIC_DAMAGE_FIRE;
-            magiccost = MAGIC_COST_FIRE;
-            magictype = TYPE_FIRE;
+          case TYPE_NORMAL:
+          magicdamage += MAGIC_DAMAGE_NORMAL;
           break;
-          case BIT_2: // leaf
-            magicdamage += player.attack * getDamageMult(TYPE_LEAF, enemy.type);
-            magicdamage += MAGIC_DAMAGE_LEAF;
-            magiccost = MAGIC_COST_LEAF;
-            magictype = TYPE_LEAF;
+          case TYPE_LEAF:
+          magicdamage += MAGIC_DAMAGE_LEAF;
           break;
-          case BIT_3: // water
-            magicdamage += player.attack * getDamageMult(TYPE_WATER, enemy.type);
-            magicdamage += MAGIC_DAMAGE_WATER;
-            magiccost = MAGIC_COST_WATER;
-            magictype = TYPE_WATER;
+          case TYPE_WATER:
+          magicdamage += MAGIC_DAMAGE_WATER;
           break;
-          default:    // normal
-            magicdamage += player.attack * getDamageMult(TYPE_NORMAL, enemy.type);
-            magicdamage += MAGIC_DAMAGE_NORMAL;
-            magiccost = MAGIC_COST_NORMAL;
-            magictype = TYPE_NORMAL;
+          default: // FIRE
+          magicdamage += MAGIC_DAMAGE_FIRE;
+          break;
         }
+        magicdamage += player.attack * getDamageMult(magictype, enemy.type);
 
         damageEnemy(magicdamage, 0, player.level, true /* magic */);
         battleProgress = BATTLE_BLINK_ENEMY;
@@ -208,7 +204,7 @@ void stateGameBattle()
        */
       case BATTLE_ESCAPE:
       {
-        if (player.currentRegion != REGION_CAVE_INTERIOR)
+        if (player.currentRegion != REGION_CAVE_INTERIOR || player.speed > enemy.speed)
         {
           // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
           fillWithSentence(46, TEXT_ROLL);
@@ -265,16 +261,41 @@ void stateGameBattle()
       case BATTLE_BLINK_ENEMY:
       {
         battleBlink++;
-        if (battleBlink > 30)
+        if (battleBlink > 60)
         {
-          if (crit > 1)
+          if (enemy.health == 0)
+          {
+            // Defeated Enemy
+            gainExperience(enemy.level);
+            offsetIndex = 0;
+            battleProgress = BATTLE_ENEMY_DEAD;
+            battleBlink = 0;
+            //textRollAmount = 0;
+          }
+          else
+          {
+            if (playerFirst)
+              battleProgress = BATTLE_ENEMY_TURN;
+            else
+              battleProgress =  BATTLE_NEXT_TURN;
+          }
+          break;
+        }
+        else if (battleBlink > 30)
+        {
+          /*if (crit == 2)
           {
             fillWithSentence(77, TEXT_NOROLL);
             drawTextBox(70, 10, BLACK);
           }
-          if (crit < 1)
+          else if (crit == 0)
           {
             fillWithSentence(80, TEXT_NOROLL);
+            drawTextBox(70, 10, BLACK);
+          }*/
+          if (crit != 1)
+          {
+            fillWithSentence(80 - crit, TEXT_NOROLL);
             drawTextBox(70, 10, BLACK);
           }
           if (lastDamageDealt > 0)
@@ -297,49 +318,14 @@ void stateGameBattle()
           {
             // not magic
             fillWithSentence(71, TEXT_ROLL);
-            //fillWithWord(2, 62); // YOU
           }
           else
           {
             fillWithSentence(79, TEXT_ROLL);
-            switch (magictype)
-            {
-              case TYPE_FIRE: // FIRE
-                fillWithWord(10, 121);
-                break;
-              case TYPE_LEAF: // LEAF
-                fillWithWord(10, 122);
-                break;
-              case TYPE_WATER: // WATER
-                fillWithWord(10, 123);
-                break;
-              default:  // NORMAL
-                fillWithWord(10, 236);
-                break;
-            }
+            fillWithWord(10, getMagicName());
           }
         }
         drawTextBox(0, 52, WHITE);
-        if (battleBlink > 60)
-        {
-          if (enemy.health == 0)
-          {
-            // Defeated Enemy
-            gainExperience(enemy.level);
-            offsetIndex = 0;
-            battleProgress = BATTLE_ENEMY_DEAD;
-            battleBlink = 0;
-            //textRollAmount = 0;
-          }
-          else
-          {
-            //textRollAmount = 0;
-            if (playerFirst)
-              battleProgress = BATTLE_ENEMY_TURN;
-            else
-              battleProgress =  BATTLE_NEXT_TURN;
-          }
-        }
       }
       break;
       /*
@@ -455,7 +441,12 @@ void stateGameBattle()
       case BATTLE_START:
       {
         fillWithSentence(45);
-        switch (player.hasStuff[7])
+        fillWithWord(16, getMagicName());
+        /*if (magictype == TYPE_NORMAL)
+          fillWithWord(16, 236);
+        else
+          fillWithWord(16, 124 - magictype);*/
+        /*switch (player.hasStuff[7])
         {
           case BIT_1: // FIRE
             fillWithWord(16, 121);
@@ -469,7 +460,7 @@ void stateGameBattle()
           default:  // NORMAL
             fillWithWord(16, 236);
             break;
-        }
+        }*/
         sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
         drawTextBox(4, 52, WHITE);
       }
@@ -532,7 +523,7 @@ void stateGameBattle()
         */
        default://case BATTLE_NOMANA:
        {
-        fillWithSentence(78, TEXT_ROLL);
+        fillWithSentence(77, TEXT_ROLL);
         drawTextBox(0, 52, WHITE);
         battleBlink++;
         if (battleBlink > 60)
@@ -556,7 +547,12 @@ void stateGameBattle()
     }
     // Magic cost
     fillWithSentence(81);
-    switch (player.hasStuff[7])
+    fillWithWord(1, getMagicName());
+    /*if (magictype == TYPE_NORMAL)
+      fillWithWord(1, 236);
+    else
+      fillWithWord(1, 124 - magictype);*/
+    /*switch (player.hasStuff[7])
     {
       case BIT_1: // FIRE
         fillWithWord(1, 121);
@@ -570,7 +566,7 @@ void stateGameBattle()
       default:
         fillWithWord(1, 236);
         break;
-    }
+    }*/
     fillWithNumber(7, magiccost);
     drawTextBox(92, 15, BLACK);
   }
@@ -634,19 +630,20 @@ void setupBattle()
   
   clearCursor();
   switch (player.hasStuff[7]) // Which amulet is equipped
-    {
-      case BIT_1: // fire
-        magiccost = MAGIC_COST_FIRE;
-      break;
-      case BIT_2: // leaf
-        magiccost = MAGIC_COST_LEAF;
-      break;
-      case BIT_3: // water
-        magiccost = MAGIC_COST_WATER;
-      break;
-      default:    // normal
-        magiccost = MAGIC_COST_NORMAL;
-    }
+  {
+    case BIT_1: // fire
+      magictype = TYPE_FIRE;
+    break;
+    case BIT_2: // leaf
+      magictype = TYPE_LEAF;
+    break;
+    case BIT_3: // water
+      magictype = TYPE_WATER;
+    break;
+    default:    // normal
+      magictype = TYPE_NORMAL;
+  }
+  magiccost = MAGIC_COST[magictype];
 }
 
 /* Entry function to battle.

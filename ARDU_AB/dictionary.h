@@ -1091,13 +1091,13 @@ PROGMEM const unsigned char sentences[] =
   7,
   62, SPACE, 72, 232, SPACE, 73, 39,
 
-  // PLACE 77 : CRITICAL!
-  2,
-  235, 39,
-  
-  // PLACE 78 : NEED MORE MP!
+  // PLACE 77 : NEED MORE MP!
   6,
   191, SPACE, 19, SPACE, 84, 39,
+
+  // PLACE 78 : CRITICAL!
+  2,
+  235, 39,
   
   // PLACE 79 : YOU CAST <type>
   5,

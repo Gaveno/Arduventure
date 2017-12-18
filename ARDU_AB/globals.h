@@ -128,6 +128,8 @@
 #define MAGIC_COST_WATER              5
 #define MAGIC_DAMAGE_WATER            (player.attack + player.attackAddition) // add 100% total damage
 
+const byte MAGIC_COST[] = { 4, 5, 7, 9 };
+
 
 Arduboy2Base arduboy;
 Sprites sprites;

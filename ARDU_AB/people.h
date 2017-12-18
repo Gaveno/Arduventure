@@ -131,6 +131,7 @@ void investigatePeople(int ix, int iy)
       case 58:  // shops
         foundSomething = false;
         gameState = STATE_GAME_SHOP;
+        //cursorY = 0;
         break;
       case 60: // INN
         foundSomething = false;

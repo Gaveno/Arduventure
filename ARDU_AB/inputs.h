@@ -370,15 +370,21 @@ void checkInputs()
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
           break;*/
         case BATTLE_ESCAPE:
-          if (arduboy.justPressed(B_BUTTON | A_BUTTON)) fadeCounter = 7;
+          //if (arduboy.justPressed(B_BUTTON | A_BUTTON)) fadeCounter = 7;
+          if (textReset)
+          {
+            player.gold -= battleRewardNumb[0];
+            gameState = STATE_GAME_PLAYING;
+          }
           break;
         case BATTLE_ITEMS:
           if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_START;
           //fadeCounter++;
           break;
-        /*case BATTLE_NO_ESCAPE:
-          if (arduboy.justPressed(B_BUTTON | A_BUTTON)) battleProgress = BATTLE_ENEMY_TURN;
-          break;*/
+        case BATTLE_NO_ESCAPE:
+          //if (arduboy.justPressed(B_BUTTON | A_BUTTON) && textReset) battleProgress = BATTLE_ENEMY_TURN;
+          if (textReset) battleProgress = BATTLE_ENEMY_TURN;
+          break;
       }
     case STATE_GAME_INN:
     if (arduboy.justPressed(B_BUTTON))
