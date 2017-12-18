@@ -33,6 +33,58 @@
 
 #define TILE_CHEST
 
+#define TOTAL_SHOP_ITEMS              4
+
+/*const byte shopItems[] ={
+  0, 1, 2, 3,            // Apple, Cider, Anise, Absinthe
+  8+4, 8+7,              // Axe, Bow
+  16+3, 16+6             // Bone, Iron
+};*/
+
+const unsigned int shopPrices[] = {
+  10, 20, 10, 20
+  //199, 999,
+  //99, 499 
+};
+
+void buyItem()
+{
+  if (player.gold >= shopPrices[cursorY])
+  {
+    player.gold -= shopPrices[cursorY];
+    bitSet(player.hasStuff[0], cursorY);
+    ++player.itemsAmount[cursorY];
+    /*switch (shopItems[cursorY])
+    {
+      case 0: case 1: case 2: case 3:
+      bitSet(player.hasStuff[0], cursorY);
+      ++player.itemsAmount[cursorY];
+      break;
+      case 12: case 15:
+      bitSet(player.hasStuff[2], shopItems[cursorY] - 8);
+      break;
+      default:
+      bitSet(player.hasStuff[4], shopItems[cursorY] - 16);
+      break;
+    }*/
+  }
+}
+
+void drawShop()
+{
+  byte positionText = (TOTAL_SHOP_ITEMS-1) * 6;
+  rollText = false;
+  for (byte i = TOTAL_SHOP_ITEMS-1; i < TOTAL_SHOP_ITEMS; --i)
+  {
+    // Item name
+    fillWithWord(0, 97 + i);
+    drawTextBox(12, 9 + positionText, BLACK);
+    // Item cost
+    fillWithNumber(0, shopPrices[i]);
+    drawTextBox(110, 9 + positionText, BLACK);
+    positionText -= 6;
+  }
+}
 
 void drawList()
 {

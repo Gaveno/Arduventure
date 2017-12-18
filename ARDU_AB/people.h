@@ -129,9 +129,11 @@ void investigatePeople(int ix, int iy)
         fillWithSentence(63, TEXT_ROLL); // "you'll need a map"
         break;
       case 58:  // shops
+        foundSomething = false;
         gameState = STATE_GAME_SHOP;
         break;
       case 60: // INN
+        foundSomething = false;
         gameState = STATE_GAME_INN;
         fadeCounter = 0;
         return;

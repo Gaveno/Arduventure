@@ -164,10 +164,12 @@ void checkInputs()
           default:
             gameState = STATE_GAME_ITEMS + cursorY - 5;
 
-            miniCamX = (((playerReducedX * 8) - 64) < 0) ? 0 : ((playerReducedX * 8) - 64);
+            /*miniCamX = (((playerReducedX * 8) - 64) < 0) ? 0 : ((playerReducedX * 8) - 64);
             if (miniCamX > 128) miniCamX = 128;
             miniCamY = (((playerReducedY * 8) - 32) < 0) ? 0 : ((playerReducedY * 8) - 32);
-            if (miniCamY > 176) miniCamY = 176;
+            if (miniCamY > 176) miniCamY = 176;*/
+            //miniCamX %= 129;
+            //miniCamY %= 178;
             break;
         }
         clearCursor();
@@ -197,6 +199,34 @@ void checkInputs()
         cursorY = 2;
       }
       break;
+    case STATE_GAME_SHOP:
+      if (!yesNo)
+      {
+        if (arduboy.justPressed(A_BUTTON)) gameState = STATE_GAME_PLAYING;
+        else if (arduboy.justPressed(UP_BUTTON) && (cursorY > 0)) cursorY--;
+        else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < TOTAL_SHOP_ITEMS - 1)) cursorY++;
+        else if (arduboy.justPressed(B_BUTTON))
+        {
+          question = true;
+          yesNo = true;
+        }
+      }
+      else
+      {
+        buttonsUpDownA();
+        if (arduboy.justPressed(B_BUTTON))
+        {
+          if (cursorYesNoY)
+          {
+            // yes to buying item
+            buyItem();
+          }
+          question = false;
+          yesNo = false;
+          cursorYesNoY = true;
+        }
+      }
+      break;
     case STATE_GAME_ITEMS:
     case STATE_GAME_WEAPON:
     case STATE_GAME_ARMOR:
@@ -204,7 +234,7 @@ void checkInputs()
       if (!yesNo)
       {
         if (arduboy.justPressed(UP_BUTTON) && (cursorY > 0)) cursorY--;
-        else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < bitCount(player.hasStuff[2 * (gameState - STATE_GAME_ITEMS)]) - 1)) cursorY++;
+        else if ((cursorY < bitCount(player.hasStuff[2 * (gameState - STATE_GAME_ITEMS)]) - 1) && arduboy.justPressed(DOWN_BUTTON)) cursorY++;
         else if (arduboy.justPressed(A_BUTTON))
         {
           cursorY = (gameState == STATE_GAME_ITEMS) ? 0 : (gameState - 13);

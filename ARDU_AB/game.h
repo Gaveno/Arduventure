@@ -149,8 +149,10 @@ void stateGamePlaying()
   discoverMap(player.x, player.y);
   checkDoors();
   checkCam();
-  int investigate_x = player.x - 3 + pgm_read_byte(&collisionPoints[8 + playerDirection][0]);
-  int investigate_y = player.y - 1 + pgm_read_byte(&collisionPoints[8 + playerDirection][1]);
+  //int investigate_x = player.x - 3 + pgm_read_byte(&collisionPoints[8 + playerDirection][0]);
+  //int investigate_y = player.y - 1 + pgm_read_byte(&collisionPoints[8 + playerDirection][1]);
+  int investigate_x = player.x - 3 + collisionPoints[8 + playerDirection][0];
+  int investigate_y = player.y - 1 + collisionPoints[8 + playerDirection][1];
   if (talkingWithNPC) investigatePeople(investigate_x, investigate_y);
   if (investigating) investigateObjects(getTileID(investigate_x, investigate_y));
 
@@ -254,7 +256,16 @@ void walkingThroughDoor()
  */
 void stateGameShop()
 {
-  
+  arduboy.fillScreen(1);
+  drawRectangle(0, 0, 130, 8, BLACK);
+  drawRectangle(0, 57, 130, 64, BLACK);
+
+  drawShop();
+
+  sprites.drawErase(5, 9 + (6 * cursorY), font, 44);
+
+  fillWithWord(0, 194);
+  drawTextBox(4, 0, WHITE);
 }
 
 
