@@ -414,21 +414,21 @@ PROGMEM const unsigned char library[] =
   // PLACE 123 : WATER
   5,
   23, 1, 20, 5, 18,
-  // PLACE 124 : LUCK
-  4,
-  12, 21, 3, 11,
+  // PLACE 124 : COURAGE
+  7,
+  CHAR_C, CHAR_O, CHAR_U, CHAR_R, CHAR_A, CHAR_G, CHAR_E,
   // PLACE 125 : GOLD
   4,
   7, 15, 12, 4,
-  // PLACE 126 : CLOAK
-  5,
-  3, 12, 15, 1, 11,
+  // PLACE 126 : empty  // CLOAK
+  0,
+  //3, 12, 15, 1, 11,
   // PLACE 127 : ESCAPE
   6,
   5, 19, 3, 1, 16, 5,
-  // PLACE 128 : RUBY
-  4,
-  18, 21, 2, 25,
+  // PLACE 128 : empty  // RUBY
+  0,
+  //18, 21, 2, 25,
   // PLACE 129 : OUR
   3,
   15, 21, 18,
@@ -564,9 +564,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 173 : HAS
   3,
   8, 1, 19,
-  // PLACE 174 : SYMBOLS
-  7,
-  19, 25, 13, 2, 15, 12, 19,
+  // PLACE 174 : SYMBOL
+  6,
+  19, 25, 13, 2, 15, 12,
   // PLACE 175 : RESEMBLING
   10,
   18, 5, 19, 5, 13, 2, 12, 9, 14, 7,
@@ -873,21 +873,21 @@ PROGMEM const unsigned char sentences[] =
   6,
   65, SPACE, 32, 27, SPACE, 84,
 
-  // PLACE 23 : WORTH SOME GOLD
-  5,
-  10, SPACE, 11, SPACE, 125,
+  // PLACE 23 : empty  // WORTH SOME GOLD
+  0,
+  //10, SPACE, 11, SPACE, 125,
 
-  // PLACE 24 : WORTH MORE GOLD
-  5,
-  10, SPACE, 19, SPACE, 125,
+  // PLACE 24 : empty  // WORTH MORE GOLD
+  0,
+  //10, SPACE, 19, SPACE, 125,
 
-  // PLACE 25 : WORTH LOTS OF GOLD
-  7,
-  10, SPACE, 57, SPACE, 92, SPACE, 125,
+  // PLACE 25 : empty  // WORTH LOTS OF GOLD
+  0,
+  //10, SPACE, 57, SPACE, 92, SPACE, 125,
 
-  // PLACE 26 : WORTH A PILE OF GOLD
-  9,
-  10, SPACE, 58, SPACE, 59, SPACE, 92, SPACE, 125,
+  // PLACE 26 : empty  // WORTH A PILE OF GOLD
+  0,
+  //10, SPACE, 58, SPACE, 59, SPACE, 92, SPACE, 125,
 
 
   // PLACE 27 : ATTACK AMOUNT_____
@@ -910,9 +910,9 @@ PROGMEM const unsigned char sentences[] =
   5,
   181, SPACE, 123, SPACE, 180,
 
-  // PLACE 32 : FIND MORE ITEMS
-  5,
-  17, SPACE, 19, SPACE, 93,
+  // PLACE 32 : A SYMBOL OF COURAGE
+  7,
+  58, SPACE, 174, SPACE, 92, SPACE, 124,
 
   // PLACE 33 : FIND DOUBLE GOLD
   5,
@@ -1000,8 +1000,8 @@ PROGMEM const unsigned char sentences[] =
   166, SPACE, 167, SPACE, 206, SPACE, 61, NEWLINE, 75, 134, 134,
 
   // PLACE 54 : THE ROCK HAS SYMBOLS/RESEMBLING__________
-  11,
-  75, SPACE, 172, SPACE, 173, SPACE, 174, NEWLINE, 175, 134, 134,
+  12,
+  75, SPACE, 172, SPACE, 173, SPACE, 174, 60, NEWLINE, 175, 134, 134,
 
   // PLACE 55 : A LIGHTBEAM EMERGES/FROM YOUR AMULET...
   14,
