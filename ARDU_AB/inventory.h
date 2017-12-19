@@ -94,34 +94,7 @@ void investigateObjects(byte object)
         //      ----CHESTS----
       case TILE_CLOSED_BOX:         //57
       {
-        /*if (playerchunkadd == 21) // 1
-        {
-          // Blade piece in farm lands
-          bitSet(player.bossActiveAlive, 4);
-          bitSet(player.gameTriggers[2], 5);
-          fillWithSentence(foundLastPiece(), TEXT_ROLL);
-        }
-        else if (playerchunkadd == 40) // 0
-        {
-          // Blade piece in wetlands
-          bitSet(player.bossActiveAlive, 5);
-          bitSet(player.gameTriggers[2], 6);
-          fillWithSentence(foundLastPiece(), TEXT_ROLL);
-        }
-        else if (playerchunkadd == 29) // 1
-        {
-          // Blade piece in forest
-          bitSet(player.bossActiveAlive, 6);
-          bitSet(player.gameTriggers[2], 7);
-          fillWithSentence(foundLastPiece(), TEXT_ROLL);
-        }
-        else if (playerchunkadd == 5) // 1
-        {
-          // Blade piece in canyons
-          bitSet(player.bossActiveAlive, 7);
-          bitSet(player.gameTriggers[3], 7);
-          fillWithSentence(foundLastPiece(), TEXT_ROLL);
-        }*/
+        // Blade shards
         if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
         {
           bitSet(player.bossActiveAlive, player.currentRegion - 5);
@@ -144,8 +117,8 @@ void investigateObjects(byte object)
           {
             fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
             fillWithWord(11, 125);            // Gold
-            fillWithNumber(28, amount);
-            player.gold += amount;
+            fillWithNumber(28, amount * 10);
+            player.gold += amount * 10;
           }
           else if (door == 1)  // 1, 3, 5, 7 Apples lastDoor 1, 6, 11, 16
           {
