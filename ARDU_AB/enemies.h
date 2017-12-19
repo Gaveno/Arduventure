@@ -67,12 +67,12 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
   {
     enemy.level = generateRandomNumber(lvlRange); // 0-7
     if (region == 1) enemy.level = generateRandomNumber(min(player_level, 5)); // 0-4
+    statType = generateRandomNumber(3);
     enemy.images = ((enemy.level % 4) + statType * 4)  | (monster << 4);
     enemy.level++;  // 1-8 areas 2-4, 1-5 area 1
     region--;       // 0-3
     enemy.level += region * 5;  // 1-23
     enemy.type = (monster - 1) / 2;
-    statType = generateRandomNumber(3);
   }
 
   enemy.defense = 3;
