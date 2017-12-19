@@ -113,7 +113,7 @@ void drawList()
       else if (bitRead(player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS)) + 1], i))
       {
         fillWithWord(0, 81);
-        drawTextBox(48, 9 + (6 * positionText), BLACK);
+        drawTextBox(72, 9 + (6 * positionText), BLACK);
       }
       // show: explaination of selected item
       if (positionText == cursorY)
@@ -137,7 +137,7 @@ void drawList()
             break;
 
         }
-        drawTextBox(4, 59, WHITE);
+        drawTextBox(4, 49, WHITE);
       }
       positionText++;
     }

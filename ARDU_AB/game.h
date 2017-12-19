@@ -212,7 +212,7 @@ void showSubMenuStuff()
 {
   arduboy.fillScreen(1);
   drawRectangle(0, 0, 130, 8, BLACK);
-  drawRectangle(0, 57, 130, 64, BLACK);
+  drawRectangle(0, 47, 130, 64, BLACK);
 
   drawList();
 
