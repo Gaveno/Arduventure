@@ -208,7 +208,11 @@ void checkInputs()
           needMoreMoney = false;
           question = false;
         }
-        else if (arduboy.justPressed(A_BUTTON)) gameState = STATE_GAME_PLAYING;
+        else if (arduboy.justPressed(A_BUTTON))
+        {
+          gameState = STATE_GAME_PLAYING;
+          question = false;
+        }
         else if (arduboy.justPressed(UP_BUTTON) && (cursorY > 0)) cursorY--;
         else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < TOTAL_SHOP_ITEMS - 1)) cursorY++;
         else if (arduboy.justPressed(B_BUTTON))
