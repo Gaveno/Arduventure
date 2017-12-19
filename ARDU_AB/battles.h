@@ -626,7 +626,7 @@ void setupBattle()
   {
     createEnemy(player.level);
     battleRewardType[0] = 0;
-    battleRewardNumb[0] = max((generateRandomNumber(3)) * enemy.level, 1);
+    battleRewardNumb[0] = (enemy.level * generateRandomNumber(3)) + 1;
     battleRewardType[1] = 128;// exit
     player.gold += battleRewardNumb[0];
   }
