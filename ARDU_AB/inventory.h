@@ -52,7 +52,7 @@ void investigateObjects(byte object)
       case TILE_BED_UP:             // 49
         break;
       case TILE_SHELVE_LOW:         // 50
-        if ((bitRead(player.gameTriggers[3], 3) == 0) /*&& (player.x / 16 == 63)*/ && (player.lastDoor == 24))
+        if (bitRead(player.gameTriggers[3], 3) == 0) /*&& (player.x / 16 == 63) && (player.lastDoor == 24))*/
         {
           bitSet(player.gameTriggers[3], 3);
           fillWithSentence(49, TEXT_ROLL);
