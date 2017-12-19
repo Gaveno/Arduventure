@@ -228,6 +228,7 @@ void setPlayer()
 void gainExperience(byte enemy_level)
 {
   int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
+  if (isBoss) ex += 100;
   if (ex > EXP_TOTAL) {
     ex -= EXP_TOTAL;
     player.level++;
