@@ -44,7 +44,7 @@
 };*/
 
 const unsigned int shopPrices[] = {
-  10, 20, 10, 20
+  8, 30, 6, 25
   //199, 999,
   //99, 499 
 };
@@ -160,11 +160,25 @@ void selectItemsEquipment()
   {
     case STATE_GAME_ITEMS:
     // Subtract item, use effect
-    player.itemsAmount[inventorySelection] -= 1;
-    if (player.itemsAmount[inventorySelection] == 0) bitClear(player.hasStuff[0], inventorySelection);
-    // Item Effects
-    switch (inventorySelection)
     {
+      player.itemsAmount[inventorySelection] -= 1;
+      if (player.itemsAmount[inventorySelection] == 0) bitClear(player.hasStuff[0], inventorySelection);
+      // Item Effects
+      if (inventorySelection < 2)
+        player.health = min(player.health + 10 + (40 * inventorySelection), player.healthTotal);
+      else
+        player.magic = min(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
+    }
+    /*switch (inventorySelection)
+    {
+      case 0: // Apple
+      case 1: // Cider
+      player.health = min(player.health + 10 + (40 * inventorySelection), player.healthTotal);
+      break;
+      case 2: // Anise
+      case 3: // Absinthe
+      player.magic = min(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
+      break;
       case 0: // Apple
       player.health = min(player.health+5, player.healthTotal);
       break;
@@ -177,7 +191,7 @@ void selectItemsEquipment()
       case 3: // Absinthe
       player.magic = min(player.magic+15, player.magicTotal);
       break;
-    }
+    }*/
     break;
     case STATE_GAME_WEAPON:
     player.attackAddition = inventorySelection * ITEM_SCALAR + 1;

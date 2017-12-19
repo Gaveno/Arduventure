@@ -222,6 +222,7 @@ void stateGameBattle()
        */
       case BATTLE_ITEMS:
       {
+        cursorY = 0;
         battleProgress = BATTLE_START;
         previousGameState = gameState;
         gameState = STATE_GAME_ITEMS;

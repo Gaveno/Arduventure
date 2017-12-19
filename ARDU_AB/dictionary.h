@@ -708,25 +708,25 @@ PROGMEM const unsigned char library[] =
   12, 15, 19, 20,
   // PLACE 221 : WORM
   4,
-  23, 15, 18, 13,
+  CHAR_W, CHAR_O, CHAR_R, CHAR_M,
   // PLACE 222 : BOUG
   4,
-  2, 15, 21, 7,
+  CHAR_B, CHAR_O, CHAR_U, CHAR_G,
   // PLACE 223 : SNAK
   4,
-  19, 14, 1, 11,
+  CHAR_S, CHAR_N, CHAR_A, CHAR_K,
   // PLACE 224 : SERP
   4,
-  19, 5, 18, 16,
+  CHAR_S, CHAR_E, CHAR_R, CHAR_P,
   // PLACE 225 : VINE
   4,
-  22, 9, 14, 5,
+  CHAR_V, CHAR_I, CHAR_N, CHAR_E,
   // PLACE 226 : ROOT
   4,
-  18, 15, 15, 12,
+  CHAR_R, CHAR_O, CHAR_O, CHAR_T,
   // PLACE 227 : FLAM
   4,
-  6, 12, 1, 13,
+  CHAR_F, CHAR_L, CHAR_A, CHAR_M,
   // PLACE 228 : DEFEATED
   8,
   CHAR_D, CHAR_E, CHAR_F, CHAR_E, CHAR_A, CHAR_T, CHAR_E, CHAR_D,
@@ -857,21 +857,21 @@ PROGMEM const unsigned char sentences[] =
   91, SPACE, 96, 60, 39,
 
 
-  // PLACE 19 : RESTORES 5 HP
-  5,
-  65, SPACE, 32, SPACE, 83,
-
-  // PLACE 20 : RESTORES 15 HP
+  // PLACE 19 : RESTORES 10 HP
   6,
-  65, SPACE, 28, 32, SPACE, 83,
+  65, SPACE, 28, 27, SPACE, 83,
 
-  // PLACE 21 : RESTORES 5 MP
-  5,
-  65, SPACE, 32, SPACE, 84,
-
-  // PLACE 22 : RESTORES 15 MP
+  // PLACE 20 : RESTORES 50 HP
   6,
-  65, SPACE, 28, 32, SPACE, 84,
+  65, SPACE, 32, 27, SPACE, 83,
+
+  // PLACE 21 : RESTORES 10 MP
+  6,
+  65, SPACE, 28, 27, SPACE, 84,
+
+  // PLACE 22 : RESTORES 50 MP
+  6,
+  65, SPACE, 32, 27, SPACE, 84,
 
   // PLACE 23 : WORTH SOME GOLD
   5,

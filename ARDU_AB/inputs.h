@@ -244,6 +244,8 @@ void checkInputs()
         {
           cursorY = (gameState == STATE_GAME_ITEMS) ? 0 : (gameState - 13);
           gameState = (gameState == STATE_GAME_ITEMS) ? STATE_GAME_INVENTORY : STATE_GAME_EQUIP;
+          if (previousGameState == STATE_GAME_BATTLE)
+            gameState = STATE_GAME_BATTLE;
         }
         else if (arduboy.justPressed(B_BUTTON) && player.hasStuff[(2 * (gameState - STATE_GAME_ITEMS))])
         {
@@ -260,12 +262,12 @@ void checkInputs()
           {
             selectItemsEquipment();
             clearCursor();
-            if (previousGameState > STATE_GAME_AMULET)
-            {
-              battleProgress = BATTLE_ENEMY_TURN;
-              playerFirst = true;
-              gameState = previousGameState;
-            }
+            battleProgress = BATTLE_ENEMY_TURN;
+            playerFirst = true;
+          }
+          if (previousGameState == STATE_GAME_BATTLE)
+          {
+            gameState = STATE_GAME_BATTLE;
           }
           question = false;
           yesNo = false;
