@@ -77,8 +77,9 @@ void setup() {
 
 void loop() {
   if (!(arduboy.nextFrame())) return;
+  //arduboy.fillScreen(1);
   arduboy.pollButtons();
-  arduboy.clear();
+  //arduboy.clear();
   drawTiles();
   updateEyes();
   checkInputs();

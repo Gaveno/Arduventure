@@ -33,7 +33,8 @@ bool checkPlayerCollision(byte orientation)
 void buttonsUpDownA()
 {
   if (arduboy.justPressed(UP_BUTTON)) cursorYesNoY = true;
-  else if (arduboy.justPressed(DOWN_BUTTON) || arduboy.justPressed(A_BUTTON)) cursorYesNoY = false;
+  else if (arduboy.justPressed(DOWN_BUTTON | A_BUTTON)) cursorYesNoY = false;
+  //else if (arduboy.justPressed(DOWN_BUTTON) || arduboy.justPressed(A_BUTTON)) cursorYesNoY = false;
   /*else if (arduboy.justPressed(A_BUTTON))
   {
     //gameState = STATE_GAME_INVENTORY;
@@ -317,7 +318,7 @@ void checkInputs()
         else
         {
           gameState = STATE_GAME_INVENTORY;
-          cursorY = 4;
+          //cursorY = 4;
         }
         yesNo = false;
         cursorYesNoY = true;

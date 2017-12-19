@@ -9,6 +9,20 @@ void showInventory()
   drawTextBox(96, 2, WHITE);
 }
 
+byte foundLastPiece()
+{
+  //if (bitCount(player.bossActiveAlive & 0xF0) == 4)
+  if ((player.bossActiveAlive & 0B11110000) == 0B11110000)
+  {
+    // Have all blade pieces
+    // Put blade in inventory.
+    bitSet(player.hasStuff[2], 7);
+    //fillWithSentence(26, TEXT_ROLL);
+    return 26;
+  }
+  return 36;
+}
+
 //byte returnObject
 
 void investigateObjects(byte object)
@@ -38,7 +52,7 @@ void investigateObjects(byte object)
       case TILE_BED_UP:             // 49
         break;
       case TILE_SHELVE_LOW:         // 50
-        if ((bitRead(player.gameTriggers[3], 3) == 0) && (player.x / 16 == 63) && (player.lastDoor == 24))
+        if ((bitRead(player.gameTriggers[3], 3) == 0) /*&& (player.x / 16 == 63)*/ && (player.lastDoor == 24))
         {
           bitSet(player.gameTriggers[3], 3);
           fillWithSentence(49, TEXT_ROLL);
@@ -56,11 +70,7 @@ void investigateObjects(byte object)
           case 31:                  // CAVE CANYON
             if (bitRead(player.bossActiveAlive, player.lastDoor - 28))
             {
-              //if (bitRead(player.bossCardRegionRoaming, player.lastDoor - 28))
-              //{
-                gameState = STATE_GAME_BOSS;
-              //}
-              //else fillWithSentence(60, TEXT_ROLL);  // "shops sell books"
+              gameState = STATE_GAME_BOSS;
             }
             else fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
             break;
@@ -84,47 +94,60 @@ void investigateObjects(byte object)
         //      ----CHESTS----
       case TILE_CLOSED_BOX:         //57
       {
-        byte playerchunkadd = playerReducedX + playerReducedY;
-        if (playerchunkadd == 21)
+        /*if (playerchunkadd == 21) // 1
         {
-          bitSet(player.hasStuff[4], 0);  // Wool armor
+          // Blade piece in farm lands
+          bitSet(player.bossActiveAlive, 4);
           bitSet(player.gameTriggers[2], 5);
-          fillWithSentence(51, TEXT_ROLL);
-          fillWithWord(23, 113);
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
         }
-        /*else if (playerchunkadd == 40)
+        else if (playerchunkadd == 40) // 0
         {
-          bitSet(player.hasStuff[4], 4);  // Bone armor
+          // Blade piece in wetlands
+          bitSet(player.bossActiveAlive, 5);
           bitSet(player.gameTriggers[2], 6);
-          fillWithSentence(51, TEXT_ROLL);
-          fillWithWord(23, 116);
-        }*/
-        else if (playerchunkadd == 29)
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
+        }
+        else if (playerchunkadd == 29) // 1
         {
-          bitSet(player.hasStuff[2], 6);  // Spear
+          // Blade piece in forest
+          bitSet(player.bossActiveAlive, 6);
           bitSet(player.gameTriggers[2], 7);
-          fillWithSentence(50, TEXT_ROLL);
-          fillWithWord(23, 111);
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
+        }
+        else if (playerchunkadd == 5) // 1
+        {
+          // Blade piece in canyons
+          bitSet(player.bossActiveAlive, 7);
+          bitSet(player.gameTriggers[3], 7);
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
+        }*/
+        if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
+        {
+          bitSet(player.bossActiveAlive, player.currentRegion - 5);
+          bitSet(player.gameTriggers[3], player.currentRegion - 5);
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
         }
         else if ((player.lastDoor) == 48)  // Players house
         {
-          bitSet(player.hasStuff[2], 0);
+          bitSet(player.hasStuff[4], 0);
           bitSet(player.gameTriggers[2], 4);
-          fillWithSentence(50, TEXT_ROLL);  // Found weapon
-          fillWithWord(23, 105);            // Sling
+          fillWithSentence(51, TEXT_ROLL);  // Found armor
+          fillWithWord(23, 113);            // Wool
         }
         else
         {
           bitSet(player.gameTriggers[player.lastDoor / 8], player.lastDoor % 8);
           byte amount = ((player.lastDoor / 5) * 2) + 1;
-          if ((player.lastDoor % 5) == 0)       // 1, 3, 5, 7 gold  lastDoor 0, 5, 10, 15
+          byte door = player.lastDoor % 5;
+          if (door == 0)       // 1, 3, 5, 7 gold  lastDoor 0, 5, 10, 15
           {
             fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
             fillWithWord(11, 125);            // Gold
             fillWithNumber(28, amount);
             player.gold += amount;
           }
-          else if ((player.lastDoor % 5) == 1)  // 1, 3, 5, 7 Apples lastDoor 1, 6, 11, 16
+          else if (door == 1)  // 1, 3, 5, 7 Apples lastDoor 1, 6, 11, 16
           {
             fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
             fillWithWord(11, 97);             // Apple
@@ -133,7 +156,7 @@ void investigateObjects(byte object)
             player.itemsAmount[0] += amount;
           }
 
-          else if ((player.lastDoor % 5) == 2)  // 1, 3, 5, 7 Anise lastDoor 2, 7, 12, 17
+          else if (door == 2)  // 1, 3, 5, 7 Anise lastDoor 2, 7, 12, 17
           {
             fillWithSentence(48, TEXT_ROLL);
             fillWithWord(11, 99);
@@ -142,14 +165,14 @@ void investigateObjects(byte object)
             player.itemsAmount[2] += amount;
           }
 
-          else if ((player.lastDoor % 5) == 3)  // Weapons 1, 3, 5, 7 lastDoor 3, 8, 13, 18
+          else if (door == 3)  // Weapons 0, 2, 4, 6 lastDoor 3, 8, 13, 18
           {
             fillWithSentence(50, TEXT_ROLL);
-            fillWithWord(23, 105 + amount);
-            bitSet(player.hasStuff[2], amount);
+            fillWithWord(23, 105 - 1 + amount);
+            bitSet(player.hasStuff[2], amount - 1);
           }
 
-          else if ((player.lastDoor % 5) == 4)  // Armor 1, 3, 5, 7 lastDoor 4, 9, 14, 19
+          else if (door == 4)  // Armor 1, 3, 5, 7 lastDoor 4, 9, 14, 19
           {
             fillWithSentence(51, TEXT_ROLL);
             fillWithWord(23, 113 + amount);

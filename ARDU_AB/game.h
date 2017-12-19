@@ -137,6 +137,7 @@ void stateGameIntro()
 
 void stateGamePlaying()
 {
+  //drawTiles();
   previousGameState = STATE_GAME_PLAYING;
   updatePeople();
   updatePlayer();

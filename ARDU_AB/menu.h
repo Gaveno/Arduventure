@@ -99,7 +99,7 @@ void stateMenuSound()
 void stateMenuCredits()
 {
   arduboy.fillScreen(0);
-  fillWithSentence(41, TEXT_ROLL);
+  fillWithSentence(41);
   drawTextBox(18, 11, WHITE);
 }
 

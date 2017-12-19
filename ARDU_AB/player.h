@@ -15,6 +15,7 @@
 #define DEF_PER_LEVEL                6
 #define SPD_PER_LEVEL                5
 #define EXP_MULTIPLIER               30
+#define EXP_TOTAL                    200
 
 
 const byte animSeq[] = { 0, 1, 2, 1 };
@@ -52,7 +53,7 @@ struct Player
   int x, y;
   byte health, healthTotal, magic, magicTotal;
   int gold;
-  byte experience, experienceTotal;
+  byte experience;//, experienceTotal;
   byte currentRegion;
   byte level;
   byte attack;
@@ -98,7 +99,7 @@ void setPlayer()
     20, 20,                                   // health
     10, 10,                                   // magic
     0,                                        // gold
-    0, 200,                                   // experience
+    0, //200,                                 // experience
     REGION_YOUR_INTERIOR,                     // currentRegion
     1,                                        // level
     5, 0,                                     // attack
@@ -161,10 +162,10 @@ void setPlayer()
       //||||||└--------------------------------> 1 used amulet of leafs on rock       (0 = false / 1 = true)
       //|||||└---------------------------------> 2 used amulet of water on rock       (0 = false / 1 = true)
       //||||└----------------------------------> 3 map in the shop has been found     (0 = false / 1 = true)
-      //|||└-----------------------------------> 4 you have a fishing rod             (0 = false / 1 = true)
-      //||└------------------------------------> 5 you have a fish                    (0 = false / 1 = true)
-      //|└-------------------------------------> 6 you have a fire spark              (0 = false / 1 = true)
-      //└--------------------------------------> 7                                    (0 = false / 1 = true)
+      //|||└-----------------------------------> 4 found blade piece fields           (0 = false / 1 = true)
+      //||└------------------------------------> 5 found blade piece swamp            (0 = false / 1 = true)
+      //|└-------------------------------------> 6 found blade piece forest           (0 = false / 1 = true)
+      //└--------------------------------------> 7 found blade piece canyons          (0 = false / 1 = true)
     },
     {
       0B00000000,                             // hasItem
@@ -187,7 +188,7 @@ void setPlayer()
       //|||└-----------------------------------> 4 axe
       //||└------------------------------------> 5 lance
       //|└-------------------------------------> 6 spear
-      //└--------------------------------------> 7 bow
+      //└--------------------------------------> 7 blade
 
       0B00000000,                             // hasArmorType
       0B00000000,                             // equipedArmorType
@@ -227,8 +228,8 @@ void setPlayer()
 void gainExperience(byte enemy_level)
 {
   int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
-  if (ex > player.experienceTotal) {
-    ex -= player.experienceTotal;
+  if (ex > EXP_TOTAL) {
+    ex -= EXP_TOTAL;
     player.level++;
     player.healthTotal += HP_PER_LEVEL;
     player.health = player.healthTotal;
@@ -305,7 +306,7 @@ void drawPlayerStats()
   fillWithNumber(7, player.gold);
   fillWithPlayerStats(20, player.health, player.healthTotal);
   fillWithPlayerStats(34, player.magic, player.magicTotal);
-  fillWithPlayerStats(57, player.experience, player.experienceTotal);
+  fillWithPlayerStats(57, player.experience, EXP_TOTAL);
   drawTextBox(4, 14, BLACK);
 
   fillWithSentence(7);
@@ -320,7 +321,7 @@ void drawPlayerObjects()
 {
   showStatsTitle();
   fillWithSentence(61);
-  fillWithNumber(20, player.bossActiveAlive >> 5);
+  fillWithNumber(20, bitCount(player.bossActiveAlive & 0xF0));
   drawTextBox(4, 14, BLACK);
 
   fillWithSentence(62);
@@ -331,7 +332,7 @@ void drawPlayerObjects()
     if (!(player.bossActiveAlive & _BV(i)))
       sprites.drawSelfMasked(36 + (i*24), 38, miniMapSheet, (4 - i));
   }
-  fillWithWord(31, 207);
+  //fillWithWord(31, 207);
   drawTextBox(4, 28, BLACK);
 }
 

@@ -224,15 +224,19 @@ byte getTileID(int world_pos_x, int world_pos_y)
       if (!bitRead(player.gameTriggers[3], 0)) return TILE_ROCK;                                   // AMULET OF FIRE NOT USED
       else break;
     case 5145:                                                                                     // 153 + (26 * 192) CHEST IN FORREST MIDDLE
-      if (bitRead(player.gameTriggers[2], 7)) return TILE_OPENED_CHEST;                            // chunk: 25, 4: 153: 29
+      if (bitRead(player.gameTriggers[3], 6)) return TILE_OPENED_CHEST;                            // chunk: 25, 4: 29 : 100
       else return TILE_CLOSED_CHEST;
       break;
-    /*case 18963:                                                                                    // 147 + (98 * 192) CHEST IN SWAMP NORTH
-      if (bitRead(player.gameTriggers[2], 6)) return TILE_OPENED_CHEST;                            // chunk: 24, 16: 536: 40
+    case 18963:                                                                                    // 147 + (98 * 192) CHEST IN SWAMP NORTH
+      if (bitRead(player.gameTriggers[3], 5)) return TILE_OPENED_CHEST;                            // chunk: 24, 16: 40 : 384
       else return TILE_CLOSED_CHEST;
-      break;*/
-    case 23430:                                                                                    // 6 + (122 * 192) CHEST ON THE LONG ROAD
-      if (bitRead(player.gameTriggers[2], 5)) return TILE_OPENED_CHEST;                            // chunk: 1, 20: 641: 21
+      break;
+    case 30376:                                                                                    // 40 + (158 * 192) CHEST IN FIELDS
+      if (bitRead(player.gameTriggers[3], 4)) return TILE_OPENED_CHEST;                            // chunk: 1, 20: 21 : 20
+      else return TILE_CLOSED_CHEST;
+      break;
+    case 2900:                                                                                     // 20 + (15 * 192) CHEST IN NORTH CANYONS
+      if (bitRead(player.gameTriggers[3], 7)) return TILE_OPENED_CHEST;                            // chunk: 3, 2: 5 : 6
       else return TILE_CLOSED_CHEST;
       break;
     case 34891:                                                                                    // 139 + (181 * 192) CHEST IN THE HOUSE

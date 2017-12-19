@@ -378,9 +378,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 111 : SPEAR
   5,
   19, 16, 5, 1, 18,
-  // PLACE 112 : BOW
-  3,
-  2, 15, 23,
+  // PLACE 112 : BLADE
+  5,
+  CHAR_B, CHAR_L, CHAR_A, CHAR_D, CHAR_E,
   // PLACE 113 : WOOL
   4,
   23, 15, 15, 12,
@@ -420,9 +420,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 125 : GOLD
   4,
   7, 15, 12, 4,
-  // PLACE 126 : empty  // CLOAK
-  0,
-  //3, 12, 15, 1, 11,
+  // PLACE 126 : LAST
+  4,
+  CHAR_L, CHAR_A, CHAR_S, CHAR_T,
   // PLACE 127 : ESCAPE
   6,
   5, 19, 3, 1, 16, 5,
@@ -649,24 +649,24 @@ PROGMEM const unsigned char library[] =
   // PLACE 201 : BLADE
   5,
   2, 12, 1, 4, 5,
-  // PLACE 202 : PIECES
-  6,
-  16, 9, 5, 3, 5, 19,
+  // PLACE 202 : PIECE
+  5,
+  16, 9, 5, 3, 5,
   // PLACE 203 : BOSS
   4,
   2, 15, 19, 19,
   // PLACE 204 : CARDS
   5,
   3, 1, 18, 4, 19,
-  // PLACE 205 : CARRYING
-  8,
-  3, 1, 18, 18, 25, 9, 14, 7,
+  // PLACE 205 : empty //CARRYING
+  0,
+  //3, 1, 18, 18, 25, 9, 14, 7,
   // PLACE 206 : LEADS
   5,
   12, 5, 1, 4, 19,
-  // PLACE 207 : FISHING ROD
-  11,
-  6, 9, 19, 8, 9, 14, 7, SPACE, 18, 15, 4,
+  // PLACE 207 : empty //FISHING ROD
+  0,
+  //6, 9, 19, 8, 9, 14, 7, SPACE, 18, 15, 4,
   // PLACE 208 : PRESENT
   7,
   16, 18, 5, 19, 5, 14, 20,
@@ -885,9 +885,9 @@ PROGMEM const unsigned char sentences[] =
   0,
   //10, SPACE, 57, SPACE, 92, SPACE, 125,
 
-  // PLACE 26 : empty  // WORTH A PILE OF GOLD
-  0,
-  //10, SPACE, 58, SPACE, 59, SPACE, 92, SPACE, 125,
+  // PLACE 26 : YOU FOUND THE LAST BLADE PIECE!
+  12,
+  62, SPACE, 158, SPACE, 75, SPACE, 126, NEWLINE, 201, SPACE, 202, 39,
 
 
   // PLACE 27 : ATTACK AMOUNT_____
@@ -914,21 +914,21 @@ PROGMEM const unsigned char sentences[] =
   7,
   58, SPACE, 174, SPACE, 92, SPACE, 124,
 
-  // PLACE 33 : FIND DOUBLE GOLD
-  5,
-  17, SPACE, 20, SPACE, 125,
-
-  // PLACE 34 : ENEMIES MISS MORE
-  5,
-  21, SPACE, 22, SPACE, 19,
-
-  // PLACE 35 : ESCAPE EVERY FIGHT
-  5,
-  127, SPACE, 23, SPACE, 24,
-
-  // PLACE 36 : empty
+  // PLACE 33 : empty  //FIND DOUBLE GOLD
   0,
-  //25, SPACE, 26, SPACE, 76, SPACE, 20,
+  //17, SPACE, 20, SPACE, 125,
+
+  // PLACE 34 : empty  //ENEMIES MISS MORE
+  0,
+  //21, SPACE, 22, SPACE, 19,
+
+  // PLACE 35 : empty  //ESCAPE EVERY FIGHT
+  0,
+  //127, SPACE, 23, SPACE, 24,
+
+  // PLACE 36 : YOU FOUND A BLADE/PIECE
+  9,
+  62, SPACE, 158, SPACE, 58, SPACE, 201, NEWLINE, 202,
 
 
   // PLACE 37 : THERE IS DANGER IN THE AIR... v
@@ -1028,12 +1028,12 @@ PROGMEM const unsigned char sentences[] =
   57, SPACE, 92, SPACE, 78, 60, 39,
 
   // PLACE 61 : BLADE PIECES FOUND:..
-  7,
-  201, SPACE, 202, SPACE, 158, 42, DOUBLESPACE,
+  8,
+  201, SPACE, 202, 60, SPACE, 158, 42, DOUBLESPACE,
 
   // PLACE 62 : BOSS CARDS FOUND:///CARRYING:
-  13,
-  203, SPACE, 204, SPACE, 158, 42, DOUBLENEWLINE, DOUBLENEWLINE, 205, 42, FOURSPACE, FOURSPACE,  FOURSPACE,
+  8,
+  203, SPACE, 204, SPACE, 158, 42, DOUBLENEWLINE, DOUBLENEWLINE, //205, 42, FOURSPACE, FOURSPACE,  FOURSPACE,
 
   // PLACE 63 : YOU WILL NEED A MAP!/I SAW ONE IN A BOOK
   22,

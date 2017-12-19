@@ -169,29 +169,6 @@ void selectItemsEquipment()
       else
         player.magic = min(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
     }
-    /*switch (inventorySelection)
-    {
-      case 0: // Apple
-      case 1: // Cider
-      player.health = min(player.health + 10 + (40 * inventorySelection), player.healthTotal);
-      break;
-      case 2: // Anise
-      case 3: // Absinthe
-      player.magic = min(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
-      break;
-      case 0: // Apple
-      player.health = min(player.health+5, player.healthTotal);
-      break;
-      case 1: // Cider
-      player.health = min(player.health+15, player.healthTotal);
-      break;
-      case 2: // Anise
-      player.magic = min(player.magic+5, player.magicTotal);
-      break;
-      case 3: // Absinthe
-      player.magic = min(player.magic+15, player.magicTotal);
-      break;
-    }*/
     break;
     case STATE_GAME_WEAPON:
     player.attackAddition = inventorySelection * ITEM_SCALAR + 1;

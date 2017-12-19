@@ -32,8 +32,6 @@
 
 #define BOSS                      true
 
-bool lastAttack = false;
-
 /*
  * Enemies stats are based on the player.currentRegion variable.
  */
@@ -62,9 +60,9 @@ const byte typetable[] = {
 * Get damage multiplier by type. 
 * returns -1 (not effective), 0 (same type), or 1 (very effective)
 */
-byte getDamageMult(int8_t attacktype, int8_t defensetype)
+byte getDamageMult(int8_t spelltype, int8_t defensetype)
 {
-  crit = typetable[attacktype * 4 + defensetype];
+  crit = typetable[spelltype * 4 + defensetype];
   return crit;
 }
 
@@ -150,7 +148,7 @@ void stateGameBattle()
        */
       case BATTLE_ATTACK:
       {
-        lastAttack = ATTACK_IS_PHYSICAL;
+        //lastAttack = ATTACK_IS_PHYSICAL;
         byte chancetotal = 20;
         if (player.speed > enemy.speed)
           chancetotal += 5;
@@ -174,7 +172,7 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
-        lastAttack = ATTACK_IS_MAGIC;
+        //lastAttack = ATTACK_IS_MAGIC;
         byte magicdamage = 0; // = player.attack;
         switch (magictype)
         {
@@ -222,7 +220,7 @@ void stateGameBattle()
        */
       case BATTLE_ITEMS:
       {
-        cursorY = 0;
+        clearCursor();
         battleProgress = BATTLE_START;
         previousGameState = gameState;
         gameState = STATE_GAME_ITEMS;
@@ -245,13 +243,16 @@ void stateGameBattle()
       case BATTLE_ENEMY_TURN:
       {
         battleBlink = 0;
-        offsetIndex = 0;
-        battleProgress = BATTLE_PLAYER_HURT;
         if (generateRandomNumber(20) < 4)
         {
           battleProgress = BATTLE_ENEMY_DEFEND;
           enemy.defense += enemy.defense / 2;
           enemy.specDefense += enemy.specDefense / 2;
+        }
+        else
+        {
+          offsetIndex = 0;
+          battleProgress = BATTLE_PLAYER_HURT;
         }
         //textRollAmount = 0;
       }
@@ -315,7 +316,7 @@ void stateGameBattle()
         }
         else
         {
-          if (lastAttack == ATTACK_IS_PHYSICAL)
+          if (attackType == ATTACK_IS_PHYSICAL)
           {
             // not magic
             fillWithSentence(71, TEXT_ROLL);
@@ -381,9 +382,7 @@ void stateGameBattle()
           if (player.health > 0)
           {
             if (!playerFirst)
-            {
               battleProgress = attackType;
-            }
             else
               battleProgress =  BATTLE_NEXT_TURN;
           }
