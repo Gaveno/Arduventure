@@ -926,9 +926,9 @@ PROGMEM const unsigned char sentences[] =
   5,
   127, SPACE, 23, SPACE, 24,
 
-  // PLACE 36 : SELL PRICE IS DOUBLE
-  7,
-  25, SPACE, 26, SPACE, 76, SPACE, 20,
+  // PLACE 36 : empty
+  0,
+  //25, SPACE, 26, SPACE, 76, SPACE, 20,
 
 
   // PLACE 37 : THERE IS DANGER IN THE AIR... v
