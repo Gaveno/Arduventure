@@ -170,7 +170,7 @@ byte attackType = 0; // 0 = physical, 1 = magic
 bool levelup = false;
 
 byte miniCamX = 0;
-byte miniCamY = 0;
+byte miniCamY = 176;
 int camX = 0;
 int camY = 0;
 
