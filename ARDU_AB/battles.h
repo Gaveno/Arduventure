@@ -157,6 +157,7 @@ void stateGameBattle()
         {
           // Missed
           lastDamageDealt = 0;
+          crit = 1;
         }
         else
         {
