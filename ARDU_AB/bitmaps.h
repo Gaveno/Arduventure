@@ -1096,25 +1096,28 @@ const unsigned char PROGMEM doors[] =
   177, 45,   // House           41
   123, 63,   // House           42
   // Doors in the CANYON region: total 5
-  3 ,  2,    // House           43
+  /*3 ,  2,    // House           43
   51, 14,    // House           44
   45, 38,    // House           45
   3 , 56,    // House           46
-  69, 68,    // House           47
+  69, 68,    // House           47*/
 
   // Doors in the FIELDS region: total 1
-  9 , 153,   // Your Home       48
+  9 , 153,   // Your Home       43
 
 
   // interior doors that lead back to the map
   // ========================================
   // 6 Doors in the interior region
-  21 , 191,   // Your interior  49
-  45 , 191,   // Tree interior  50
-  69 , 191,   // Shop interior  51
-  93 , 191,   // Cave interior  52
-  117, 191,   // Inn interior   53
-  141, 191,   // House interior 54
+  21 , 191,   // Your interior  44
+  45 , 191,   // Tree interior  45
+  69 , 191,   // Shop interior  46
+  93 , 191,   // Cave interior  47
+  117, 191,   // Inn interior   48
+  141, 191,   // House interior 49
+
+  // Extra shop in canyons
+  45,   38    // Extra shop in canyons 50
 };
 
 

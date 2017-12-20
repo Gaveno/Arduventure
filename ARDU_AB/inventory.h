@@ -101,7 +101,7 @@ void investigateObjects(byte object)
           bitSet(player.gameTriggers[3], player.currentRegion - 5);
           fillWithSentence(foundLastPiece(), TEXT_ROLL);
         }
-        else if ((player.lastDoor) == 48)  // Players house
+        else if ((player.lastDoor) == 43)  // Players house
         {
           bitSet(player.hasStuff[4], 0);
           bitSet(player.gameTriggers[2], 4);
