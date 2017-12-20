@@ -1023,9 +1023,9 @@ PROGMEM const unsigned char sentences[] =
   6,
   9, SPACE, 7, SPACE, 3, 40,
 
-  // PLACE 60 : LOTS OF MONSTERS!
-  7,
-  57, SPACE, 92, SPACE, 78, 60, 39,
+  // PLACE 60 : SAVE IN EXTRAS
+  6,
+  67, SPACE, 74, SPACE, 195, 60,
 
   // PLACE 61 : BLADE PIECES FOUND:..
   8,

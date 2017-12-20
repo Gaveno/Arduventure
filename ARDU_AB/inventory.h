@@ -48,9 +48,9 @@ void investigateObjects(byte object)
     byte regionComingFrom = (player.lastDoor - 28);
     switch (object)
     {
-      case TILE_BED_LOW:            // 48
+      /*case TILE_BED_LOW:            // 48
       case TILE_BED_UP:             // 49
-        break;
+        break;*/
       case TILE_SHELVE_LOW:         // 50
         if (bitRead(player.gameTriggers[3], 3) == 0) /*&& (player.x / 16 == 63) && (player.lastDoor == 24))*/
         {

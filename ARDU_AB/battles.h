@@ -607,16 +607,16 @@ void setupBattle()
     switch (player.lastDoor)
     {
       case 28: //bird
-      createEnemy(player.level, 7, STAT_NEUTRAL, TYPE_NORMAL); 
+      createEnemy(player.level, 7, STAT_NEUTRAL, TYPE_NORMAL);
       break;
       case 29: //turtle
-      createEnemy(player.level, 15, STAT_DEFENSE, TYPE_WATER); 
+      createEnemy(player.level, 17, STAT_DEFENSE, TYPE_WATER);
       break;
       case 30: //tree
-      createEnemy(player.level, 20, STAT_OFFENSE, TYPE_LEAF); 
+      createEnemy(player.level, 25, STAT_OFFENSE, TYPE_LEAF);
       break;
       default://case 31: //lizard
-      createEnemy(player.level, 28, STAT_NEUTRAL, TYPE_FIRE); 
+      createEnemy(player.level, 35, STAT_NEUTRAL, TYPE_FIRE);
       break;
     }
     enemy.images = player.lastDoor - 28;

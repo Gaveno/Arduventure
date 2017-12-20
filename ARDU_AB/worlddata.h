@@ -94,6 +94,7 @@ byte getChunk(byte chunk_pos_x, byte chunk_pos_y)
     case 379:       // Shop chunk_x:           27 chunk_y: 11
     case 709:       // Shop chunk_x:            5 chunk_y: 22
     case 754:       // Shop chunk_x:           18 chunk_y: 23
+    case 199:       // Shop chunk_x:            7 chunk_y:  6
       return 171;   // chunk 43 + 128
       break;
     case 61:        // Battle cave chunk_x:    29 chunk_y:  1
@@ -231,7 +232,7 @@ byte getTileID(int world_pos_x, int world_pos_y)
       if (bitRead(player.gameTriggers[3], 5)) return TILE_OPENED_CHEST;                            // chunk: 24, 16: 40 : 384
       else return TILE_CLOSED_CHEST;
       break;
-    case 30376:                                                                                    // 40 + (158 * 192) CHEST IN FIELDS
+    case 17731:                                                                                    // 67 + (92 * 192) CHEST IN FIELDS
       if (bitRead(player.gameTriggers[3], 4)) return TILE_OPENED_CHEST;                            // chunk: 1, 20: 21 : 20
       else return TILE_CLOSED_CHEST;
       break;

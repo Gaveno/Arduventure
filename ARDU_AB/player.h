@@ -229,7 +229,7 @@ void gainExperience(byte enemy_level)
 {
   int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
   if (isBoss) ex += 100;
-  if (ex > EXP_TOTAL) {
+  if (ex >= EXP_TOTAL) {
     ex -= EXP_TOTAL;
     player.level++;
     player.healthTotal += HP_PER_LEVEL;
@@ -352,8 +352,8 @@ void discoverMap(int world_x, int world_y)
   // Make sure within map area (not inside)
   if (world_y > 2880) return;
 
-  byte x = (world_x / 768);
-  byte y = ((world_y / 768) * 4);
+  byte x = ((world_x + 384) / 768);
+  byte y = (((world_y + 384) / 768) * 4);
 
   player.mapFog[(x + y) / 8] |= _BV((x + y) % 8);
 
