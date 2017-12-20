@@ -56,7 +56,7 @@ void checkInputs()
       {
         textReset = true;
         //textRollAmount = 0;
-        battleBlink += 10;  /// Speed up battles if mashing the B button
+        //battleBlink += 10;  /// Speed up battles if mashing the B button
       }
   }
   switch (gameState)
