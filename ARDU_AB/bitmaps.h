@@ -1117,7 +1117,7 @@ const unsigned char PROGMEM doors[] =
   141, 191,   // House interior 49
 
   // Extra shop in canyons
-  45,   38    // Extra shop in canyons 50
+  45,   39    // Extra shop in canyons 50
 };
 
 
