@@ -72,7 +72,7 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
     enemy.level++;  // 1-8 areas 2-4, 1-5 area 1
     region--;       // 0-3
     enemy.level += region * 5;  // 1-23
-    enemy.type = (monster - 1) / 2;
+    enemy.type = monster / 2;
   }
 
   enemy.defense = 3;
