@@ -165,9 +165,9 @@ void checkInputs()
           default:
             gameState = STATE_GAME_ITEMS + cursorY - 5;
 
-            /*miniCamX = (((playerReducedX * 8) - 64) < 0) ? 0 : ((playerReducedX * 8) - 64);
+            /*miniCamX = ((int(playerReducedX * 8) - 64) < 0) ? 0 : byte(int(playerReducedX * 8) - 64);
             if (miniCamX > 128) miniCamX = 128;
-            miniCamY = (((playerReducedY * 8) - 32) < 0) ? 0 : ((playerReducedY * 8) - 32);
+            miniCamY = ((int(playerReducedY * 8) - 32) < 0) ? 0 : byte(int(playerReducedY * 8) - 32);
             if (miniCamY > 176) miniCamY = 176;*/
             //miniCamX = (playerReducedX * 8) - 64;
             //miniCamY = (playerReducedY * 8) - 32;

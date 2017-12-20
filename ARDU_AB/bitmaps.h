@@ -1091,10 +1091,10 @@ const unsigned char PROGMEM doors[] =
   153, 153,  // House           37
   159, 153,  // House           38
   // Doors in the FOREST region: total 4
-  165,  8,   // House           39
-  123, 14,   // House           40
-  177, 44,   // House           41
-  123, 62,   // House           42
+  165,  9,   // House           39
+  123, 15,   // House           40
+  177, 45,   // House           41
+  123, 63,   // House           42
   // Doors in the CANYON region: total 5
   3 ,  2,    // House           43
   51, 14,    // House           44
