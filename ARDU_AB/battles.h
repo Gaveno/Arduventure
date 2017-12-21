@@ -620,7 +620,7 @@ void setupBattle()
       break;
     }
     enemy.images = player.lastDoor - 28;
-    enemy.health += 10 * (player.lastDoor - 27);
+    enemy.health += 60 * (player.lastDoor - 27);
     //player.experience = min((int)player.experience + 10 * (player.lastDoor - 27), 255);
   }
   else

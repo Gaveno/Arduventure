@@ -164,7 +164,7 @@ byte songPlaying = 0;
 bool needMoreMoney = false;
 
 // Keep track of last damage dealt
-int lastDamageDealt = 0;
+byte lastDamageDealt = 0;
 bool playerFirst = true;
 byte attackType = 0; // 0 = physical, 1 = magic
 bool levelup = false;

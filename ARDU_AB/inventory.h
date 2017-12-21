@@ -138,10 +138,10 @@ void investigateObjects(byte object)
             player.itemsAmount[2] += amount;
           }
 
-          else if (door == 3)  // Weapons 0, 2, 4, 6 lastDoor 3, 8, 13, 18
+          else if (door == 3)  // Weapons 1, 2, 3, 4 lastDoor 3, 8, 13, 18
           {
             fillWithSentence(50, TEXT_ROLL);
-            fillWithWord(23, 105 - 1 + amount);
+            fillWithWord(23, 105 + (1 + amount)/2);
             bitSet(player.hasStuff[2], amount - 1);
           }
 

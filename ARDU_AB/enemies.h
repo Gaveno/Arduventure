@@ -15,7 +15,7 @@ byte enemyAmount = 3;
 struct Enemies
 {
   byte type;
-  byte health;
+  int health;
   byte defense;
   byte specDefense;
   byte attack;
@@ -114,7 +114,7 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
 void damageEnemy(byte player_attack, byte player_attack_addition, byte player_level, bool magic = false)
 {
   lastDamageDealt = max((player_attack + player_attack_addition) * player_level / ((magic == false) ? enemy.defense : enemy.specDefense), 1);
-  int8_t ehp = (int8_t)enemy.health - lastDamageDealt;
+  int16_t ehp = (int16_t)enemy.health - lastDamageDealt;
   enemy.health = max(ehp, 0);
 }
 

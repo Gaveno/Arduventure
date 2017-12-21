@@ -205,7 +205,7 @@ byte getChunk(byte chunk_pos_x, byte chunk_pos_y)
 }
 
 
-byte getTileID(int world_pos_x, int world_pos_y)
+byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
 {
   switch (((world_pos_x >> 4) + (world_pos_y >> 4) * 192))
   {
@@ -308,7 +308,7 @@ byte getTileID(int world_pos_x, int world_pos_y)
 
 
 
-bool getSolid(int world_x, int world_y)
+bool getSolid(uint16_t world_x, uint16_t world_y)
 {
   return (getTileID(world_x, world_y) >= 14);
 }

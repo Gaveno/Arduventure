@@ -31,7 +31,7 @@
 #define AMULET_ESCAPE                 6
 #define AMULET_RUBY                   7
 
-#define ITEM_SCALAR                   4
+#define ITEM_SCALAR                   6
 
 #define TILE_CHEST
 
@@ -43,7 +43,7 @@
   16+3, 16+6             // Bone, Iron
 };*/
 
-const unsigned int shopPrices[] = {
+const byte shopPrices[] = {
   20, 70, 15, 60
   //199, 999,
   //99, 499 

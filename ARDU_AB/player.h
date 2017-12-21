@@ -50,9 +50,9 @@ const byte collisionPoints[][2] =
 
 struct Player
 {
-  int x, y;
+  uint16_t x, y;
   byte health, healthTotal, magic, magicTotal;
-  int gold;
+  uint16_t gold;
   byte experience;//, experienceTotal;
   byte currentRegion;
   byte level;
@@ -227,21 +227,24 @@ void setPlayer()
  */
 void gainExperience(byte enemy_level)
 {
-  int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
-  if (isBoss) ex += 100;
-  if (ex >= EXP_TOTAL) {
-    ex -= EXP_TOTAL;
-    player.level++;
-    player.healthTotal += HP_PER_LEVEL;
-    player.health = player.healthTotal;
-    player.magicTotal += MP_PER_LEVEL;
-    player.magic = player.magicTotal;
-    player.attack += ATK_PER_LEVEL;
-    player.defense += DEF_PER_LEVEL;
-    player.speed += SPD_PER_LEVEL;
-    levelup = true;
+  if (player.level < 33)
+  {
+    int ex = (int)player.experience + enemy_level * EXP_MULTIPLIER / (player.level * (player.currentRegion - REGION_YOUR_GARDEN));
+    if (isBoss) ex += 100;
+    if (ex >= EXP_TOTAL) {
+      ex -= EXP_TOTAL;
+      player.level++;
+      player.healthTotal += HP_PER_LEVEL;
+      player.health = player.healthTotal;
+      player.magicTotal += MP_PER_LEVEL;
+      player.magic = player.magicTotal;
+      player.attack += ATK_PER_LEVEL;
+      player.defense += DEF_PER_LEVEL;
+      player.speed += SPD_PER_LEVEL;
+      levelup = true;
+    }
+    player.experience = (byte)ex;
   }
-  player.experience = (byte)ex;
 }
 
 /*
@@ -249,7 +252,7 @@ void gainExperience(byte enemy_level)
  */
 void damagePlayer(byte enemy_attack)
 {
-  lastDamageDealt = max((int)enemy_attack * (int)player.level / (int)(player.defense + player.defenseAddition), 1);
+  lastDamageDealt = max(enemy_attack * player.level / (player.defense + player.defenseAddition), 1);
   int php = (int)player.health - lastDamageDealt;
   player.health = max(php, 0);
 }
@@ -326,7 +329,8 @@ void drawPlayerObjects()
   drawTextBox(4, 14, BLACK);
 
   fillWithSentence(62);
-  for (byte i = 0; i < 4; i++)
+  //for (byte i = 0; i < 4; i++)
+  for (byte i = 3; i < 4; --i)
   {
     sprites.drawErase(34 + (i*24), 34, tileSheet, 0);
     //if (player.bossCardRegionRoaming & (1 << i))

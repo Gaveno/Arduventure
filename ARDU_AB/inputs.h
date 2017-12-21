@@ -12,10 +12,10 @@ bool textReset = true;
 
 bool checkPlayerCollision(byte orientation)
 {
-  int pointOne = player.x + collisionPoints[2 * orientation][0];
-  int pointTwo = player.y + collisionPoints[2 * orientation][1];
-  int pointThree = player.x + collisionPoints[(2 * orientation) + 1][0];
-  int pointFour = player.y + collisionPoints[(2 * orientation) + 1][1];
+  uint16_t pointOne = player.x + collisionPoints[2 * orientation][0];
+  uint16_t pointTwo = player.y + collisionPoints[2 * orientation][1];
+  uint16_t pointThree = player.x + collisionPoints[(2 * orientation) + 1][0];
+  uint16_t pointFour = player.y + collisionPoints[(2 * orientation) + 1][1];
   if (
     !getSolid(pointOne, pointTwo) &&
     !getSolid(pointThree, pointFour) &&

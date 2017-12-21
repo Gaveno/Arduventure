@@ -69,7 +69,7 @@ const unsigned char PROGMEM npcData[] =
 
 };
 
-byte getArea(int area_x, int area_y)
+byte getArea(uint16_t area_x, uint16_t area_y)
 {
   byte testArea = ((area_x / 384) + (area_y / 384) * 8);
   switch (testArea)
