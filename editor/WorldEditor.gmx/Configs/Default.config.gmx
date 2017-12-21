@@ -420,7 +420,7 @@
     <option_shortcircuit>True</option_shortcircuit>
     <option_showcursor>True</option_showcursor>
     <option_showprogress>1</option_showprogress>
-    <option_sizeable>False</option_sizeable>
+    <option_sizeable>True</option_sizeable>
     <option_stayontop>false</option_stayontop>
     <option_sync_vertex>0</option_sync_vertex>
     <option_textureGroup0_border>2</option_textureGroup0_border>
@@ -542,10 +542,10 @@
     <option_winUAP_wide_logo>Configs\Default\WindowsUAP\logos\WideLogo.scale-100.png</option_winUAP_wide_logo>
     <option_windowcolor>clBlack</option_windowcolor>
     <option_windows_alternate_sync_method>False</option_windows_alternate_sync_method>
-    <option_windows_build_version>18</option_windows_build_version>
+    <option_windows_build_version>40</option_windows_build_version>
     <option_windows_company_info>TEAM a.r.g.</option_windows_company_info>
     <option_windows_copyright_info>Gavin Atkin 2017</option_windows_copyright_info>
-    <option_windows_create_textures_on_demand>False</option_windows_create_textures_on_demand>
+    <option_windows_create_textures_on_demand>True</option_windows_create_textures_on_demand>
     <option_windows_description_info>A tool to design the player world for the game Arduventure</option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
@@ -562,9 +562,9 @@
     <option_windows_splash_background_colour>#000000</option_windows_splash_background_colour>
     <option_windows_splash_screen>Configs\Default\windows\splash.png</option_windows_splash_screen>
     <option_windows_steam_app_id>0</option_windows_steam_app_id>
-    <option_windows_texture_page>2048</option_windows_texture_page>
+    <option_windows_texture_page>1024</option_windows_texture_page>
     <option_windows_use_splash>-1</option_windows_use_splash>
-    <option_windows_vertex_buffer_method2>1</option_windows_vertex_buffer_method2>
+    <option_windows_vertex_buffer_method2>0</option_windows_vertex_buffer_method2>
     <option_winphone_480_splash_image>Configs\Default\WinPhone\SplashScreenImage480.jpg</option_winphone_480_splash_image>
     <option_winphone_720_splash_image>Configs\Default\WinPhone\SplashScreenImage720.jpg</option_winphone_720_splash_image>
     <option_winphone_768_splash_image>Configs\Default\WinPhone\SplashScreenImage.jpg</option_winphone_768_splash_image>
