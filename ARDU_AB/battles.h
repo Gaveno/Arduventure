@@ -694,7 +694,7 @@ void battleGiveRewards()
     break;
     case 1: // amulet
     fillWithSentence(52, TEXT_ROLL);
-    fillWithWord(22, 151 - player.lastDoor);
+    fillWithWord(22, 124 - ((player.lastDoor - 27) % 4));
     bitSet(player.hasStuff[6], 30 - player.lastDoor);
     break;
     default:
