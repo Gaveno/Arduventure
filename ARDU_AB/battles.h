@@ -38,7 +38,8 @@
 
 byte getMagicName()
 {
-  return ((magictype % 4 == TYPE_NORMAL) ? 236 : 124 - magictype);
+  //return ((magictype % 4 == TYPE_NORMAL) ? 236 : 124 - magictype);
+  return ((magictype != TYPE_NORMAL) ? 120 + magictype : 236);
 }
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};
@@ -175,7 +176,7 @@ void stateGameBattle()
       case BATTLE_MAGIC:
       {
         //lastAttack = ATTACK_IS_MAGIC;
-        byte magicdamage = 0; // = player.attack;
+        /*uint16_t magicdamage = 0; // = player.attack;
         switch (magictype)
         {
           case TYPE_NORMAL:
@@ -192,8 +193,11 @@ void stateGameBattle()
           break;
         }
         magicdamage += player.attack * getDamageMult(magictype, enemy.type);
+        
 
-        damageEnemy(magicdamage, 0, player.level, true /* magic */);
+        damageEnemy(magicdamage / 2, magicdamage / 2, player.level, true);*/
+        damageEnemy((uint16_t)(player.attack * getDamageMult(magictype, enemy.type)) + (uint16_t)(player.attack >> 1) * (magictype + 1),
+                    player.attackAddition, player.level, true);
         battleProgress = BATTLE_BLINK_ENEMY;
         battleBlink = 0;
         player.magic -= magiccost;
@@ -612,17 +616,17 @@ void setupBattle()
       createEnemy(player.level, 5, STAT_NEUTRAL, TYPE_NORMAL);
       break;
       case 29: //turtle
-      createEnemy(player.level, 17, STAT_DEFENSE, TYPE_WATER);
+      createEnemy(player.level, 16, STAT_DEFENSE, TYPE_WATER);
       break;
       case 30: //tree
-      createEnemy(player.level, 25, STAT_OFFENSE, TYPE_LEAF);
+      createEnemy(player.level, 24, STAT_OFFENSE, TYPE_LEAF);
       break;
       default://case 31: //lizard
       createEnemy(player.level, 35, STAT_NEUTRAL, TYPE_FIRE);
       break;
     }
     enemy.images = player.lastDoor - 28;
-    enemy.health += 70 * (player.lastDoor - 27);
+    enemy.health += 90 * (player.lastDoor - 27);
     //player.experience = min((int)player.experience + 10 * (player.lastDoor - 27), 255);
   }
   else
@@ -637,14 +641,14 @@ void setupBattle()
   clearCursor();
   switch (player.hasStuff[7]) // Which amulet is equipped
   {
-    case BIT_1: // fire
-      magictype = TYPE_FIRE;
+    case BIT_1: // water
+      magictype = TYPE_WATER;
     break;
     case BIT_2: // leaf
       magictype = TYPE_LEAF;
     break;
-    case BIT_3: // water
-      magictype = TYPE_WATER;
+    case BIT_3: // fire
+      magictype = TYPE_FIRE;
     break;
     default:    // normal
       magictype = TYPE_NORMAL;
@@ -696,8 +700,8 @@ void battleGiveRewards()
     break;
     case 1: // amulet
     fillWithSentence(52, TEXT_ROLL);
-    fillWithWord(22, 124 - ((player.lastDoor - 27) % 4));
-    bitSet(player.hasStuff[6], 30 - player.lastDoor);
+    fillWithWord(22, 121 + player.lastDoor - 28);
+    bitSet(player.hasStuff[6], player.lastDoor - 28);
     break;
     default:
     fadeCounter = 0;

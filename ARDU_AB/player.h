@@ -10,7 +10,7 @@
 #define ANIMATION_SPEED              8                  // higher number = slower animation
 #define MAX_LEVEL                    40
 #define HP_PER_LEVEL                 7
-#define MP_PER_LEVEL                 6
+#define MP_PER_LEVEL                 4
 #define ATK_PER_LEVEL                3
 #define DEF_PER_LEVEL                6
 #define SPD_PER_LEVEL                5
@@ -203,9 +203,9 @@ void setPlayer()
 
       0B00000000,                             // hasAmulet
       0B00000000,                             // equipedAmulet
-      //|||||||└-------------------------------> 0 fire
+      //|||||||└-------------------------------> 0 water
       //||||||└--------------------------------> 1 leafs
-      //|||||└---------------------------------> 2 water
+      //|||||└---------------------------------> 2 fire
       //||||└----------------------------------> 3 courage
       //|||└-----------------------------------> 4 gold
       //||└------------------------------------> 5 cloak

@@ -217,13 +217,13 @@ byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
       return TILE_SIGN;
       break;
     case 23709:                                                                                    // 93 + (123 * 192) FIELDS - SWAMP
-      if (!bitRead(player.gameTriggers[3], 2)) return TILE_ROCK;                                   // AMULET OF WATER NOT USED
+      if (!bitRead(player.gameTriggers[3], 0)) return TILE_ROCK;                                   // AMULET OF WATER NOT USED
       else break;
     case 18423:                                                                                    // 183 + (95 * 192) SWAMP - FOREST
       if (!bitRead(player.gameTriggers[3], 1)) return TILE_ROCK;                                   // AMULET OF LEAFS NOT USED
       else break;
     case 1817:                                                                                     // 89 + (9 * 192) FOREST - CANYONS
-      if (!bitRead(player.gameTriggers[3], 0)) return TILE_ROCK;                                   // AMULET OF FIRE NOT USED
+      if (!bitRead(player.gameTriggers[3], 2)) return TILE_ROCK;                                   // AMULET OF FIRE NOT USED
       else break;
     case 5145:                                                                                     // 153 + (26 * 192) CHEST IN FORREST MIDDLE
       if (bitRead(player.gameTriggers[3], 6)) return TILE_OPENED_CHEST;                            // chunk: 25, 4: 29 : 100
@@ -237,7 +237,7 @@ byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
       if (bitRead(player.gameTriggers[3], 4)) return TILE_OPENED_CHEST;                            // chunk: 1, 20: 21 : 20
       else return TILE_CLOSED_CHEST;
       break;
-    case 2900:                                                                                     // 20 + (15 * 192) CHEST IN NORTH CANYONS
+    case 3909:                                                                                     // 69 + (20 * 192) CHEST IN NORTH CANYONS
       if (bitRead(player.gameTriggers[3], 7)) return TILE_OPENED_CHEST;                            // chunk: 3, 2: 5 : 6
       else return TILE_CLOSED_CHEST;
       break;
@@ -247,8 +247,9 @@ byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
       break;
 
     /*case 36188:
-      if (bitRead(player.bossActiveAlive, player.lastDoor - 28)) return TILE_OPENED_CHEST;         // 92 + (188 * 192) Boss cave chest
-      else return TILE_CLOSED_CHEST;
+      //if (bitRead(player.bossActiveAlive, player.lastDoor - 28)) return TILE_OPENED_CHEST;         // 92 + (188 * 192) Boss cave chest
+      //else return TILE_CLOSED_CHEST;
+      if (!bitRead(player.bossActiveAlive, player.lastDoor - 28)) return TILE_CLOSED_CHEST;
       break;*/
 
     case 36140:                                                                                    // 44 + (188 * 192) cave

@@ -405,18 +405,18 @@ PROGMEM const unsigned char library[] =
   // PLACE 120 : STEEL
   5,
   19, 20, 5, 5, 12,
-  // PLACE 121 : FIRE
-  4,
-  6, 9, 18, 5,
+  // PLACE 121 : WATER
+  5,
+  23, 1, 20, 5, 18,
   // PLACE 122 : LEAFS
   4,
   12, 5, 1, 6,// 19,
-  // PLACE 123 : WATER
-  5,
-  23, 1, 20, 5, 18,
-  // PLACE 124 : COURAGE
+  // PLACE 123 : FIRE
+  4,
+  6, 9, 18, 5,
+  // PLACE 124 : VICTORY
   7,
-  CHAR_C, CHAR_O, CHAR_U, CHAR_R, CHAR_A, CHAR_G, CHAR_E,
+  CHAR_V, CHAR_I, CHAR_C, CHAR_T, CHAR_O, CHAR_R, CHAR_Y,
   // PLACE 125 : GOLD
   4,
   7, 15, 12, 4,
@@ -910,7 +910,7 @@ PROGMEM const unsigned char sentences[] =
   5,
   181, SPACE, 123, SPACE, 180,
 
-  // PLACE 32 : A SYMBOL OF COURAGE
+  // PLACE 32 : A SYMBOL OF VICTORY
   7,
   58, SPACE, 174, SPACE, 92, SPACE, 124,
 
@@ -992,8 +992,8 @@ PROGMEM const unsigned char sentences[] =
   62, SPACE, 158, SPACE, 95, 42, 134, NEWLINE, 134, 134,
 
   // PLACE 52 : YOU FOUND AN AMULET:/__________
-  10,
-  62, SPACE, 158, SPACE, 159, SPACE, 96, 42, NEWLINE, FIVESPACE,
+  11,
+  62, SPACE, 158, SPACE, 159, SPACE, 96, 42, NEWLINE, FIVESPACE, FIVESPACE,
 
   // PLACE 53 : THIS ROAD LEADS TO THE__________
   11,
