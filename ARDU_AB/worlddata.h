@@ -68,13 +68,13 @@ byte getChunk(byte chunk_pos_x, byte chunk_pos_y)
     case 843:       // House chunk_x:          11 chunk_y: 26
       return 162;   // chunk 34 + 128
       break;
-    case 103:       // Big Tree chunk_x:        7 chunk_y:  3
-    case 172:       // Big Tree chunk_x:       12 chunk_y:  5
+    case 171:       // Big Tree chunk_x:       11 chunk_y:  5
     case 180:       // Big Tree chunk_x:       20 chunk_y:  5
+    case 192:       // Big Tree chunk_x:        0 chunk_y:  6
     case 312:       // Big Tree chunk_x:       24 chunk_y:  9
     case 353:       // Big Tree chunk_x:        1 chunk_y: 11
     case 368:       // Big Tree chunk_x:       16 chunk_y: 11
-    case 427:       // Big Tree chunk_x:       11 chunk_y: 13
+    case 394:       // Big Tree chunk_x:       10 chunk_y: 12
     case 485:       // Big Tree chunk_x:        5 chunk_y: 15
     case 493:       // Big Tree chunk_x:       13 chunk_y: 15
     case 515:       // Big Tree chunk_x:        3 chunk_y: 16
@@ -90,21 +90,21 @@ byte getChunk(byte chunk_pos_x, byte chunk_pos_y)
     case 910:       // Big Tree chunk_x:       14 chunk_y: 28
       return 170;   // chunk 42 + 128
       break;
-    case 38:        // Shop chunk_x:            6 chunk_y:  1
+    case 6:         // Shop chunk_x:            6 chunk_y:  0
+    case 42:        // Shop chunk_x:           10 chunk_y:  1
     case 379:       // Shop chunk_x:           27 chunk_y: 11
     case 709:       // Shop chunk_x:            5 chunk_y: 22
     case 754:       // Shop chunk_x:           18 chunk_y: 23
-    case 199:       // Shop chunk_x:            7 chunk_y:  6
       return 171;   // chunk 43 + 128
       break;
     case 61:        // Battle cave chunk_x:    29 chunk_y:  1
-    case 163:       // Battle cave chunk_x:     3 chunk_y:  5
+    case 33:        // Battle cave chunk_x:     1 chunk_y:  1
     case 570:       // Battle cave chunk_x:    26 chunk_y: 17
     case 718:       // Battle cave chunk_x:    14 chunk_y: 22
       return 172;   // chunk 44 + 128
       break;
     case 209:       // Inn chunk_x:            17 chunk_y:  6
-    case 300:       // Inn chunk_x:            12 chunk_y:  9
+    case 43:        // Inn chunk_x:            11 chunk_y:  1
     case 513:       // Inn chunk_x:             1 chunk_y: 16
     case 756:       // Inn chunk_x:            20 chunk_y: 23
       return 173;   // chunk 45 + 128

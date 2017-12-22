@@ -50,7 +50,7 @@ const byte collisionPoints[][2] =
 
 struct Player
 {
-  uint16_t x, y;
+  int x, y;
   byte health, healthTotal, magic, magicTotal;
   uint16_t gold;
   byte experience;//, experienceTotal;
@@ -105,7 +105,7 @@ void setPlayer()
     5, 0,                                     // attack
     7, 0,                                     // defense
     3, 0,                                     // speed
-    48,                                       // lastDoor is your house
+    43,                                       // lastDoor is your house
     //0B00000001,                               // bossCardRegionRoaming
     //|||||||└---------------------------------> 0 YOU HAVE BOSS CARD ONE   (0 = false / 1 = true)
     //||||||└----------------------------------> 1 YOU HAVE BOSS CARD TWO   (0 = false / 1 = true)
@@ -356,8 +356,8 @@ void discoverMap(int world_x, int world_y)
   // Make sure within map area (not inside)
   if (world_y > 2880) return;
 
-  byte x = ((world_x + 384) / 768);
-  byte y = (((world_y + 384) / 768) * 4);
+  byte x = ((world_x) / 768);
+  byte y = (((world_y) / 768) * 4);
 
   player.mapFog[(x + y) / 8] |= _BV((x + y) % 8);
 
