@@ -64,7 +64,7 @@
 #define TOTAL_REGIONS                 20
 #define LEVEL_CHUNK_W                 32
 #define LEVEL_CHUNK_H                 33
-#define TOTAL_DOORS                   56
+#define TOTAL_DOORS                   51
 
 #define REGION_FOREST_CANYON          0
 #define REGION_SWAMP_FOREST           1
