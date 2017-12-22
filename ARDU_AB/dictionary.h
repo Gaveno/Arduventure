@@ -79,24 +79,24 @@ PROGMEM const unsigned char library[] =
   // PLACE 14 : DEFEND
   6,
   4, 5, 6, 5, 14, 4,
-  // PLACE 15 : SLOWLY
-  6,
-  19, 12, 15, 23, 12, 25,
-  // PLACE 16 : RECOVER
-  7,
-  18, 5, 3, 15, 22, 5, 18,
+  // PLACE 15 : empty // SLOWLY
+  0,
+  //19, 12, 15, 23, 12, 25,
+  // PLACE 16 : empty // RECOVER
+  0,
+  //18, 5, 3, 15, 22, 5, 18,
   // PLACE 17 : FIND
   4,
   6, 9, 14, 4,
-  // PLACE 18 : FASTER
-  6,
-  6, 1, 19, 20, 5, 18,
+  // PLACE 18 : empty // FASTER
+  0,
+  //6, 1, 19, 20, 5, 18,
   // PLACE 19 : MORE
   4,
   13, 15, 18, 5,
-  // PLACE 20 : DOUBLE
-  6,
-  4, 15, 21, 2, 12, 5,
+  // PLACE 20 : empty // DOUBLE
+  0,
+  //4, 15, 21, 2, 12, 5,
   // PLACE 21 : ENEMIES
   7,
   5, 14, 5, 13, 9, 5, 19,

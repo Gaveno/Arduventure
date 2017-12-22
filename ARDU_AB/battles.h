@@ -120,7 +120,7 @@ void stateGameBattle()
     arduboy.fillScreen(0);
     drawRectangle(0, 8, 130, 44, WHITE);
     
-    if (lastDamageDealt == 0 || battleProgress != BATTLE_BLINK_ENEMY || battleBlink < 30 || battleBlink % 2 == 0)
+    if (battleBlink < 30 || lastDamageDealt == 0 || battleProgress != BATTLE_BLINK_ENEMY || battleBlink % 2 == 0)
     {
       // Enemy details
       fillWithSentence(75);
@@ -149,9 +149,10 @@ void stateGameBattle()
       case BATTLE_ATTACK:
       {
         //lastAttack = ATTACK_IS_PHYSICAL;
-        byte chancetotal = 20;
+        byte chancetotal = (player.speed > enemy.speed) ? 25 : 20;
+        /*byte chancetotal = 20;
         if (player.speed > enemy.speed)
-          chancetotal += 5;
+          chancetotal += 5;*/
         byte chance = generateRandomNumber(chancetotal);
         if (chance < PLAYER_MISS_CHANCE)
         {
@@ -244,11 +245,12 @@ void stateGameBattle()
       case BATTLE_ENEMY_TURN:
       {
         battleBlink = 0;
-        if (generateRandomNumber(20) < 4)
+        if (enemy.defendsLeft > 0 && generateRandomNumber(20) < 4)
         {
+          --enemy.defendsLeft;
           battleProgress = BATTLE_ENEMY_DEFEND;
-          enemy.defense += enemy.defense / 2;
-          enemy.specDefense += enemy.specDefense / 2;
+          enemy.defense += enemy.defense >> 2;
+          enemy.specDefense += enemy.specDefense / 6;
         }
         else
         {
@@ -607,10 +609,10 @@ void setupBattle()
     switch (player.lastDoor)
     {
       case 28: //bird
-      createEnemy(player.level, 7, STAT_NEUTRAL, TYPE_NORMAL);
+      createEnemy(player.level, 5, STAT_NEUTRAL, TYPE_NORMAL);
       break;
       case 29: //turtle
-      createEnemy(player.level, 17, STAT_DEFENSE, TYPE_WATER);
+      createEnemy(player.level, 15, STAT_DEFENSE, TYPE_WATER);
       break;
       case 30: //tree
       createEnemy(player.level, 25, STAT_OFFENSE, TYPE_LEAF);

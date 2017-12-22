@@ -22,6 +22,7 @@ struct Enemies
   byte images;
   byte level;
   byte speed;
+  byte defendsLeft;
 };
 
 //Enemies enemy[5];
@@ -63,6 +64,7 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
   // get random level offset
   enemy.level = lvl;
   enemy.type = type;
+  enemy.defendsLeft = 4;
   if (lvl == 0)
   {
     enemy.level = generateRandomNumber(lvlRange); // 0-7
