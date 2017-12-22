@@ -115,9 +115,9 @@ void createEnemy(byte player_level, byte lvl = 0, byte stattype = 4, byte type =
   }
 }
 
-void damageEnemy(uint16_t player_attack, byte player_attack_addition, byte player_level, bool magic = false)
+void damageEnemy(uint16_t player_attack, uint16_t player_attack_addition, uint16_t player_level, bool magic = false)
 {
-  lastDamageDealt = (byte)max((player_attack + (uint16_t)player_attack_addition) * (uint16_t)player_level / (uint16_t)((magic == false) ? enemy.defense : enemy.specDefense), 1);
+  lastDamageDealt = (byte)(max((player_attack + player_attack_addition) * player_level / ((magic == false) ? enemy.defense : enemy.specDefense), 1));
   int16_t ehp = (int16_t)enemy.health - lastDamageDealt;
   enemy.health = max(ehp, 0);
 }

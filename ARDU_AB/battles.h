@@ -39,7 +39,8 @@
 byte getMagicName()
 {
   //return ((magictype % 4 == TYPE_NORMAL) ? 236 : 124 - magictype);
-  return ((magictype != TYPE_NORMAL) ? 120 + magictype : 236);
+  return ((
+    magictype != TYPE_NORMAL) ? 120 + magictype : 236);
 }
 
 const int8_t offsetattack[] = {0, -2, -4, -5, -4, -2, 0};

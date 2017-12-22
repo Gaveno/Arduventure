@@ -31,7 +31,8 @@
 #define AMULET_ESCAPE                 6
 #define AMULET_RUBY                   7
 
-#define ITEM_SCALAR                   6
+#define ARMOR_SCALAR                   6
+#define WEAPON_SCALAR                 14
 
 #define TILE_CHEST
 
@@ -126,11 +127,11 @@ void drawList()
             break;
           case STATE_GAME_WEAPON:
             fillWithSentence(27);
-            fillWithNumber(15,i*ITEM_SCALAR + 1);
+            fillWithNumber(15,i*WEAPON_SCALAR + 1);
             break;
           case STATE_GAME_ARMOR:
             fillWithSentence(28);
-            fillWithNumber(15,i*ITEM_SCALAR + 1);
+            fillWithNumber(15,i*ARMOR_SCALAR + 1);
             break;
           default://case STATE_GAME_AMULET:
             fillWithSentence(29 + i);
@@ -171,10 +172,10 @@ void selectItemsEquipment()
     }
     break;
     case STATE_GAME_WEAPON:
-    player.attackAddition = inventorySelection * ITEM_SCALAR + 1;
+    player.attackAddition = inventorySelection * WEAPON_SCALAR + 1;
     break;
     case STATE_GAME_ARMOR:
-    player.defenseAddition = inventorySelection * ITEM_SCALAR + 1;
+    player.defenseAddition = inventorySelection * ARMOR_SCALAR + 1;
     break;
   }
 }
