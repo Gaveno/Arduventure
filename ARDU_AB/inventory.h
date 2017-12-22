@@ -123,33 +123,33 @@ void investigateObjects(byte object)
           else if (door == 1)  // 1, 3, 5, 7 Apples lastDoor 1, 6, 11, 16
           {
             fillWithSentence(48, TEXT_ROLL);  // Found <item> amount <amount>
-            fillWithWord(11, 97);             // Apple
-            fillWithNumber(28, amount);
             bitSet(player.hasStuff[0], 0);
+            fillWithNumber(28, amount);
             player.itemsAmount[0] += amount;
+            fillWithWord(11, 97);             // Apple
           }
 
           else if (door == 2)  // 1, 3, 5, 7 Anise lastDoor 2, 7, 12, 17
           {
             fillWithSentence(48, TEXT_ROLL);
-            fillWithWord(11, 99);
-            fillWithNumber(28, amount);
             bitSet(player.hasStuff[0], 2);
+            fillWithNumber(28, amount);
             player.itemsAmount[2] += amount;
+            fillWithWord(11, 99);
           }
 
           else if (door == 3)  // Weapons 1, 2, 3, 4 lastDoor 3, 8, 13, 18
           {
             fillWithSentence(50, TEXT_ROLL);
-            fillWithWord(23, 105 + (1 + amount)/2);
-            bitSet(player.hasStuff[2], amount - 1);
+            bitSet(player.hasStuff[2], (amount + 1) / 2);
+            fillWithWord(23, 105 + (amount + 1)/2);
           }
 
           else if (door == 4)  // Armor 1, 3, 5, 7 lastDoor 4, 9, 14, 19
           {
             fillWithSentence(51, TEXT_ROLL);
-            fillWithWord(23, 113 + amount);
             bitSet(player.hasStuff[4], amount);
+            fillWithWord(23, 113 + amount);
           }
         }
       }

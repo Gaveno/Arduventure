@@ -356,8 +356,8 @@ void discoverMap(int world_x, int world_y)
   // Make sure within map area (not inside)
   if (world_y > 2880) return;
 
-  byte x = ((world_x) / 768);
-  byte y = (((world_y) / 768) * 4);
+  byte x = ((world_x + 96) / 768);
+  byte y = (((world_y + 96) / 768) * 4);
 
   player.mapFog[(x + y) / 8] |= _BV((x + y) % 8);
 
