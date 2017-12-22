@@ -85,9 +85,9 @@ void investigateObjects(byte object)
           fillWithSentence(1, TEXT_ROLL);
           fillWithName(34);
         }
-        else if (player.y > 3008)
+        else if (playerReducedY > 30)
         {
-           fillWithSentence(60, TEXT_ROLL);
+           fillWithSentence(23, TEXT_ROLL);
         }
         else
         {
@@ -98,20 +98,24 @@ void investigateObjects(byte object)
         //      ----CHESTS----
       case TILE_CLOSED_BOX:         //57
       {
-        if (player.y > 2992)
+        
+        // Blade shards
+        if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
+        {
+          bitSet(player.bossActiveAlive, player.currentRegion - 5);
+          bitSet(player.gameTriggers[3], player.currentRegion - 5);
+          fillWithSentence(foundLastPiece(), TEXT_ROLL);
+        }
+        else if (player.lastDoor >= 28 && player.lastDoor < 32)
         {
           if (bitRead(player.bossActiveAlive, player.lastDoor - 28))
           {
             gameState = STATE_GAME_BOSS;
           }
-          else fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
-        }
-        // Blade shards
-        else if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
-        {
-          bitSet(player.bossActiveAlive, player.currentRegion - 5);
-          bitSet(player.gameTriggers[3], player.currentRegion - 5);
-          fillWithSentence(foundLastPiece(), TEXT_ROLL);
+          else
+          {
+            fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
+          }
         }
         else if ((player.lastDoor) == 43)  // Players house
         {

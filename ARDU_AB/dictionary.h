@@ -426,9 +426,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 127 : ESCAPE
   6,
   5, 19, 3, 1, 16, 5,
-  // PLACE 128 : empty  // RUBY
-  0,
-  //18, 21, 2, 25,
+  // PLACE 128 : GUARD
+  5,
+  CHAR_G, CHAR_U, CHAR_A, CHAR_R, CHAR_D,
   // PLACE 129 : OUR
   3,
   15, 21, 18,
@@ -873,9 +873,9 @@ PROGMEM const unsigned char sentences[] =
   6,
   65, SPACE, 32, 27, SPACE, 84,
 
-  // PLACE 23 : empty // BOSS MONSTER
-  0,
-  //203, SPACE, 78,
+  // PLACE 23 : DANGER MONSTER GUARD
+  6,
+  64, SPACE, 78, SPACE, 128, 39,
 
   // PLACE 24 : empty  // WORTH MORE GOLD
   0,
