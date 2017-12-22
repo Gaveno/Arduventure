@@ -60,7 +60,7 @@ void investigateObjects(byte object)
         }
         else fillWithSentence(56, TEXT_ROLL);
         break;
-      case TILE_TABLE:              // 52
+      /*case TILE_TABLE:              // 52
         switch (player.lastDoor)
         {
 
@@ -78,12 +78,16 @@ void investigateObjects(byte object)
             fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
             break;
         }
-        break;
+        break;*/
       case TILE_SIGN:               // 56
         if ((player.currentRegion) == REGION_YOUR_GARDEN)
         {
           fillWithSentence(1, TEXT_ROLL);
           fillWithName(34);
+        }
+        else if (player.y > 3008)
+        {
+           fillWithSentence(60, TEXT_ROLL);
         }
         else
         {
@@ -94,8 +98,16 @@ void investigateObjects(byte object)
         //      ----CHESTS----
       case TILE_CLOSED_BOX:         //57
       {
+        if (player.y > 2992)
+        {
+          if (bitRead(player.bossActiveAlive, player.lastDoor - 28))
+          {
+            gameState = STATE_GAME_BOSS;
+          }
+          else fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
+        }
         // Blade shards
-        if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
+        else if (player.currentRegion >= REGION_FIELDS && player.currentRegion <= REGION_CANYONS)
         {
           bitSet(player.bossActiveAlive, player.currentRegion - 5);
           bitSet(player.gameTriggers[3], player.currentRegion - 5);

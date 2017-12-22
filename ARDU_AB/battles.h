@@ -24,7 +24,7 @@
 
 // Chances are not in percentages
 #define CRIT_CHANCE               18    // higher is lower chance to crit
-#define ENEMY_MISS_CHANCE         4    // higher is greater chance to miss
+#define ENEMY_MISS_CHANCE         3    // higher is greater chance to miss
 #define PLAYER_MISS_CHANCE        2   // higher is greater chance to miss
 
 #define ATTACK_IS_MAGIC           true
@@ -612,7 +612,7 @@ void setupBattle()
       createEnemy(player.level, 5, STAT_NEUTRAL, TYPE_NORMAL);
       break;
       case 29: //turtle
-      createEnemy(player.level, 15, STAT_DEFENSE, TYPE_WATER);
+      createEnemy(player.level, 17, STAT_DEFENSE, TYPE_WATER);
       break;
       case 30: //tree
       createEnemy(player.level, 25, STAT_OFFENSE, TYPE_LEAF);
@@ -622,7 +622,7 @@ void setupBattle()
       break;
     }
     enemy.images = player.lastDoor - 28;
-    enemy.health += 60 * (player.lastDoor - 27);
+    enemy.health += 70 * (player.lastDoor - 27);
     //player.experience = min((int)player.experience + 10 * (player.lastDoor - 27), 255);
   }
   else

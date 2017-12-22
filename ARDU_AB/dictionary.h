@@ -85,9 +85,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 16 : empty // RECOVER
   0,
   //18, 5, 3, 15, 22, 5, 18,
-  // PLACE 17 : FIND
-  4,
-  6, 9, 14, 4,
+  // PLACE 17 : empty // FIND
+  0,
+  //6, 9, 14, 4,
   // PLACE 18 : empty // FASTER
   0,
   //6, 1, 19, 20, 5, 18,
@@ -106,15 +106,15 @@ PROGMEM const unsigned char library[] =
   // PLACE 23 : EVERY
   5,
   5, 22, 5, 18, 25,
-  // PLACE 24 : FIGHT
-  5,
-  6, 9, 7, 8, 20,
-  // PLACE 25 : SELL
-  4,
-  19, 5, 12, 12,
-  // PLACE 26 : PRICE
-  5,
-  16, 18, 9, 3, 5,
+  // PLACE 24 : empty // FIGHT
+  0,
+  //6, 9, 7, 8, 20,
+  // PLACE 25 : empty // SELL
+  0,
+  //19, 5, 12, 12,
+  // PLACE 26 : empty // PRICE
+  0,
+  //16, 18, 9, 3, 5,
 
 
   // PLACE 27 : CHARACTER 0
@@ -209,15 +209,15 @@ PROGMEM const unsigned char library[] =
   56,
 
 
-  // PLACE 57 : LOTS
-  4,
-  12, 15, 20, 19,
+  // PLACE 57 : empty // LOTS
+  0,
+  //12, 15, 20, 19,
   // PLACE 58 : A
   1,
   1,
-  // PLACE 59 : PILE
-  4,
-  16, 9, 12, 5,
+  // PLACE 59 : empty // PILE
+  0,
+  //16, 9, 12, 5,
   // PLACE 60 : S
   1,
   19,
@@ -492,9 +492,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 149 : OVER
   4,
   15, 22, 5, 18,
-  // PLACE 150 : RUN
-  3,
-  18, 21, 14,
+  // PLACE 150 : empty // RUN
+  0,
+  //18, 21, 14,
   // PLACE 151 : CAN
   3,
   3, 1, 14,
@@ -873,9 +873,9 @@ PROGMEM const unsigned char sentences[] =
   6,
   65, SPACE, 32, 27, SPACE, 84,
 
-  // PLACE 23 : empty  // WORTH SOME GOLD
+  // PLACE 23 : empty // BOSS MONSTER
   0,
-  //10, SPACE, 11, SPACE, 125,
+  //203, SPACE, 78,
 
   // PLACE 24 : empty  // WORTH MORE GOLD
   0,

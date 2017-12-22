@@ -209,10 +209,11 @@ byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
 {
   switch (((world_pos_x >> 4) + (world_pos_y >> 4) * 192))
   {
-    case 23901:                                                                                    // 93 + (124 * 192)
-    case 18422:                                                                                    // 182 + (95 * 192)
     case 1625:                                                                                     // 89 + (8 * 192)
+    case 18422:                                                                                    // 182 + (95 * 192)
+    case 23901:                                                                                    // 93 + (124 * 192)
     case 30155:                                                                                    // 11 + (157 * 192)
+    //case 36189:                                                                                    // 93 + (188 * 192) battle cave
       return TILE_SIGN;
       break;
     case 23709:                                                                                    // 93 + (123 * 192) FIELDS - SWAMP
