@@ -246,6 +246,11 @@ byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
       else return TILE_CLOSED_CHEST;
       break;
 
+    /*case 36188:
+      if (bitRead(player.bossActiveAlive, player.lastDoor - 28)) return TILE_OPENED_CHEST;         // 92 + (188 * 192) Boss cave chest
+      else return TILE_CLOSED_CHEST;
+      break;*/
+
     case 36140:                                                                                    // 44 + (188 * 192) cave
       if (bitRead(player.gameTriggers[player.lastDoor / 8], player.lastDoor % 8)) return TILE_OPENED_CHEST;
       else return TILE_CLOSED_CHEST;
