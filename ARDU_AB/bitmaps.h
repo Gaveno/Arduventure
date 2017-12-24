@@ -938,12 +938,12 @@ const unsigned char PROGMEM chunks[] =
 ///////////////////////////////////////////
 const unsigned char PROGMEM regions[] =
 {
-  // REGION_FOREST_CANYON          0
-  0x0E, 0x00, 0x01, 0x0E,
+  // REGION_FIELDS_SWAMP           0
+  0x0F, 0x0F, 0x01, 0x0F,
   // REGION_SWAMP_FOREST           1
   0x10, 0x0F, 0x10, 0x01,
-  // REGION_FIELDS_SWAMP           2
-  0x0F, 0x0F, 0x01, 0x0F,
+  // REGION_FOREST_CANYON          2
+  0x0E, 0x00, 0x01, 0x0E,
   // REGION_FIELDS_CANYONS         3
   0x00, 0x0E, 0x0F, 0x01,
   // REGION_SWAMP_ISLAND_ONE       4

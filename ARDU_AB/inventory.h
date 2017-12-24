@@ -38,7 +38,7 @@ void investigateObjects(byte object)
     else
     {
       fillWithSentence(54, TEXT_ROLL); // "the rock has symbols resembling ______"
-      fillWithWord(33, 121 + player.currentRegion); // fire,leaf,water
+      fillWithWord(33, 121 + player.currentRegion); // water,leaf,fire
     }
     foundSomething = true;
   }
@@ -92,7 +92,7 @@ void investigateObjects(byte object)
         else
         {
           fillWithSentence(53, TEXT_ROLL);
-          fillWithWord(24, 171  - player.currentRegion);
+          fillWithWord(24, 169  + player.currentRegion);
         }
         break;
         //      ----CHESTS----

@@ -158,9 +158,9 @@ void setPlayer()
       //└--------------------------------------> 7 chest 23 has been opened (0 = false / 1 = true) Chest in Forrest Middle
 
       0B00000000,                             // Special triggers
-      //|||||||└-------------------------------> 0 used amulet of fire  on rock       (0 = false / 1 = true)
+      //|||||||└-------------------------------> 0 used amulet of water  on rock       (0 = false / 1 = true)
       //||||||└--------------------------------> 1 used amulet of leafs on rock       (0 = false / 1 = true)
-      //|||||└---------------------------------> 2 used amulet of water on rock       (0 = false / 1 = true)
+      //|||||└---------------------------------> 2 used amulet of fire on rock       (0 = false / 1 = true)
       //||||└----------------------------------> 3 map in the shop has been found     (0 = false / 1 = true)
       //|||└-----------------------------------> 4 found blade piece fields           (0 = false / 1 = true)
       //||└------------------------------------> 5 found blade piece swamp            (0 = false / 1 = true)
@@ -217,7 +217,7 @@ void setPlayer()
     {0, 0, 0, 0, 0, 0, 0, 0,},                   // amount of each item (max 64)
 
     {5, 50, 50, 50, 50, 50},                     // name
-    { 0B00000000, 0B00000000},                   // Fog x and y coördinates
+    { 0B00000000, 0B00000000},                   // Fog x and y coordinates
   };
 }
 

@@ -66,9 +66,9 @@
 #define LEVEL_CHUNK_H                 33
 #define TOTAL_DOORS                   51
 
-#define REGION_FOREST_CANYON          0
+#define REGION_FIELDS_SWAMP           0
 #define REGION_SWAMP_FOREST           1
-#define REGION_FIELDS_SWAMP           2
+#define REGION_FOREST_CANYON          2
 #define REGION_FIELDS_CANYONS         3
 #define REGION_SWAMP_ISLAND_ONE       4
 #define REGION_SWAMP_ISLAND_TWO       5
