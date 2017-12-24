@@ -106,9 +106,10 @@ void investigateObjects(byte object)
           bitSet(player.gameTriggers[3], player.currentRegion - 5);
           fillWithSentence(foundLastPiece(), TEXT_ROLL);
         }
+        // Game bosses
         else if (player.lastDoor >= 28 && player.lastDoor < 32)
         {
-          if (bitRead(player.bossActiveAlive, player.lastDoor - 28))
+          if (player.bossActiveAlive == 0B11110000 || bitRead(player.bossActiveAlive, player.lastDoor - 28))
           {
             gameState = STATE_GAME_BOSS;
           }
@@ -117,6 +118,7 @@ void investigateObjects(byte object)
             fillWithSentence(44, TEXT_ROLL); // "nothing there to take"
           }
         }
+        // Armor in players house
         else if ((player.lastDoor) == 43)  // Players house
         {
           bitSet(player.hasStuff[4], 0);
