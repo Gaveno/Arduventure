@@ -620,10 +620,10 @@ void setupBattle()
       createEnemy(player.level, 16, STAT_DEFENSE, TYPE_WATER);
       break;
       case 30: //tree
-      createEnemy(player.level, 24, STAT_OFFENSE, TYPE_LEAF);
+      createEnemy(player.level, 24, STAT_NEUTRAL, TYPE_LEAF);
       break;
       default://case 31: //lizard
-      createEnemy(player.level, 35, STAT_NEUTRAL, TYPE_FIRE);
+      createEnemy(player.level, 35, STAT_OFFENSE, TYPE_FIRE);
       break;
     }
     enemy.images = player.lastDoor - 28;
