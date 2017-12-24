@@ -610,7 +610,7 @@ PROGMEM const unsigned char library[] =
   // PLACE 188 : INSIDE
   6,
   9, 14, 19, 9, 4, 5,
-  // PLACE 189 : YEST
+  // PLACE 189 : YES
   3,
   25, 5, 20,
   // PLACE 190 : WILL
@@ -640,7 +640,7 @@ PROGMEM const unsigned char library[] =
   // PLACE 198 : TEAM a.r.g.
   11,
   20, 5, 1, 13, SPACE, 1, 37, 18, 37, 7, 37,
-  // PLACE 199 : one
+  // PLACE 199 : ONE
   3,
   15, 14, 5,
   // PLACE 200 : OLIVIER HUARD
@@ -856,7 +856,6 @@ PROGMEM const unsigned char sentences[] =
   5,
   91, SPACE, 96, 60, 39,
 
-
   // PLACE 19 : RESTORES 10 HP
   6,
   65, SPACE, 28, 27, SPACE, 83,
@@ -873,7 +872,7 @@ PROGMEM const unsigned char sentences[] =
   6,
   65, SPACE, 32, 27, SPACE, 84,
 
-  // PLACE 23 : DANGER MONSTER GUARD
+  // PLACE 23 : DANGER MONSTER GUARD!
   6,
   64, SPACE, 78, SPACE, 128, 39,
 
@@ -1053,7 +1052,7 @@ PROGMEM const unsigned char sentences[] =
 
   // PLACE 67 : YOU/<monster name> LOST <amount> HP
   4,
-  FIVESPACE, 220, TRIPLESPACE, 83,
+  FIVESPACE, 220, FOURSPACE, 83,
 
   // Place 68 : YOU DEFEATED <monster name>!
   5,
