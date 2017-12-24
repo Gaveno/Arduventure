@@ -555,7 +555,8 @@ PROGMEM const unsigned char library[] =
   // PLACE 170 : FOREST
   6,
   6, 15, 18, 5, 19, 20,
-  // PLACE 171 : CANYONS
+  // PLACE 171
+  : CANYONS
   7,
   3, 1, 14, 25, 15, 14, 19,
   // PLACE 172 : ROCK
