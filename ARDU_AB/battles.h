@@ -82,8 +82,12 @@ void endBattle()
   //fadeCounter = 0;
   //counterDown = false;
   //textRollAmount = 0;
-  if (player.health == 0) gameState = STATE_GAME_OVER;
-  else gameState = STATE_BATTLE_REWARDS;
+  /*if (player.health == 0)
+  {
+    gameState = STATE_GAME_OVER;
+    
+  }
+  else*/ gameState = STATE_BATTLE_REWARDS;
 }
 
 int8_t getEnemyOffset( )
@@ -397,6 +401,7 @@ void stateGameBattle()
           else
           {
             gameState = STATE_GAME_OVER;
+            ATM.play(youDied);
             //++fadeCounter;    // Player is dead.
           }
         }
@@ -598,6 +603,7 @@ void setupBattle()
 {
   ATM.play(battleSong);
   songPlaying = 0;
+  foundSomething = false;
   //textRollAmount = 0;
   gameState = STATE_GAME_BATTLE;
   battleProgress = BATTLE_ENEMY_INTRO;

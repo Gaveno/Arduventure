@@ -345,18 +345,18 @@ PROGMEM const unsigned char library[] =
   // PLACE 100 : ABSINTHE
   8,
   1, 2, 19, 9, 14, 20, 8, 5,
-  // PLACE 101 : RUBY
-  4,
-  18, 21, 2, 25,
-  // PLACE 102 : SAPPHIRE
-  8,
-  19, 1, 16, 16, 8, 9, 18, 5,
-  // PLACE 103 : EMERALD
-  7,
-  5, 13, 5, 18, 1, 12, 4,
-  // PLACE 104 : DIAMOND
-  7,
-  4, 9, 1, 13, 15, 14, 4,
+  // PLACE 101 : empty //RUBY
+  0,
+  //18, 21, 2, 25,
+  // PLACE 102 : empty //SAPPHIRE
+  0,
+  //19, 1, 16, 16, 8, 9, 18, 5,
+  // PLACE 103 : empty //EMERALD
+  0,
+  //5, 13, 5, 18, 1, 12, 4,
+  // PLACE 104 : empty //DIAMOND
+  0,
+  //4, 9, 1, 13, 15, 14, 4,
   // PLACE 105 : SLING
   5,
   19, 12, 9, 14, 7,
@@ -841,20 +841,20 @@ PROGMEM const unsigned char sentences[] =
   70, SPACE, 96, 40,
 
   // PLACE 15 : NO ITEMS!
-  4,
-  91, SPACE, 93, 39,
+  3,
+  91, SPACE, 93, //39,
 
   // PLACE 16 : NO WEAPONS!
-  5,
-  91, SPACE, 94, 60, 39,
+  4,
+  91, SPACE, 94, 60, //39,
 
   // PLACE 17 : NO ARMOR!
-  4,
-  91, SPACE, 95, 39,
+  3,
+  91, SPACE, 95, //39,
 
   // PLACE 18 : NO AMULETS!
-  5,
-  91, SPACE, 96, 60, 39,
+  4,
+  91, SPACE, 96, 60, //39,
 
   // PLACE 19 : RESTORES 10 HP
   6,

@@ -151,7 +151,11 @@ void checkInputs()
     case STATE_GAME_INVENTORY:
       if (arduboy.justPressed(UP_BUTTON) && (cursorY > 0)) cursorY--;
       else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < 4)) cursorY++;
-      else if (arduboy.justPressed(A_BUTTON)) gameState = STATE_GAME_PLAYING;
+      else if (arduboy.justPressed(A_BUTTON))
+      {
+        gameState = STATE_GAME_PLAYING;
+        textBox[0] = 0;
+      }
       else if (arduboy.justPressed(B_BUTTON))
       {
         switch (cursorY)
@@ -163,7 +167,7 @@ void checkInputs()
             gameState = STATE_GAME_SAVE;
             break;
           default:
-            gameState = STATE_GAME_ITEMS + cursorY - 5;
+            gameState = STATE_GAME_ITEMS - 5 + cursorY;
 
             /*miniCamX = ((int(playerReducedX * 8) - 64) < 0) ? 0 : byte(int(playerReducedX * 8) - 64);
             if (miniCamX > 128) miniCamX = 128;
@@ -318,8 +322,10 @@ void checkInputs()
       {
         if (cursorYesNoY)
         {
-          gameState = STATE_GAME_OVER;
-          ATM.play(youDied);
+          gameState = STATE_MENU_MAIN;
+          ATM.play(titleSong);
+          //gameState = STATE_GAME_OVER;
+          //ATM.play(youDied);
         }
         else
         {
