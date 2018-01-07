@@ -721,6 +721,7 @@ PROGMEM const unsigned char library[] =
   // PLACE 225 : VINE
   4,
   CHAR_V, CHAR_I, CHAR_N, CHAR_E,
+  #define D_ROOT 226
   // PLACE 226 : ROOT
   4,
   CHAR_R, CHAR_O, CHAR_O, CHAR_T,

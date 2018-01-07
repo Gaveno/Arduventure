@@ -287,7 +287,8 @@ void drawPlayer()
   }
   else playerFrame = 1;
 
-  byte spriteFrame = (foundSomething) ? 1 : (animSeq[playerFrame] + 3 * playerDirection);
+  //byte spriteFrame = (foundSomething) ? 1 : (animSeq[playerFrame] + 3 * playerDirection);
+  byte spriteFrame = animSeq[playerFrame] + 3 * playerDirection;
   sprites.drawPlusMask(player.x - camX + 2, player.y - camY - (playerFrame % 2) + 1, playerHead_plus_mask, spriteFrame / 3);
   sprites.drawPlusMask(player.x - camX + 2, player.y - camY + 8, playerFeet_plus_mask, spriteFrame);
   if (spriteFrame == 1) blinkingEyes(player.x - camX + 6, player.y - camY + 7);
