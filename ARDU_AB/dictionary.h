@@ -751,9 +751,9 @@ PROGMEM const unsigned char library[] =
   // PLACE 235 : CRITICAL
   8,
   CHAR_C, CHAR_R, CHAR_I, CHAR_T, CHAR_I, CHAR_C, CHAR_A, CHAR_L,
-  // PLACE 236: NORM
-  4,
-  CHAR_N, CHAR_O, CHAR_R, CHAR_M,
+  // PLACE 236: SPARK
+  5,
+  CHAR_S, CHAR_P, CHAR_A, CHAR_R, CHAR_K,
   // PLACE 237 : CAST
   4,
   CHAR_C, CHAR_A, CHAR_S, CHAR_T,
