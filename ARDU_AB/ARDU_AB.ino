@@ -7,6 +7,8 @@
 
   2017 - JO3RI GANTOIS - GAVIN ATKIN - OLIVIER HUARD - SIEGFRIED CROES 
 
+  Additional Level Design - Jace Atkin
+
   Game License: MIT : https://opensource.org/licenses/MIT
 
   Story, characters, sprites, tiles, design and art: copyrighted to TEAM a.r.g.
