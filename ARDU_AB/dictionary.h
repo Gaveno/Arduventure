@@ -79,12 +79,12 @@ PROGMEM const unsigned char library[] =
   // PLACE 14 : DEFEND
   6,
   4, 5, 6, 5, 14, 4,
-  // PLACE 15 : empty // SLOWLY
-  0,
-  //19, 12, 15, 23, 12, 25,
-  // PLACE 16 : empty // RECOVER
-  0,
-  //18, 5, 3, 15, 22, 5, 18,
+  // PLACE 15 : THANK
+  5,
+  CHAR_T, CHAR_H, CHAR_A, CHAR_N, CHAR_K,
+  // PLACE 16 : PLAYING
+  7,
+  CHAR_P, CHAR_L, CHAR_A, CHAR_Y, CHAR_I, CHAR_N, CHAR_G,
   // PLACE 17 : empty // FIND
   0,
   //6, 9, 14, 4,
@@ -910,9 +910,9 @@ PROGMEM const unsigned char sentences[] =
   5,
   181, SPACE, 123, SPACE, 180,
 
-  // PLACE 32 : A SYMBOL OF VICTORY
-  7,
-  58, SPACE, 174, SPACE, 92, SPACE, 124,
+  // PLACE 32 : THANK YOU FOR PLAYING!
+  10,
+  15, SPACE, 62, SPACE, 62, SPACE, 147, NEWLINE, 16, 39,
 
   // PLACE 33 : empty  //FIND DOUBLE GOLD
   0,
