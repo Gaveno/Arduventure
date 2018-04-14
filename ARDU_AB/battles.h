@@ -611,7 +611,8 @@ void setupBattle()
   
   if (isBoss)
   {
-    battleRewardType[0] = 1;  // Amulet
+    // Only give amulet if last amulet was not obtained yet. Otherwise give more gold.
+    battleRewardType[0] = !((player.hasStuff[6] >> 3) & 1);//1;  // Amulet
     battleRewardType[1] = 0;  // gold
     battleRewardNumb[1] = 30; // 30 gold
     battleRewardType[2] = 128;// exit

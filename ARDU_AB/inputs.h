@@ -324,6 +324,7 @@ void checkInputs()
         {
           gameState = STATE_MENU_MAIN;
           ATM.play(titleSong);
+          cursorY = 3;
           //gameState = STATE_GAME_OVER;
           //ATM.play(youDied);
         }

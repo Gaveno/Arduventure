@@ -27,6 +27,7 @@ byte getRegion(byte chunk_pos_x, byte chunk_pos_y)
                };
     if (arduboy.collide(chunk_pos, reg)) return i;
   }
+  return REGION_FOREST_CANYON;
 }
 
 void checkRegion()
