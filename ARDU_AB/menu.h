@@ -110,7 +110,7 @@ void stateMenuReboot()
   drawTextBox(4, 8, WHITE);
   fillWithSentence(66);
   drawTextBox(4, 34, WHITE);
-  if (arduboy.pressed(UP_BUTTON)) {
+  if (arduboy.pressed(DOWN_BUTTON)) {
     arduboy.exitToBootloader();
   }
   else if (arduboy.justPressed(A_BUTTON))
