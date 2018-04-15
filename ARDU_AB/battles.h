@@ -631,6 +631,11 @@ void setupBattle()
       break;
       default://case 31: //lizard
       createEnemy(player.level, 35, STAT_OFFENSE, TYPE_FIRE);
+      if (bitRead(player.hasStuff[3], 7) == false)
+      {
+        enemy.defense = 255;
+        enemy.specDefense = 255;
+      }
       break;
     }
     enemy.images = player.lastDoor - 28;

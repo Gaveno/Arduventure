@@ -59,9 +59,9 @@ const unsigned char PROGMEM npcData[] =
   //             └-------->  7 -/
 
 
-  118, 187, 0B00000010,   // interior Inn
-  70 , 187, 0B00000010,   // interior Shop
-  20 , 188, 0B00000010,   // interior House
+  118, 187, 0B01100011,   // interior Inn
+  70 , 187, 0B00100001,   // interior Shop
+  20 , 188, 0B01000010,   // interior House
 
   // exterior people
   // ===============
@@ -99,8 +99,10 @@ void updatePeople()
 void drawPeople() {
   //byte breath = (((globalFrame % 20) < 10) ? 1 : 0);
   //byte handMove = ((((globalFrame + 5) % 20) < 10) ? 1 : 0);
-  byte breath = ((globalFrame % 16) >> 4);
-  byte handMove = (((globalFrame + 5) % 16) >> 4);
+  //byte breath = ((globalFrame % 16) >> 4);
+  byte breath = (globalFrame >> 3) % 2;
+  //byte handMove = (((globalFrame + 5) % 16) >> 4);
+  byte handMove = ((globalFrame + 5) >> 3) % 2;
   int people_x = npc.x - camX;
   int people_y = npc.y - camY;
   //sprites.drawPlusMask(people_x + 3, people_y + 9 , npcBody_plus_mask, (npc.type << 5) >> 5); //npc.type & 0b00000111);
