@@ -27,7 +27,7 @@ byte getRegion(byte chunk_pos_x, byte chunk_pos_y)
                };
     if (arduboy.collide(chunk_pos, reg)) return i;
   }
-  return REGION_FOREST_CANYON;
+  //return REGION_FOREST;
 }
 
 void checkRegion()
@@ -38,7 +38,8 @@ void checkRegion()
 
 bool getChunkBit(byte chunk_x, byte chunk_y)
 {
-  if (chunk_x < 0 || chunk_x >= LEVEL_CHUNK_W || chunk_y < 0 || chunk_y >= LEVEL_CHUNK_H) return 1;
+  //if (chunk_x < 0 || chunk_x >= LEVEL_CHUNK_W || chunk_y < 0 || chunk_y >= LEVEL_CHUNK_H) return 1;
+  //if (chunk_x >= LEVEL_CHUNK_W || chunk_y >= LEVEL_CHUNK_H) return 1;
 
   byte x = chunk_x / 8;           // 8 is number of chunks per byte
   byte y = chunk_y * 4;           // 4 is number of bytes per row
@@ -208,6 +209,7 @@ byte getChunk(byte chunk_pos_x, byte chunk_pos_y)
 
 byte getTileID(uint16_t world_pos_x, uint16_t world_pos_y)
 {
+  if (world_pos_x > 3056 || world_pos_y > 3136) return TILE_ROCK;
   switch (((world_pos_x >> 4) + (world_pos_y >> 4) * 192))
   {
     case 1625:                                                                                     // 89 + (8 * 192)

@@ -179,7 +179,7 @@ void investigateObjects(byte object)
     foundSomething = true;
   }
   if (!foundSomething)
-    gameState = STATE_GAME_MAP;
+    openMiniMap();
     
   investigating = false;
 }

@@ -30,6 +30,8 @@ bool checkPlayerCollision(byte orientation)
   return false;
 }
 
+
+
 void buttonsUpDownA()
 {
   if (arduboy.justPressed(UP_BUTTON)) cursorYesNoY = true;
@@ -163,11 +165,16 @@ void checkInputs()
           case 0:
             gameState = STATE_GAME_ITEMS;
             break;
+          case 3:
+            openMiniMap();
+            break;
           case 4:
             gameState = STATE_GAME_SAVE;
             break;
           default:
             gameState = STATE_GAME_ITEMS - 5 + cursorY;
+            //miniCamX = (playerReducedX * 8) - 64;
+            //miniCamY = (playerReducedY * 8) - 32;
 
             /*miniCamX = ((int(playerReducedX * 8) - 64) < 0) ? 0 : byte(int(playerReducedX * 8) - 64);
             if (miniCamX > 128) miniCamX = 128;
