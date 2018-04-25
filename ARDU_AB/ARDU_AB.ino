@@ -84,8 +84,9 @@ void loop() {
   //arduboy.clear();
   drawTiles();
   updateEyes();
-  checkInputs();
+  
   ((FunctionPointer) pgm_read_word(&mainGameLoop[gameState]))();
+  checkInputs();
   if (question) drawQuestion();
   if (yesNo) drawYesNo();
   if (flashBlack) flashScreen(BLACK);     // Set in battleStart

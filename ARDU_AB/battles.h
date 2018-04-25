@@ -190,7 +190,6 @@ void stateGameBattle()
       {
         if (player.currentRegion != REGION_CAVE_INTERIOR)
         {
-          // Player speed VS enemy speeds combined (if higher: 100% chance, if lower: 50% chance)
           fillWithSentence(46, TEXT_ROLL);
           drawTextBox(4, 52, WHITE);
         }
@@ -561,7 +560,7 @@ void setupBattle()
         enemy.defense = 255;
         enemy.specDefense = 255;
         enemy.defendsLeft = 0;
-        enemy.health = 360;
+        enemy.attack = 200;
       }
       break;
     }

@@ -24,6 +24,7 @@
 byte textspeed = TEXT_ROLL_DELAY;
 byte prevSentence = 255;
 bool rollText = false;
+bool textReset = true;
 
 int findBegin(byte searchObject, boolean wordOrSentence)
 {
@@ -112,7 +113,17 @@ void drawTextBox(byte x, byte y, boolean color)
       textRollAmount++;
   }*/
   //if (rollText) textRollAmount = min(++textRollAmount, textBox[0]);
-  if (textRollAmount < textBox[0] && rollText) ++textRollAmount;
+  if (rollText) {
+    textReset = false;
+    if (arduboy.justPressed(B_BUTTON)) {
+      if (textRollAmount < textBox[0]) {
+        textRollAmount = textBox[0];
+      }
+      else
+        textReset = true;
+    }
+    else if (textRollAmount < textBox[0]) ++textRollAmount;
+  }
 
   for (byte i = 1; i < ((rollText) ? (textRollAmount + 1) : (textBox[0] + 1)); i++)
   {

@@ -8,7 +8,7 @@
 #include "battles.h"
 #include "people.h"
 
-bool textReset = true;
+extern bool textReset;
 
 bool checkPlayerCollision(byte orientation)
 {
@@ -48,11 +48,12 @@ void buttonsUpDownA()
 
 void checkInputs()
 {
-  textReset = false;
+  //textReset = false;
+  //textReset = (textRollAmount == textBox[0]);
   // Reset text roll or finish out sentence.
-  if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO && rollText)
+  /*if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO)
   {
-      if (textRollAmount < textBox[0])
+      if (textRollAmount < textBox[0] && rollText)
         textRollAmount = textBox[0];
       else
       {
@@ -60,9 +61,20 @@ void checkInputs()
         //textRollAmount = 0;
         //battleBlink += 10;  /// Speed up battles if mashing the B button
       }
-  }
+  }*/
   switch (gameState)
   {
+    case STATE_MENU_INTRO:
+      if (arduboy.justPressed(A_BUTTON | B_BUTTON))
+      {
+        globalCounter = 0;
+        gameState = STATE_MENU_MAIN;
+        if (EEPROM.read(EEPROM_START) == GAME_ID) firstGame = false;
+        cursorY = STATE_MENU_CONTINUE + firstGame;
+        //textspeed = TEXT_ROLL_DELAY;
+      }
+      break;
+      
     case STATE_MENU_MAIN:
       if (arduboy.justPressed(UP_BUTTON) && (cursorY > 2 + firstGame)) cursorY--;
       else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < 6)) cursorY++;
