@@ -532,6 +532,7 @@ void setupBattle()
   gameState = STATE_GAME_BATTLE;
   battleProgress = BATTLE_ENEMY_INTRO;
   battleBlink = 0;
+  fadeCounter = 0;
   
   if (isBoss)
   {
