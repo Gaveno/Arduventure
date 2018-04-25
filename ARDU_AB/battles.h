@@ -154,11 +154,7 @@ void stateGameBattle()
        */
       case BATTLE_ATTACK:
       {
-        //lastAttack = ATTACK_IS_PHYSICAL;
         byte chancetotal = (player.speed > enemy.speed) ? 25 : 20;
-        /*byte chancetotal = 20;
-        if (player.speed > enemy.speed)
-          chancetotal += 5;*/
         byte chance = generateRandomNumber(chancetotal);
         if (chance < PLAYER_MISS_CHANCE)
         {
@@ -180,27 +176,6 @@ void stateGameBattle()
        */
       case BATTLE_MAGIC:
       {
-        //lastAttack = ATTACK_IS_MAGIC;
-        /*uint16_t magicdamage = 0; // = player.attack;
-        switch (magictype)
-        {
-          case TYPE_NORMAL:
-          magicdamage += MAGIC_DAMAGE_NORMAL;
-          break;
-          case TYPE_LEAF:
-          magicdamage += MAGIC_DAMAGE_LEAF;
-          break;
-          case TYPE_WATER:
-          magicdamage += MAGIC_DAMAGE_WATER;
-          break;
-          default: // FIRE
-          magicdamage += MAGIC_DAMAGE_FIRE;
-          break;
-        }
-        magicdamage += player.attack * getDamageMult(magictype, enemy.type);
-        
-
-        damageEnemy(magicdamage / 2, magicdamage / 2, player.level, true);*/
         damageEnemy((uint16_t)(player.attack * getDamageMult(magictype, enemy.type)) + (uint16_t)(player.attack >> 1) * (magictype + 1),
                     player.attackAddition, player.level, true);
         battleProgress = BATTLE_BLINK_ENEMY;
@@ -259,7 +234,7 @@ void stateGameBattle()
           --enemy.defendsLeft;
           battleProgress = BATTLE_ENEMY_DEFEND;
           enemy.defense += enemy.defense >> 2;
-          enemy.specDefense += enemy.specDefense / 6;
+          enemy.specDefense += enemy.specDefense >> 3;
         }
         else
         {
@@ -297,16 +272,6 @@ void stateGameBattle()
         }
         else if (battleBlink > 30)
         {
-          /*if (crit == 2)
-          {
-            fillWithSentence(77, TEXT_NOROLL);
-            drawTextBox(70, 10, BLACK);
-          }
-          else if (crit == 0)
-          {
-            fillWithSentence(80, TEXT_NOROLL);
-            drawTextBox(70, 10, BLACK);
-          }*/
           if (crit != 1)
           {
             fillWithSentence(80 - crit, TEXT_NOROLL);
@@ -455,25 +420,6 @@ void stateGameBattle()
       {
         fillWithSentence(45);
         fillWithWord(16, getMagicName());
-        /*if (magictype == TYPE_NORMAL)
-          fillWithWord(16, 236);
-        else
-          fillWithWord(16, 124 - magictype);*/
-        /*switch (player.hasStuff[7])
-        {
-          case BIT_1: // FIRE
-            fillWithWord(16, 121);
-            break;
-          case BIT_2: // LEAF
-            fillWithWord(16, 122);
-            break;
-          case BIT_3: // WATER
-            fillWithWord(16, 123);
-            break;
-          default:  // NORMAL
-            fillWithWord(16, 236);
-            break;
-        }*/
         sprites.drawSelfMasked( 3 + (54 * cursorX), 52 + (6 * cursorY), font, 44);
         drawTextBox(4, 52, WHITE);
       }
@@ -538,7 +484,7 @@ void stateGameBattle()
        {
         fillWithSentence(77, TEXT_ROLL);
         drawTextBox(0, 52, WHITE);
-        battleBlink++;
+        ++battleBlink;
         if (battleBlink > 60)
           battleProgress = BATTLE_START;
        }
@@ -549,10 +495,8 @@ void stateGameBattle()
     if (battleProgress != BATTLE_PLAYER_HURT || lastDamageDealt == 0 || battleBlink < 30 || battleBlink % 2 == 0) {
       fillWithNumber(4, player.health);
     }
-    //fillWithWord(7, 43);
     fillWithNumber(8, player.healthTotal);
     fillWithNumber(15, player.magic);
-    //fillWithWord(17, 43);
     fillWithNumber(19, player.magicTotal);
     if (battleProgress != BATTLE_LEVEL_UP || battleBlink % 4 != 0)
     {
@@ -561,25 +505,6 @@ void stateGameBattle()
     // Magic cost
     fillWithSentence(81);
     fillWithWord(1, getMagicName());
-    /*if (magictype == TYPE_NORMAL)
-      fillWithWord(1, 236);
-    else
-      fillWithWord(1, 124 - magictype);*/
-    /*switch (player.hasStuff[7])
-    {
-      case BIT_1: // FIRE
-        fillWithWord(1, 121);
-        break;
-      case BIT_2: // LEAF
-        fillWithWord(1, 122);
-        break;
-      case BIT_3: // WATER
-        fillWithWord(1, 123);
-        break;
-      default:
-        fillWithWord(1, 236);
-        break;
-    }*/
     fillWithNumber(7, magiccost);
     drawTextBox(92, 15, BLACK);
   }
@@ -635,6 +560,8 @@ void setupBattle()
       {
         enemy.defense = 255;
         enemy.specDefense = 255;
+        enemy.defendsLeft = 0;
+        enemy.health = 360;
       }
       break;
     }
@@ -708,8 +635,8 @@ void battleGiveRewards()
   {
     case 0: // gold
     fillWithSentence(48, TEXT_ROLL);
-    fillWithWord(11, 125);
     fillWithNumber(28, battleRewardNumb[fadeCounter]);
+    fillWithWord(11, 125);
     break;
     case 1: // amulet
     fillWithSentence(52, TEXT_ROLL);

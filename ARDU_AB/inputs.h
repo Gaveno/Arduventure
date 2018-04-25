@@ -50,7 +50,7 @@ void checkInputs()
 {
   textReset = false;
   // Reset text roll or finish out sentence.
-  if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO)
+  if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO && rollText)
   {
       if (textRollAmount < textBox[0])
         textRollAmount = textBox[0];

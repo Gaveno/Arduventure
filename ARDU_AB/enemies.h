@@ -8,7 +8,7 @@
  *  Attack, defense, and 
  */
 
-byte enemyAmount = 3;
+//byte enemyAmount = 3;
 
 //////// BOSS functions ////////////////////
 ////////////////////////////////////////////
