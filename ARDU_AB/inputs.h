@@ -36,32 +36,11 @@ void buttonsUpDownA()
 {
   if (arduboy.justPressed(UP_BUTTON)) cursorYesNoY = true;
   else if (arduboy.justPressed(DOWN_BUTTON | A_BUTTON)) cursorYesNoY = false;
-  //else if (arduboy.justPressed(DOWN_BUTTON) || arduboy.justPressed(A_BUTTON)) cursorYesNoY = false;
-  /*else if (arduboy.justPressed(A_BUTTON))
-  {
-    //gameState = STATE_GAME_INVENTORY;
-    yesNo = false;
-    //cursorY = 4;
-    cursorYesNoY = true;
-  }*/
 }
 
 void checkInputs()
 {
-  //textReset = false;
-  //textReset = (textRollAmount == textBox[0]);
-  // Reset text roll or finish out sentence.
-  /*if (arduboy.justPressed(B_BUTTON) && gameState != STATE_MENU_INTRO)
-  {
-      if (textRollAmount < textBox[0] && rollText)
-        textRollAmount = textBox[0];
-      else
-      {
-        textReset = true;
-        //textRollAmount = 0;
-        //battleBlink += 10;  /// Speed up battles if mashing the B button
-      }
-  }*/
+  
   switch (gameState)
   {
     case STATE_MENU_INTRO:
@@ -228,12 +207,7 @@ void checkInputs()
     case STATE_GAME_SHOP:
       if (!yesNo)
       {
-        if (question && textReset)
-        {
-          needMoreMoney = false;
-          question = false;
-        }
-        else if (arduboy.justPressed(A_BUTTON))
+        if (arduboy.justPressed(A_BUTTON))
         {
           gameState = STATE_GAME_PLAYING;
           question = false;
@@ -242,8 +216,16 @@ void checkInputs()
         else if (arduboy.justPressed(DOWN_BUTTON) && (cursorY < TOTAL_SHOP_ITEMS - 1)) cursorY++;
         else if (arduboy.justPressed(B_BUTTON))
         {
-          question = true;
-          yesNo = true;
+          if (!question)
+          {
+            question = true;
+            yesNo = true;
+          }
+          else
+          {
+            question = false;
+            needMoreMoney = false;
+          }
         }
       }
       else
@@ -251,7 +233,7 @@ void checkInputs()
         buttonsUpDownA();
         if (arduboy.justPressed(B_BUTTON))
         {
-          if (cursorYesNoY)
+          if (cursorYesNoY) // Did player select yes?
           {
             // yes to buying item
             buyItem();

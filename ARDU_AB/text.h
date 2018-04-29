@@ -143,7 +143,15 @@ void drawTextBox(byte x, byte y, boolean color)
 void drawQuestion()
 {
   drawRectangle(0, 45, 130, 64, BLACK);
-  fillWithSentence((gameState != STATE_GAME_SHOP) ? gameState - 1 : 84 - needMoreMoney);
+  bool roll = false;
+  byte sent = gameState - 1;
+  if (gameState == STATE_GAME_SHOP)
+  {
+    roll = true;
+    sent = 84 - needMoreMoney;
+  }
+  //fillWithSentence((gameState != STATE_GAME_SHOP) ? gameState - 1 : 84 - needMoreMoney);
+  fillWithSentence(sent, roll);
   drawTextBox(4, 50, WHITE);
 }
 
